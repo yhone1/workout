@@ -1,0 +1,19 @@
+外部 GIF 来源（按用户确认使用公开素材）：
+
+- warmup/arm-circles.gif
+  页面：https://tenor.com/view/arm-circle-gif-24640577
+  文件：https://media1.tenor.com/m/Qn3bnZKRZVUAAAAC/arm-circle.gif
+
+- warmup/band-pull-apart.gif
+  页面：https://bestratedhealth.com/back-exercise-you-can-do-at-home/
+  文件：https://hips.hearstapps.com/hmg-prod/images/workouts/2016/12/bandpullapart-1480689234.gif
+
+- warmup/hip-circles.gif
+  页面：https://workoutlabs.com/exercise-guide/hip-circles/
+  文件：https://workoutlabs.com/train/wp-content/uploads/2023/05/Hip_Circles-1_anim-c.gif
+
+- pull/band-face-pull.gif
+  页面：https://tenor.com/view/face-pulls-gif-10235384
+  文件：https://media1.tenor.com/m/appGngmuNHAAAAAC/face-pulls.gif
+
+部署或再分发前，请按各来源的最新授权条款核对使用许可。

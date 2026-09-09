@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: thin
+      POSTGRES_PASSWORD: thin
+      POSTGRES_DB: thinmuscle
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U thin -d thinmuscle"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://thin:thin@db:5432/thinmuscle
+      PORT: 3000
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./index.html:/app/public/index.html:ro
+      - ./media-config.js:/app/public/media-config.js:ro
+      - ./gif-links.js:/app/public/gif-links.js:ro
+      - ./IMG:/app/public/IMG:ro
+      - ./VIDEO:/app/public/VIDEO:ro
+
+volumes:
+  dbdata:

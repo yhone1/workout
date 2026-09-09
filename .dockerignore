@@ -1,0 +1,9 @@
+node_modules
+server/node_modules
+output
+README.txt
+更新说明.txt
+.git
+.dockerignore
+Dockerfile
+docker-compose.yml
