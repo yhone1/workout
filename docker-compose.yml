@@ -21,14 +21,22 @@ services:
     environment:
       DATABASE_URL: postgres://thin:thin@db:5432/thinmuscle
       PORT: 3000
+      COACH_INVITE_ENCRYPTION_KEY: ${COACH_INVITE_ENCRYPTION_KEY:-}
     ports:
-      - "3001:3000"
+      - "0.0.0.0:3001:3000"
     volumes:
       - ./index.html:/app/public/index.html:ro
+      - ./home-access.js:/app/public/home-access.js:ro
+      - ./home-sync.js:/app/public/home-sync.js:ro
+      - ./portal:/app/public/portal:ro
+      - ./member:/app/public/member:ro
+      - ./gym:/app/public/gym:ro
       - ./media-config.js:/app/public/media-config.js:ro
       - ./gif-links.js:/app/public/gif-links.js:ro
       - ./IMG:/app/public/IMG:ro
       - ./VIDEO:/app/public/VIDEO:ro
+      - gym-private-media:/app/private-media
 
 volumes:
   dbdata:
+  gym-private-media:

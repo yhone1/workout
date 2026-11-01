@@ -1,0 +1,95 @@
+- main [ref=f1e2]:
+  - generic [ref=f1e3]:
+    - link "← 训练中心" [ref=f1e4] [cursor=pointer]:
+      - /url: /
+    - generic [ref=f1e5]:
+      - generic [ref=f1e6]:
+        - paragraph [ref=f1e7]: THIN MUSCLE · GYM
+        - heading "健身房训练" [level=1] [ref=f1e8]
+      - generic [ref=f1e9]: yhone · 管理员 / 学员 / 总管理员
+    - paragraph [ref=f1e10]: 教练计划、训练记录和身体进度，集中在这里。
+  - generic [ref=f1e11]:
+    - navigation "工作台功能" [ref=f1e12]:
+      - button "我的计划" [ref=f1e35] [cursor=pointer]
+      - button "展示圈" [ref=f1e36] [cursor=pointer]
+      - button "教练工作台" [ref=f1e37] [cursor=pointer]
+      - button "管理工作台" [ref=f1e38] [cursor=pointer]
+      - button "退出登录" [ref=f1e39] [cursor=pointer]
+    - generic [ref=f1e18]:
+      - generic [ref=f1e71]:
+        - generic [ref=f1e72]:
+          - paragraph [ref=f1e73]: ADMINISTRATION
+          - heading "管理工作台" [level=2] [ref=f1e74]
+        - generic [ref=f1e75]: 总管理员 yhone
+      - navigation "管理员菜单" [ref=f1e76]:
+        - button "教练资格" [ref=f1e77] [cursor=pointer]
+        - button "会员授权" [ref=f1e78] [cursor=pointer]
+        - button "动作库管理" [ref=f1e79] [cursor=pointer]
+        - button "照片审核" [ref=f1e80] [cursor=pointer]
+      - generic [ref=f1e81]:
+        - paragraph [ref=f1e82]: 仅管理员可管理会员期限。续期会新增一条授权并保留完整历史；yhone 的超级管理员权限不依赖会员期限。
+        - generic [ref=f1e83]:
+          - generic [ref=f1e84]:
+            - text: 搜索学员账号
+            - textbox "搜索学员账号" [ref=f1e85]:
+              - /placeholder: 输入用户名
+          - button "搜索" [ref=f1e86] [cursor=pointer]
+        - generic [ref=f1e87]:
+          - generic [ref=f1e88]:
+            - article [ref=f1e89]:
+              - generic [ref=f1e90]:
+                - strong [ref=f1e91]: codexaccept0929_e6a30e
+                - generic [ref=f1e92]: 学员
+              - button "管理授权" [active] [ref=f1e94] [cursor=pointer]
+            - article [ref=f1e95]:
+              - generic [ref=f1e96]:
+                - strong [ref=f1e97]: yhone（当前账号）
+                - generic [ref=f1e98]:
+                  - generic [ref=f1e99]: 管理员
+                  - generic [ref=f1e100]: 学员
+                  - generic [ref=f1e101]: 总管理员
+              - button "管理授权" [ref=f1e102] [cursor=pointer]
+          - generic [ref=f1e103]:
+            - generic [ref=f1e105]:
+              - generic [ref=f1e106]:
+                - paragraph [ref=f1e107]: MEMBERSHIP ACCESS
+                - heading "codexaccept0929_e6a30e" [level=3] [ref=f1e108]
+              - generic [ref=f1e109]: 当前无有效会员
+            - generic [ref=f1e110]:
+              - heading "新增授权 / 续期" [level=4] [ref=f1e111]
+              - paragraph [ref=f1e112]: 续期会创建新的授权记录，不覆盖旧记录。开始日和到期日均按北京时间判断，且到期日当天仍有效。
+              - generic [ref=f1e113]:
+                - generic [ref=f1e114]:
+                  - text: 开始日期
+                  - textbox "开始日期" [ref=f1e115]: 2026-09-29
+                - generic [ref=f1e116]:
+                  - text: 到期日期
+                  - textbox "到期日期" [ref=f1e117]
+                - generic [ref=f1e118]:
+                  - text: 备注（可选）
+                  - textbox "备注（可选）" [ref=f1e119]:
+                    - /placeholder: 例如：首期会员、续费
+              - button "新增期限" [ref=f1e120] [cursor=pointer]
+            - generic [ref=f1e121]:
+              - heading "授权历史 2" [level=4] [ref=f1e122]:
+                - text: 授权历史
+                - generic [ref=f1e123]: "2"
+              - article [ref=f1e124]:
+                - generic [ref=f1e125]:
+                  - strong [ref=f1e126]: 2026-09-29 至 2026-09-30
+                  - generic [ref=f1e127]: 已撤销
+                - generic [ref=f1e128]: 授权人 ID 1 · 创建于 2026/9/29 17:47:04 · 隔离浏览器会员页面验收，完成后撤销
+                - generic [ref=f1e129]: 撤销于 2026/9/29 18:06:17 · 操作人 ID 1
+                - generic [ref=f1e130]:
+                  - generic [ref=f1e131]: 撤销 · 2026/9/29 18:06:17 · 操作人 ID 1 · 临时浏览器回归验收结束，撤销隔离测试会员授权
+                  - generic [ref=f1e132]: 授权 · 2026/9/29 17:47:04 · 操作人 ID 1 · 隔离浏览器会员页面验收，完成后撤销
+              - article [ref=f1e133]:
+                - generic [ref=f1e134]:
+                  - strong [ref=f1e135]: 2026-09-29 至 2026-09-30
+                  - generic [ref=f1e136]: 已撤销
+                - generic [ref=f1e137]: 授权人 ID 1 · 创建于 2026/9/29 17:30:49 · Codex隔离验收 2026-09-29，结束后撤销
+                - generic [ref=f1e138]: 撤销于 2026/9/29 17:30:49 · 操作人 ID 1
+                - generic [ref=f1e139]:
+                  - generic [ref=f1e140]: 撤销 · 2026/9/29 17:30:49 · 操作人 ID 1 · 隔离验收完成，撤销临时授权
+                  - generic [ref=f1e141]: 授权 · 2026/9/29 17:30:49 · 操作人 ID 1 · Codex隔离验收 2026-09-29，结束后撤销
+  - status

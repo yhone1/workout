@@ -1,6 +1,9 @@
 /* 动作演示配置。路径默认相对于 ./IMG/。 */
 window.WORKOUT_GIF_BASE_URL = (window.WORKOUT_MEDIA_CONFIG && window.WORKOUT_MEDIA_CONFIG.imageBaseUrl) || './IMG/';
 window.WORKOUT_GIF_LINKS = {
+  "弹力带抗阻俯卧撑": { cue: "普通俯卧撑动作参考；弹力带绕上背，两端压稳在掌下，按余力选择阻力。", items: [
+    { label: "俯卧撑动作参考（不含弹力带示范）", url: "warmup/push-up.gif" },
+  ] },
   "肩绕环 + 弹力带拉开": { cue: "先活动肩关节，再完成弹力带拉开", items: [
     { label: "肩绕环", url: "warmup/arm-circles.gif" },
     { label: "弹力带拉开", url: "warmup/band-pull-apart.gif" },
@@ -21,8 +24,11 @@ window.WORKOUT_GIF_LINKS = {
   "TRX夹胸": { cue: "手臂微屈，胸部主动把双手合拢", items: [
     { label: "夹胸动作参考", url: "push/band-chest-fly.gif" },
   ] },
+  "窄距俯卧撑": { cue: "双手略窄于肩，肘部向后约30–45度", items: [
+    { label: "窄距俯卧撑", url: "challenge/close-grip-push-up.gif" },
+  ] },
   "弹力带下压": { cue: "肘部固定，完全伸直后停顿", items: [
-    { label: "三头伸展参考", url: "push/trx-triceps-extension.gif" },
+    { label: "绳索下压参考", url: "push/cable-pushdown-with-rope-attachment.gif" },
   ] },
   "俯卧撑 + 站姿快速提膝": { cue: "20秒训练、10秒休息，两项交替", items: [
     { label: "俯卧撑", url: "warmup/push-up.gif" },
@@ -41,7 +47,7 @@ window.WORKOUT_GIF_LINKS = {
     { label: "俯卧撑参考", url: "warmup/push-up.gif" },
   ] },
   "弹力带过顶臂屈伸": { cue: "肘尖朝前，回程慢放", items: [
-    { label: "臂屈伸参考", url: "push/trx-triceps-extension.gif" },
+    { label: "高位过顶臂屈伸参考", url: "push/cable-high-pulley-overhead-tricep-extension.gif" },
   ] },
   "窄距俯卧撑 + 站姿出拳": { cue: "20秒训练、10秒休息，两项交替", items: [
     { label: "窄距俯卧撑", url: "challenge/close-grip-push-up.gif" },
@@ -56,6 +62,9 @@ window.WORKOUT_GIF_LINKS = {
   ] },
   "TRX划船": { cue: "胸口拉向手柄，肩膀远离耳朵", items: [
     { label: "TRX划船", url: "pull/trx-row.gif" },
+  ] },
+  "TRX反向飞鸟": { cue: "保持躯干稳定，肘微屈，双臂向两侧打开至肩高，再缓慢回落", items: [
+    { label: "TRX反向飞鸟 · 动作示意", url: "pull/trx-reverse-fly.gif" },
   ] },
   "引体向上 / 弹力带辅助": { cue: "肩胛先下沉，胸口向横杆靠近", items: [
     { label: "引体向上", url: "pull/pull-up.gif" },
@@ -86,7 +95,7 @@ window.WORKOUT_GIF_LINKS = {
     { label: "直臂下压", url: "pull/band-straight-arm-pulldown.gif" },
   ] },
   "弹力带锤式弯举": { cue: "掌心相对，肘部固定", items: [
-    { label: "弹力带弯举参考", url: "pull/band-biceps-curl.gif" },
+    { label: "锤式弯举参考", url: "pull/cable-hammer-curl-with-rope.gif" },
   ] },
   "直臂下压 + 站姿高抬腿": { cue: "20秒训练、10秒休息，两项交替", items: [
     { label: "直臂下压", url: "pull/band-straight-arm-pulldown.gif" },
@@ -137,6 +146,15 @@ window.WORKOUT_GIF_LINKS = {
   ] },
   "单腿提踵": { cue: "脚跟充分抬高后缓慢下降", items: [
     { label: "单腿提踵", url: "legs/single-leg-calf-raise.gif" },
+  ] },
+  "分腿蹲": { cue: "双脚保持前后站位，垂直下蹲，前脚全脚掌稳定", items: [
+    { label: "分腿蹲 · 动作示意", url: "legs/bodyweight-split-squat.gif" },
+  ] },
+  "弹力带俯卧腿弯举": { cue: "骨盆与大腿贴地，只弯曲膝盖；弹力带低位固定牢靠", items: [
+    { label: "弹力带俯卧腿弯举 · 动作示意", url: "legs/band-prone-leg-curl.gif" },
+  ] },
+  "微屈膝单腿提踵": { cue: "扶墙保持平衡，膝微屈角度保持，脚跟受控升降", items: [
+    { label: "微屈膝单腿提踵 · 动作示意", url: "legs/bent-knee-single-leg-calf-raise.gif" },
   ] },
   "站姿弹力带抗旋转": { cue: "骨盆保持正对前方，身体不旋转", items: [
     { label: "Pallof 抗旋转", url: "core/band-pallof-press.gif" },

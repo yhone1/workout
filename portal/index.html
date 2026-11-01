@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a1420">
+  <link rel="stylesheet" href="/portal/shared/back-to-top.css">
+  <title>轻健身 · 训练中心</title>
+  <link rel="stylesheet" href="/portal/styles.css">
+  <script src="/portal/routes.js"></script>
+  <script type="module" src="/portal/app.js"></script>
+  <script defer src="/portal/shared/back-to-top.js"></script>
+<link rel="stylesheet" href="/portal/shared/training-calendar.css">
+<script defer src="/portal/shared/training-calendar.js"></script>
+</head>
+<body>
+  <main class="portal-shell">
+    <header class="portal-header">
+      <a class="brand" href="/" aria-label="轻健身训练中心首页"><span class="brand-mark">TM</span><span><strong>轻健身</strong><small>训练中心</small></span></a>
+      <div class="header-actions"><span id="accountName" class="account-name" hidden></span><button class="quiet-button" id="logoutButton" type="button" hidden>退出登录</button></div>
+    </header>
+
+    <section class="welcome-block">
+      <p class="eyebrow">THIN MUSCLE · TRAINING CENTER</p>
+      <h1 id="pageTitle">训练安排，从这里开始</h1>
+      <p id="pageDescription">登录后进入你的居家训练、健身房计划与训练记录。</p>
+    </section>
+
+    <section id="authPanel" class="auth-panel" aria-labelledby="authTitle">
+      <div class="auth-heading"><div><p class="eyebrow">ACCOUNT</p><h2 id="authTitle">登录你的账号</h2></div><span id="inviteBadge" class="invite-badge" hidden>教练邀请</span></div>
+      <form id="authForm" class="auth-form">
+        <label>用户名<input id="username" name="username" autocomplete="username" minlength="3" maxlength="64" required></label>
+        <label>密码<input id="password" name="password" type="password" autocomplete="current-password" minlength="6" required></label>
+        <button id="authSubmit" class="primary-button" type="submit">登录</button>
+      </form>
+      <p id="authMessage" class="message" role="status" aria-live="polite"></p>
+      <button id="modeToggle" class="text-button" type="button">没有账号？注册学员账号</button>
+      <p class="privacy-note">训练记录按账号隔离保存。会员功能根据账号权限开放。</p>
+    </section>
+
+    <section id="dashboard" class="dashboard" hidden>
+      <section data-training-calendar aria-label="训练日历"></section>
+      <div class="dashboard-heading"><div><p class="eyebrow">YOUR ACCESS</p><h2>可用训练入口</h2></div><span id="roleSummary" class="role-summary"></span></div>
+      <div id="invitePanel" class="invite-panel" hidden><div><strong>你收到一条教练邀请</strong><p>确认后将此账号关联到邀请教练。</p></div><button class="primary-button compact" id="acceptInvite" type="button">接受邀请</button></div>
+      <div id="accessSummary" class="access-summary"></div>
+      <div id="moduleGrid" class="module-grid"></div>
+      <section id="coachNotice" class="coach-notice" hidden></section>
+      <p id="dashboardMessage" class="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <footer class="portal-footer"><span>训练计划与记录</span><span>本地部署 · 账号数据隔离</span></footer>
+  </main>
+</body>
+</html>

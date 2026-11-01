@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1714">
+  <title>我的训练计划 · 轻健身</title>
+  <link rel="stylesheet" href="/member/styles.css">
+  <link rel="stylesheet" href="/portal/shared/back-to-top.css">
+  <script type="module" src="/member/app.js"></script>
+  <script defer src="/portal/shared/back-to-top.js"></script>
+<link rel="stylesheet" href="/portal/shared/training-calendar.css">
+<script defer src="/portal/shared/training-calendar.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="返回训练中心"><span class="brand-mark">T</span><span>轻健身 <small>会员训练</small></span></a>
+      <div class="top-actions"><span id="accountBadge" class="account-badge" hidden></span><a class="button button-quiet" href="/">训练中心</a><button id="logoutButton" class="button button-quiet" type="button" hidden>退出登录</button></div>
+    </header>
+
+    <main>
+      <section id="notice" class="notice" role="status" aria-live="polite">正在验证账号权限…</section>
+
+      <div id="memberApp" hidden>
+        <section data-training-calendar aria-label="训练日历"></section>
+        <section id="pageHeading" class="page-heading">
+          <div><p class="eyebrow">MEMBER TRAINING</p><h1>我的训练计划</h1><p id="pageLede" class="lede">查看已确认计划，开始训练；需要调整时再进入编辑。</p></div>
+          <span class="ai-badge"><span aria-hidden="true">✦</span> AI 推荐待配置</span>
+        </section>
+
+        <div id="workspace" class="workspace">
+          <aside class="sidebar">
+            <div class="sidebar-heading"><div><h2>计划列表</h2><p>只显示属于你的会员计划</p></div><button id="newPlanButton" class="button button-primary" type="button">新建计划</button></div>
+            <div id="planList" class="plan-list"><p class="empty-state">正在加载计划…</p></div>
+            <section id="coachPlanCard" class="coach-plan" hidden></section>
+          </aside>
+
+          <section class="editor-panel" aria-labelledby="editorTitle">
+            <div id="emptyEditor" class="empty-editor">
+              <div class="empty-icon" aria-hidden="true">＋</div>
+              <h2>先创建一份个人计划</h2>
+              <p>选择推拉腿、上下肢、五分化，或自定义安排训练日与动作。</p>
+              <button class="button button-primary" type="button" data-action="new-plan">创建计划</button>
+            </div>
+
+            <section id="planOverview" class="plan-overview" aria-labelledby="overviewTitle" hidden>
+              <div class="overview-heading">
+                <div>
+                  <p class="eyebrow">CONFIRMED TRAINING PLAN</p>
+                  <h2 id="overviewTitle"></h2>
+                  <p id="overviewSummary" class="overview-summary"></p>
+                </div>
+                <div class="overview-actions">
+                  <button id="overviewEditButton" class="button button-secondary" type="button">编辑计划</button>
+                  <button id="overviewStartButton" class="button button-primary" type="button">开始训练</button>
+                </div>
+              </div>
+              <div id="overviewMessage" class="overview-message" role="status" aria-live="polite"></div>
+              <div id="overviewDays" class="overview-days"></div>
+              <section class="session-history">
+                <div class="section-heading"><h3>训练记录</h3><span>仅显示你的会员计划训练</span></div>
+                <div id="sessionList" class="session-list"><p class="empty-state">正在加载训练记录…</p></div>
+              </section>
+            </section>
+
+            <div id="editor" hidden>
+              <div class="editor-heading">
+                <div><p id="planStatus" class="eyebrow">草稿</p><h2 id="editorTitle">计划编辑</h2></div>
+                <div class="editor-actions"><button id="backToOverviewButton" class="button button-quiet" type="button" hidden>返回计划</button><button id="saveDraftButton" class="button button-secondary" type="button">保存草稿</button><button id="previewButton" class="button button-primary" type="button">预览并确认版本</button></div>
+              </div>
+
+              <div class="plan-fields">
+                <label class="field"><span>计划名称</span><input id="planName" maxlength="100" autocomplete="off" placeholder="例如：每周四练力量计划"></label>
+                <label id="splitField" class="field"><span>训练分化</span><select id="splitType"><option value="ppl">推 / 拉 / 腿</option><option value="upper_lower">上肢 / 下肢</option><option value="five_day">五分化</option><option value="custom">自定义</option></select></label>
+              </div>
+
+              <section class="library-toolbar" aria-label="动作库筛选">
+                <div><h3>动作库</h3><p>选择动作加入训练日，动作肌群与器械信息来自审核后的全站动作库。</p></div>
+                <label class="search-field"><span class="sr-only">搜索动作</span><span aria-hidden="true">⌕</span><input id="exerciseSearch" type="search" placeholder="搜索动作、肌群或器械"></label>
+              </section>
+
+              <div id="dayList" class="day-list"></div>
+              <div id="customDayControls" class="custom-day-controls" hidden><span>自定义训练日：1–7 天</span><button id="addTrainingDayButton" class="button button-secondary" type="button">＋ 新增训练日</button></div>
+              <section id="versionHistory" class="version-history" hidden></section>
+              <div class="editor-footer"><span id="saveMessage" role="status" aria-live="polite"></span><button id="saveBottomButton" class="button button-secondary" type="button">保存草稿</button></div>
+            </div>
+          </section>
+        </div>
+
+        <section id="trainingPanel" class="training-panel" aria-labelledby="trainingTitle" hidden>
+          <div class="training-heading">
+            <div><p class="eyebrow">WORKOUT MODE</p><h2 id="trainingTitle">训练记录</h2><p id="trainingSubtitle">每组重量、次数与 RIR 单独保存。</p></div>
+            <button id="backFromTrainingButton" class="button button-quiet" type="button">返回计划</button>
+          </div>
+          <div id="trainingMessage" class="training-message" role="status" aria-live="polite">正在加载训练历史…</div>
+          <div id="activeSession" class="active-session" hidden></div>
+        </section>
+      </div>
+    </main>
+    <footer id="globalFooter"><span>训练计划由你掌控</span><span>AI 推荐服务尚未配置，不会发送你的资料</span></footer>
+  </div>
+
+  <dialog id="previewDialog" class="preview-dialog">
+    <form method="dialog" class="dialog-top"><div><p class="eyebrow">CONFIRM VERSION</p><h2>预览计划版本</h2></div><button class="icon-button" value="cancel" aria-label="关闭预览">×</button></form>
+    <div id="previewContent" class="preview-content"></div>
+    <div class="dialog-actions"><button id="confirmVersionButton" class="button button-primary" type="button">确认并生成新版本</button><button class="button button-quiet" value="cancel" formmethod="dialog">返回编辑</button></div>
+  </dialog>
+</body>
+</html>

@@ -17,3 +17,38 @@
   文件：https://media1.tenor.com/m/appGngmuNHAAAAAC/face-pulls.gif
 
 部署或再分发前，请按各来源的最新授权条款核对使用许可。
+
+本项目生成素材：
+- legs/bent-knee-single-leg-calf-raise.gif（2026-10-10）
+  生成方式：内置 imagegen 生成解剖风格起止姿势，Pillow 裁切、对齐着地前脚掌并合成循环 GIF。
+  风格参考：本项目 legs/single-leg-calf-raise.gif；白底灰色人体，小腿红色标注。
+  动作参考：https://www.ruh.nhs.uk/patients/services/physiotherapy/documents/PHY053_Advice_and_Exercises_Insertional_Achilles_Tendinopathy.pdf
+  输出：320×320，2帧，1.6秒循环，37072字节；新文件，不覆盖原有素材。
+  最终分帧生成提示词：
+  Edit target: current 3x2 calf exercise sheet. REPLACE THE LAYOUT with TWO square cells side by side (2 columns, ONE row, 2:1 aspect ratio). This is an exercise GIF's two keyframes. White background, anatomical grayscale male, black shorts, working calf highlighted coral red. FULL body in each cell. Both images must be EXACT STRICT SIDE VIEW facing right. The same man uses light wall support with fingertips. Working RIGHT leg has a VERY VISIBLE KNEE BEND of 40 degrees and this angle is FIXED in BOTH poses. The nonworking leg is lifted behind, no floor contact. LEFT CELL: working foot FLAT on floor, heel clearly touches floor, tibia inclined forward, knee ahead of ankle, torso upright. RIGHT CELL: working toes/ball of foot stay at the SAME FIXED FLOOR LOCATION, but heel VERY CLEARLY RAISED 8 centimeters, foot now tilted downward toward toes at approximately 35 degrees. THERE MUST BE AN OBVIOUS WHITE TRIANGULAR GAP BELOW THE RAISED HEEL. Heel should move upward, torso upward slightly, but knee bend angle remains identical and visibly BENT (40 degrees). Do not draw straight knee. Keep same camera and grounded forefoot location. Do not put both heels flat. This is a bent-knee single-leg heel raise with obvious heel-up and heel-down endpoints. No arrows, labels, captions, borders or text. The important features are matching bent knees and very different heel heights. Accurate limb positions take precedence over detailed anatomy.
+
+- legs/bodyweight-split-squat.gif（2026-10-10）
+  生成方式：内置 imagegen 生成解剖风格分帧，Pillow 合成往返循环 GIF。
+  风格参考：本项目 legs/trx-bulgarian-split-squat.gif，仅参考解剖示意风格；动作改为双脚着地的徒手分腿蹲。
+  动作参考：https://www.plymouthhospitals.nhs.uk/display-pil/pil-back-rehabilitation-programme-3972
+  输出：320×320，10帧，2.16秒循环，181056字节；新文件，不覆盖原有素材。
+  最终分帧生成提示词：
+  undefined
+
+- legs/band-prone-leg-curl.gif（2026-10-10）
+  生成方式：内置 imagegen 生成解剖风格分帧，Pillow 合成往返循环 GIF。
+  风格参考：本项目 warmup/push-up.gif 的白底灰色解剖风格，腿后侧红色标注。
+  动作参考：https://library.theprehabguys.com/vimeo-video/prone-hamstring-curl-band/
+  输出：320×320，10帧，2.16秒循环，162989字节；新文件，不覆盖原有素材。
+  最终分帧生成提示词：
+  Use case: scientific-educational. Create ONE animation sprite sheet EXACTLY 3 columns x 2 rows of equal square cells, aspect ratio 3:2, preferably 1536x1024. Read frames left to right top row then bottom row. Six sequential keyframes of ONE exercise, identical person, identical camera, identical scale and fixed contact points. References are STYLE ONLY. Match clean white background, detailed grayscale anatomical male, black shorts, target muscles coral red; all other muscles gray. Entire person, hands and feet fully inside EVERY cell, generous small white margins. No text, labels, numbers, watermarks, arrows, tile borders or gutters. This sheet will be cropped into a 320x320 looping exercise GIF. Exercise: DOUBLE-LEG PRONE HAMSTRING CURL WITH RESISTANCE BAND, NO machine. Fixed three-quarter SIDE/rear view from slightly above so both hamstrings and both lower legs visible. Athlete lies FACE DOWN on thin gray exercise mat, head to LEFT, feet to RIGHT. Head resting on folded forearms at left, neck neutral. Abdomen, pelvis and BOTH thighs remain firmly resting on mat, no hip lifting or back arching. One sturdy low anchor/fixed wall attachment visible at FAR RIGHT behind the feet. Two ankle cuffs attached to black elastic resistance bands running diagonally from the far-right low anchor to EACH ankle; continuous intact stretched bands throughout. Frame1 BOTH legs nearly straight on mat, knees remain at same spot. Frames2-5 both knees flex together in smooth increments while both thighs and knees stay down. Frame6 BOTH knees bent approximately 90 degrees, heels lifted up toward buttocks, feet above the knee positions, lower legs roughly upright. Both knees bend equally. This is knee flexion only, NEVER raise straight legs at the hips, NEVER use a lying leg curl machine, NEVER kneel, no third leg, no extra arms. Highlight BOTH hamstrings on BACK of thighs coral red only, other muscles gray. Keep same head, torso, hip, knee locations in all six frames; ONLY lower legs rotate upward around grounded knees, elastic bands follow ankles and visibly lengthen. Same anatomy, camera and perspective in all frames.
+
+
+- pull/trx-reverse-fly.gif（2026-10-10）
+  生成方式：内置 imagegen 生成解剖风格分帧，Pillow 合成往返循环 GIF。
+  风格参考：本项目 pull/trx-row.gif、warmup/push-up.gif；白底、灰色人体、后肩红色标注。
+  动作参考：https://www.trxtraining.com/blogs/news/trx-t-deltoid-fly
+  输出：320×320，10帧，2.16秒循环，163460字节；新文件，不覆盖原有素材。
+  最终分帧生成提示词：
+  Edit target is this 3x2 TRX exercise animation sprite sheet. Preserve the existing 3 columns x 2 rows equal-square-cell layout, white background, grayscale anatomical man with rear shoulder caps red, black shorts, black straps. One targeted correction: make the movement geometry consistent and correctly depict a STRAIGHT-ARM TRX T REVERSE FLY rather than bending elbows into a row. Every tile uses the SAME FIXED rear-three-quarter camera, SAME head orientation, same body size, heels at identical pixel locations, overhead anchor at IDENTICAL pixel location near (0.53*cell width,0.025*cell height). Frames 1,2,3,4,5,6 are smooth successive positions of opening the arms to the sides; DO NOT rotate the torso toward camera between frames. Keep elbows nearly straight with only 10-15 degree flexion throughout ALL six frames; forearms never fold toward head. Frame1 body rigid and leaning back approximately 25 degrees from upright, hands reach forward toward the anchor at shoulder level with almost straight elbows. Then opening arms brings the straight body gradually toward upright by pivoting at grounded ankles. Frame6 arms wide at SHOULDER height, horizontal T shape, not a high Y. Shoulder blades and posterior shoulders visible. Both hands grip handles in all frames; straps connect anchor to each handle and stay taut. Head-spine-hips-ankles stay aligned in every frame, no spinal bending. Preserve white padding so full hands, anchor, feet stay inside each tile. Maintain same muscular detailing as current sheet. No text, no numbers, no outlines between cells, no additional people or objects. Accurate exercise demonstration takes priority over decorative muscular emphasis.
+Tabata SVG demonstrations (2026-10-27): challenge/tabata-step-jack.svg, tabata-march.svg, tabata-side-step.svg, tabata-mountain-climber.svg are original native SVG movement diagrams created for this project. Existing GIFs remain unchanged.

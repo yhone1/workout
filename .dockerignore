@@ -4,6 +4,7 @@ output
 README.txt
 更新说明.txt
 .git
+.env
 .dockerignore
 Dockerfile
 docker-compose.yml

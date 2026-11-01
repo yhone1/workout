@@ -1,0 +1,50 @@
+- main [ref=f1e2]:
+  - generic [ref=f1e3]:
+    - link "← 训练中心" [ref=f1e4] [cursor=pointer]:
+      - /url: /
+    - generic [ref=f1e5]:
+      - generic [ref=f1e6]:
+        - paragraph [ref=f1e7]: THIN MUSCLE · GYM
+        - heading "健身房训练" [level=1] [ref=f1e8]
+      - generic [ref=f1e9]: yhone · 管理员 / 学员 / 总管理员
+    - paragraph [ref=f1e10]: 教练计划、训练记录和身体进度，集中在这里。
+  - generic [ref=f1e11]:
+    - navigation "工作台功能" [ref=f1e12]:
+      - button "我的计划" [ref=f1e35] [cursor=pointer]
+      - button "展示圈" [ref=f1e36] [cursor=pointer]
+      - button "教练工作台" [ref=f1e37] [cursor=pointer]
+      - button "管理工作台" [ref=f1e38] [cursor=pointer]
+      - button "退出登录" [ref=f1e39] [cursor=pointer]
+    - generic [ref=f1e18]:
+      - generic [ref=f1e40]:
+        - generic [ref=f1e41]:
+          - paragraph [ref=f1e42]: ADMINISTRATION
+          - heading "管理工作台" [level=2] [ref=f1e43]
+        - generic [ref=f1e44]: 总管理员 yhone
+      - navigation "管理员菜单" [ref=f1e45]:
+        - button "教练资格" [ref=f1e46] [cursor=pointer]
+        - button "会员授权" [ref=f1e47] [cursor=pointer]
+        - button "动作库管理" [ref=f1e48] [cursor=pointer]
+        - button "照片审核" [ref=f1e49] [cursor=pointer]
+      - generic [ref=f1e50]:
+        - paragraph [ref=f1e51]: 只有管理员能授予或撤销教练资格；撤销前需先结束该教练的有效学员关系。
+        - generic [ref=f1e52]:
+          - generic [ref=f1e53]:
+            - text: 搜索账号
+            - textbox "搜索账号" [ref=f1e54]:
+              - /placeholder: 输入用户名
+          - button "搜索" [ref=f1e55] [cursor=pointer]
+        - generic [ref=f1e56]:
+          - article [ref=f1e57]:
+            - generic [ref=f1e58]:
+              - strong [ref=f1e59]: codexaccept0929_e6a30e
+              - generic [ref=f1e60]: 学员
+            - button "授予教练资格" [ref=f1e63] [cursor=pointer]
+          - article [ref=f1e64]:
+            - generic [ref=f1e65]:
+              - strong [ref=f1e66]: yhone（当前账号）
+              - generic [ref=f1e67]:
+                - generic [ref=f1e68]: 管理员
+                - generic [ref=f1e69]: 学员
+                - generic [ref=f1e70]: superadmin
+  - status

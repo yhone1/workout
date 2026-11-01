@@ -1,0 +1,20 @@
+- generic [ref=f5e2]:
+  - banner [ref=f5e3]:
+    - link "返回训练中心" [ref=f5e4] [cursor=pointer]:
+      - /url: /
+      - generic [ref=f5e5]: T
+      - generic [ref=f5e6]:
+        - text: 轻健身
+        - generic [ref=f5e7]: 会员训练
+    - generic [ref=f5e8]:
+      - link "训练中心" [ref=f5e9] [cursor=pointer]:
+        - /url: /
+      - button "退出登录" [ref=f5e10] [cursor=pointer]
+  - main [ref=f5e11]:
+    - status [ref=f5e12]:
+      - text: 登录后，具备有效会员授权的账号可以管理自己的计划。
+      - link "返回训练中心登录" [ref=f5e13] [cursor=pointer]:
+        - /url: /?returnTo=%2Fmember%2F
+  - contentinfo [ref=f5e14]:
+    - generic [ref=f5e15]: 训练计划由你掌控
+    - generic [ref=f5e16]: AI 推荐服务尚未配置，不会发送你的资料

@@ -1,0 +1,111 @@
+[
+  {
+    "code": "ppl",
+    "splitType": "ppl",
+    "name": "推 / 拉 / 腿",
+    "description": "三日循环模板；训练日按顺序完成，休息日由教练和学员灵活安排。",
+    "days": [
+      {"dayNo":1,"name":"推","focus":"胸、肩、三头","exercises":[
+        {"exerciseSlug":"pectorals/barbell-bench-press","sets":3,"repMin":6,"repMax":10,"rir":2,"restSeconds":120},
+        {"exerciseSlug":"pectorals/dumbbell-incline-bench-press","sets":3,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"delts/dumbbell-bench-seated-press","sets":2,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"delts/cable-one-arm-lateral-raise","sets":3,"repMin":12,"repMax":20,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"triceps/cable-pushdown-with-rope-attachment","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":60}
+      ]},
+      {"dayNo":2,"name":"拉","focus":"背、后束、二头","exercises":[
+        {"exerciseSlug":"lats/cable-pulldown","sets":3,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"upper-back/cable-low-seated-row","sets":3,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"delts/cable-kneeling-rear-delt-row-with-rope-male","sets":2,"repMin":12,"repMax":18,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"biceps/dumbbell-biceps-curl","sets":2,"repMin":8,"repMax":12,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"biceps/dumbbell-hammer-curl","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":60}
+      ]},
+      {"dayNo":3,"name":"腿与核心","focus":"股四头、臀腿、腘绳肌、小腿、核心","exercises":[
+        {"exerciseSlug":"glutes/barbell-full-squat","sets":3,"repMin":6,"repMax":10,"rir":2,"restSeconds":120},
+        {"exerciseSlug":"glutes/barbell-romanian-deadlift","sets":3,"repMin":8,"repMax":10,"rir":2,"restSeconds":120},
+        {"exerciseSlug":"hamstrings/lever-seated-leg-curl","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":75},
+        {"exerciseSlug":"quads/lever-leg-extension","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":75},
+        {"exerciseSlug":"calves/lever-seated-calf-raise","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"abs/cable-kneeling-crunch","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":60}
+      ]}
+    ]
+  },
+  {
+    "code": "upper-lower",
+    "splitType": "upper_lower",
+    "name": "上肢 / 下肢",
+    "description": "四日模板；推拉肌群同日搭配，腿部分为两个不同重点。",
+    "days": [
+      {"dayNo":1,"name":"上肢 A","focus":"胸背基础力量与手臂","exercises":[
+        {"exerciseSlug":"pectorals/barbell-bench-press","sets":3,"repMin":6,"repMax":10,"rir":2,"restSeconds":120},
+        {"exerciseSlug":"upper-back/cable-low-seated-row","sets":3,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"lats/cable-pulldown","sets":3,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"delts/dumbbell-lateral-raise","sets":2,"repMin":12,"repMax":20,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"biceps/cable-curl","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"triceps/cable-pushdown","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":60}
+      ]},
+      {"dayNo":2,"name":"下肢 A","focus":"深蹲与膝主导","exercises":[
+        {"exerciseSlug":"glutes/barbell-full-squat","sets":3,"repMin":6,"repMax":10,"rir":2,"restSeconds":120},
+        {"exerciseSlug":"quads/lever-alternate-leg-press","sets":3,"repMin":8,"repMax":12,"rir":2,"restSeconds":120},
+        {"exerciseSlug":"hamstrings/lever-seated-leg-curl","sets":3,"repMin":10,"repMax":15,"rir":2,"restSeconds":75},
+        {"exerciseSlug":"calves/lever-standing-calf-raise","sets":3,"repMin":10,"repMax":15,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"abs/cable-kneeling-crunch","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":60}
+      ]},
+      {"dayNo":3,"name":"上肢 B","focus":"上斜推、水平拉与肩臂","exercises":[
+        {"exerciseSlug":"pectorals/dumbbell-incline-bench-press","sets":3,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"upper-back/lever-seated-row","sets":3,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"delts/lever-shoulder-press","sets":2,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"delts/lever-seated-reverse-fly","sets":2,"repMin":12,"repMax":18,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"biceps/dumbbell-hammer-curl","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"triceps/cable-high-pulley-overhead-tricep-extension","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":60}
+      ]},
+      {"dayNo":4,"name":"下肢 B","focus":"髋主导、单腿与臀腿","exercises":[
+        {"exerciseSlug":"glutes/barbell-romanian-deadlift","sets":3,"repMin":8,"repMax":10,"rir":2,"restSeconds":120},
+        {"exerciseSlug":"glutes/barbell-glute-bridge","sets":3,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"quads/dumbbell-single-leg-split-squat","sets":2,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"hamstrings/lever-lying-leg-curl","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":75},
+        {"exerciseSlug":"calves/lever-seated-calf-raise","sets":3,"repMin":10,"repMax":15,"rir":2,"restSeconds":60}
+      ]}
+    ]
+  },
+  {
+    "code": "five-day",
+    "splitType": "five_day",
+    "name": "五分化",
+    "description": "胸、背、腿、肩、手臂五个训练日；核心主要放在手臂日末尾。",
+    "days": [
+      {"dayNo":1,"name":"胸","focus":"胸部推举与夹胸","exercises":[
+        {"exerciseSlug":"pectorals/barbell-bench-press","sets":3,"repMin":6,"repMax":10,"rir":2,"restSeconds":120},
+        {"exerciseSlug":"pectorals/dumbbell-incline-bench-press","sets":3,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"pectorals/lever-chest-press","sets":2,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"pectorals/lever-seated-fly","sets":2,"repMin":12,"repMax":15,"rir":2,"restSeconds":60}
+      ]},
+      {"dayNo":2,"name":"背","focus":"垂直拉、水平拉与后束","exercises":[
+        {"exerciseSlug":"lats/cable-pulldown","sets":3,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"upper-back/barbell-bent-over-row","sets":3,"repMin":6,"repMax":10,"rir":2,"restSeconds":120},
+        {"exerciseSlug":"upper-back/cable-low-seated-row","sets":2,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"delts/cable-kneeling-rear-delt-row-with-rope-male","sets":2,"repMin":12,"repMax":18,"rir":2,"restSeconds":60}
+      ]},
+      {"dayNo":3,"name":"腿","focus":"膝主导、髋主导与小腿","exercises":[
+        {"exerciseSlug":"glutes/barbell-full-squat","sets":3,"repMin":6,"repMax":10,"rir":2,"restSeconds":120},
+        {"exerciseSlug":"glutes/barbell-romanian-deadlift","sets":3,"repMin":8,"repMax":10,"rir":2,"restSeconds":120},
+        {"exerciseSlug":"hamstrings/lever-seated-leg-curl","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":75},
+        {"exerciseSlug":"quads/lever-leg-extension","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":75},
+        {"exerciseSlug":"calves/lever-standing-calf-raise","sets":3,"repMin":10,"repMax":15,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"abs/cable-kneeling-crunch","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":60}
+      ]},
+      {"dayNo":4,"name":"肩","focus":"肩推、侧平举与肩后束","exercises":[
+        {"exerciseSlug":"delts/lever-shoulder-press","sets":3,"repMin":8,"repMax":12,"rir":2,"restSeconds":90},
+        {"exerciseSlug":"delts/cable-one-arm-lateral-raise","sets":3,"repMin":12,"repMax":20,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"delts/dumbbell-lateral-raise","sets":2,"repMin":12,"repMax":20,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"delts/lever-seated-reverse-fly","sets":3,"repMin":12,"repMax":18,"rir":2,"restSeconds":60}
+      ]},
+      {"dayNo":5,"name":"手臂与核心","focus":"二头、三头、前臂与核心","exercises":[
+        {"exerciseSlug":"biceps/barbell-curl","sets":3,"repMin":8,"repMax":12,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"triceps/cable-pushdown-with-rope-attachment","sets":3,"repMin":10,"repMax":15,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"biceps/dumbbell-hammer-curl","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"triceps/cable-high-pulley-overhead-tricep-extension","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":60},
+        {"exerciseSlug":"abs/cable-kneeling-crunch","sets":2,"repMin":10,"repMax":15,"rir":2,"restSeconds":60}
+      ]}
+    ]
+  }
+]

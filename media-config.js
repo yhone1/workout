@@ -1,4 +1,4 @@
-/* 薄肌计划媒体配置：IMG 与 VIDEO 均为项目内相对目录。 */
+/* 轻健身媒体配置：IMG 与 VIDEO 均为项目内相对目录。 */
 window.WORKOUT_MEDIA_CONFIG = {
   imageBaseUrl: './IMG/',
   audioBaseUrl: './VIDEO/',
