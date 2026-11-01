@@ -1,0 +1,523 @@
+- generic [ref=f1e2]:
+  - banner [ref=f1e3]:
+    - link "返回训练中心" [ref=f1e4] [cursor=pointer]:
+      - /url: /
+      - generic [ref=f1e5]: T
+      - generic [ref=f1e6]:
+        - text: 薄肌计划
+        - generic [ref=f1e7]: 会员训练
+    - generic [ref=f1e8]:
+      - generic [ref=f1e9]: codexaccept0929_e6a30e
+      - link "训练中心" [ref=f1e10] [cursor=pointer]:
+        - /url: /
+      - button "退出登录" [ref=f1e11] [cursor=pointer]
+  - main [ref=f1e12]:
+    - generic [ref=f1e13]:
+      - generic [ref=f1e14]:
+        - generic [ref=f1e15]:
+          - paragraph [ref=f1e16]: MEMBER PLAN BUILDER
+          - heading "我的训练计划" [level=1] [ref=f1e17]
+          - paragraph [ref=f1e18]: 从常用动作库中编排训练日，先保存草稿，预览后再确认版本。
+        - generic [ref=f1e19]:
+          - generic [aria-hidden] [ref=f1e20]: ✦
+          - text: AI 推荐待配置
+      - generic [ref=f1e21]:
+        - complementary [ref=f1e22]:
+          - generic [ref=f1e23]:
+            - generic [ref=f1e24]:
+              - heading "计划列表" [level=2] [ref=f1e25]
+              - paragraph [ref=f1e26]: 只显示属于你的会员计划
+            - button "新建计划" [ref=f1e27] [cursor=pointer]
+          - button [ref=f1e29] [cursor=pointer]:
+            - strong [ref=f1e30]: 隔离验收计划 2026-09-29 已编辑
+            - text: 推 / 拉 / 腿 · 当前计划 · 已确认版本 v1
+        - region [ref=f1e31]:
+          - generic [ref=f1e32]:
+            - generic [aria-hidden] [ref=f1e33]: ＋
+            - heading "先创建一份个人计划" [level=2] [ref=f1e34]
+            - paragraph [ref=f1e35]: 选择推拉腿、上下肢或五分化；训练日与动作都可以按你的安排编辑。
+            - button "创建计划" [ref=f1e36] [cursor=pointer]
+          - generic [ref=f1e37]:
+            - generic [ref=f1e38]:
+              - generic [ref=f1e39]:
+                - paragraph [ref=f1e40]: 当前计划 · 已确认版本 v1
+                - heading "隔离验收计划 2026-09-29 已编辑" [level=2] [ref=f1e41]
+              - generic [ref=f1e42]:
+                - button "保存草稿" [ref=f1e43] [cursor=pointer]
+                - button "预览并确认版本" [ref=f1e44] [cursor=pointer]
+            - generic [ref=f1e45]:
+              - generic [ref=f1e46]:
+                - generic [ref=f1e47]: 计划名称
+                - textbox "计划名称" [ref=f1e48]:
+                  - /placeholder: 例如：每周四练力量计划
+                  - text: 隔离验收计划 2026-09-29 已编辑
+              - generic [ref=f1e49]:
+                - generic [ref=f1e50]: 训练分化
+                - combobox "训练分化" [disabled] [ref=f1e51]:
+                  - option "推 / 拉 / 腿" [selected]
+                  - option "上肢 / 下肢"
+                  - option "五分化"
+            - region "动作库筛选" [ref=f1e52]:
+              - generic [ref=f1e53]:
+                - heading "动作库" [level=3] [ref=f1e54]
+                - paragraph [ref=f1e55]: 选择动作加入训练日，动作肌群与器械信息来自审核后的全站动作库。
+              - generic [ref=f1e56]:
+                - generic [ref=f1e57]: 搜索动作
+                - generic [aria-hidden] [ref=f1e58]: ⌕
+                - searchbox "搜索动作" [ref=f1e59]
+            - generic [ref=f1e60]:
+              - generic [ref=f1e61]:
+                - generic [ref=f1e62]:
+                  - generic [ref=f1e63]:
+                    - text: 训练日名称
+                    - textbox "训练日名称" [ref=f1e64]: 推日
+                  - generic [ref=f1e65]:
+                    - text: 训练重点
+                    - textbox "训练重点" [ref=f1e66]:
+                      - /placeholder: 例如：胸、肩、三头
+                      - text: 胸肩三头
+                  - generic [ref=f1e67]: 第 1 天 · 1/20 动作
+                - article [ref=f1e69]:
+                  - generic [ref=f1e70]:
+                    - strong [ref=f1e71]: 单臂绳索侧平举
+                    - generic [ref=f1e72]: 三角肌 · 绳索器械
+                  - generic [ref=f1e73]:
+                    - text: 组数
+                    - spinbutton "组数" [ref=f1e74]: "1"
+                  - generic [ref=f1e75]:
+                    - text: 次数下限
+                    - spinbutton "次数下限" [ref=f1e76]: "8"
+                  - generic [ref=f1e77]:
+                    - text: 次数上限
+                    - spinbutton "次数上限" [ref=f1e78]: "12"
+                  - generic [ref=f1e79]:
+                    - text: 目标 RIR
+                    - spinbutton "目标 RIR" [ref=f1e80]: "2"
+                  - generic [ref=f1e81]:
+                    - text: 休息秒数
+                    - spinbutton "休息秒数" [ref=f1e82]: "60"
+                  - button "移除单臂绳索侧平举" [ref=f1e83] [cursor=pointer]: ×
+                  - generic [ref=f1e84]:
+                    - generic [ref=f1e85]: 可选目标重量（kg）
+                    - text: kg
+                    - spinbutton "选填" [ref=f1e86]
+                - generic [ref=f1e87]:
+                  - combobox "为推日选择动作" [ref=f1e88]:
+                    - option "从动作库选择动作…" [selected]
+                    - option "坐姿髋外展 · 髋外展肌群 · 固定器械"
+                    - option "下斜凳卷腹 · 腹肌 · 徒手"
+                    - option "仰卧卷腹 · 腹肌 · 徒手"
+                    - option "俄罗斯转体 · 腹肌 · 徒手"
+                    - option "坐姿绳索转体 · 腹肌 · 绳索器械"
+                    - option "悬垂举腿 · 腹肌 · 徒手"
+                    - option "站姿绳索卷腹 · 腹肌 · 绳索器械"
+                    - option "罗马椅直腿举 · 腹肌 · 徒手"
+                    - option "负重平板支撑 · 腹肌 · 徒手"
+                    - option "跪姿绳索卷腹 · 腹肌 · 绳索器械"
+                    - option "辅助悬垂屈膝举腿 · 腹肌 · 徒手"
+                    - option "坐姿髋内收 · 髋内收肌群 · 固定器械"
+                    - option "上斜哑铃弯举 · 肱二头肌 · 哑铃"
+                    - option "反握杠铃弯举 · 肱二头肌 · 杠铃"
+                    - option "哑铃弯举 · 肱二头肌 · 哑铃"
+                    - option "哑铃锤式弯举 · 肱二头肌 · 哑铃"
+                    - option "器械牧师凳弯举 · 肱二头肌 · 固定器械"
+                    - option "杠铃弯举 · 肱二头肌 · 杠铃"
+                    - option "牧师凳杠铃弯举 · 肱二头肌 · 杠铃"
+                    - option "绳索弯举 · 肱二头肌 · 绳索器械"
+                    - option "绳索牧师凳弯举 · 肱二头肌 · 绳索器械"
+                    - option "绳索锤式弯举 · 肱二头肌 · 绳索器械"
+                    - option "台阶站姿提踵 · 小腿 · 徒手"
+                    - option "哑铃站姿提踵 · 小腿 · 哑铃"
+                    - option "坐姿提踵 · 小腿 · 固定器械"
+                    - option "站姿器械提踵 · 小腿 · 固定器械"
+                    - option "俯身哑铃反向飞鸟 · 三角肌 · 哑铃"
+                    - option "哑铃侧平举 · 三角肌 · 哑铃"
+                    - option "哑铃前平举 · 三角肌 · 哑铃"
+                    - option "器械反向飞鸟 · 三角肌 · 固定器械"
+                    - option "器械肩推 · 三角肌 · 固定器械"
+                    - option "坐姿哑铃肩推 · 三角肌 · 哑铃"
+                    - option "坐姿杠铃肩推 · 三角肌 · 杠铃"
+                    - option "绳索前平举 · 三角肌 · 绳索器械"
+                    - option "绳索反向飞鸟 · 三角肌 · 绳索器械"
+                    - option "绳索肩推 · 三角肌 · 绳索器械"
+                    - option "绳索面拉 · 三角肌 · 绳索器械"
+                    - option "阿诺德推举 · 三角肌 · 哑铃"
+                    - option "哑铃罗马尼亚硬拉 · 臀肌 · 哑铃"
+                    - option "杠铃前蹲 · 臀肌 · 杠铃"
+                    - option "杠铃深蹲 · 臀肌 · 杠铃"
+                    - option "杠铃罗马尼亚硬拉 · 臀肌 · 杠铃"
+                    - option "杠铃臀桥 · 臀肌 · 杠铃"
+                    - option "绳索 pull-through 臀铰链 · 臀肌 · 绳索器械"
+                    - option "臀桥 · 臀肌 · 徒手"
+                    - option "跪姿弹力带髋推 · 臀肌 · 弹力带"
+                    - option "俯卧腿弯举 · 腘绳肌 · 固定器械"
+                    - option "坐姿腿弯举 · 腘绳肌 · 固定器械"
+                    - option "杠铃直腿硬拉 · 腘绳肌 · 杠铃"
+                    - option "中立握引体向上 · 背阔肌 · 徒手"
+                    - option "全程高位下拉 · 背阔肌 · 绳索器械"
+                    - option "单臂高位下拉 · 背阔肌 · 绳索器械"
+                    - option "反手引体向上 · 背阔肌 · 徒手"
+                    - option "宽握引体向上 · 背阔肌 · 徒手"
+                    - option "绳索直臂下压 · 背阔肌 · 绳索器械"
+                    - option "辅助引体向上 · 背阔肌 · 徒手"
+                    - option "高位下拉 · 背阔肌 · 绳索器械"
+                    - option "上斜俯卧撑 · 胸肌 · 徒手"
+                    - option "上斜哑铃卧推 · 胸肌 · 哑铃"
+                    - option "上斜杠铃卧推 · 胸肌 · 杠铃"
+                    - option "上斜绳索夹胸 · 胸肌 · 绳索器械"
+                    - option "下斜哑铃卧推 · 胸肌 · 哑铃"
+                    - option "下斜杠铃卧推 · 胸肌 · 杠铃"
+                    - option "双杠臂屈伸（胸部） · 胸肌 · 徒手"
+                    - option "哑铃卧推 · 胸肌 · 哑铃"
+                    - option "坐姿器械推胸 · 胸肌 · 固定器械"
+                    - option "杠铃卧推 · 胸肌 · 杠铃"
+                    - option "站姿绳索交叉夹胸 · 胸肌 · 绳索器械"
+                    - option "绳索夹胸 · 胸肌 · 绳索器械"
+                    - option "绳索胸推 · 胸肌 · 绳索器械"
+                    - option "脚抬高俯卧撑 · 胸肌 · 徒手"
+                    - option "蝴蝶机夹胸 · 胸肌 · 固定器械"
+                    - option "史密斯箱式深蹲 · 股四头肌 · 史密斯机"
+                    - option "哑铃上台阶 · 股四头肌 · 哑铃"
+                    - option "哑铃保加利亚分腿蹲 · 股四头肌 · 哑铃"
+                    - option "哑铃高脚杯深蹲 · 股四头肌 · 哑铃"
+                    - option "坐姿腿屈伸 · 股四头肌 · 固定器械"
+                    - option "杠铃侧向分腿蹲 · 股四头肌 · 杠铃"
+                    - option "杠铃分腿蹲 · 股四头肌 · 杠铃"
+                    - option "腿举机 · 股四头肌 · 固定器械"
+                    - option "哑铃耸肩 · 斜方肌 · 哑铃"
+                    - option "杠铃耸肩 · 斜方肌 · 杠铃"
+                    - option "仰卧杠铃臂屈伸 · 肱三头肌 · 杠铃"
+                    - option "单臂绳索下压 · 肱三头肌 · 绳索器械"
+                    - option "哑铃臂后伸 · 肱三头肌 · 哑铃"
+                    - option "器械臂屈伸 · 肱三头肌 · 固定器械"
+                    - option "坐姿杠铃过顶臂屈伸 · 肱三头肌 · 杠铃"
+                    - option "直杆下压 · 肱三头肌 · 绳索器械"
+                    - option "窄握卧推 · 肱三头肌 · 杠铃"
+                    - option "绳索下压 · 肱三头肌 · 绳索器械"
+                    - option "绳索过顶臂屈伸 · 肱三头肌 · 绳索器械"
+                    - option "辅助双杠臂屈伸（肱三头） · 肱三头肌 · 徒手"
+                    - option "上斜凳哑铃划船 · 上背部 · 哑铃"
+                    - option "上斜凳胸托杠铃划船 · 上背部 · 杠铃"
+                    - option "单臂绳索划船 · 上背部 · 绳索器械"
+                    - option "反手杠铃划船 · 上背部 · 杠铃"
+                    - option "器械 T 杆划船 · 上背部 · 固定器械"
+                    - option "坐姿器械划船 · 上背部 · 固定器械"
+                    - option "坐姿绳索划船 · 上背部 · 绳索器械"
+                    - option "杠铃俯身划船 · 上背部 · 杠铃"
+                    - option "潘德雷划船 · 上背部 · 杠铃"
+                  - button "添加动作" [ref=f1e89] [cursor=pointer]
+              - generic [ref=f1e90]:
+                - generic [ref=f1e91]:
+                  - generic [ref=f1e92]:
+                    - text: 训练日名称
+                    - textbox "训练日名称" [ref=f1e93]: 拉日
+                  - generic [ref=f1e94]:
+                    - text: 训练重点
+                    - textbox "训练重点" [ref=f1e95]:
+                      - /placeholder: 例如：胸、肩、三头
+                      - text: 背部二头
+                  - generic [ref=f1e96]: 第 2 天 · 1/20 动作
+                - article [ref=f1e98]:
+                  - generic [ref=f1e99]:
+                    - strong [ref=f1e100]: 上斜哑铃弯举
+                    - generic [ref=f1e101]: 肱二头肌 · 哑铃
+                  - generic [ref=f1e102]:
+                    - text: 组数
+                    - spinbutton "组数" [ref=f1e103]: "1"
+                  - generic [ref=f1e104]:
+                    - text: 次数下限
+                    - spinbutton "次数下限" [ref=f1e105]: "8"
+                  - generic [ref=f1e106]:
+                    - text: 次数上限
+                    - spinbutton "次数上限" [ref=f1e107]: "12"
+                  - generic [ref=f1e108]:
+                    - text: 目标 RIR
+                    - spinbutton "目标 RIR" [ref=f1e109]: "2"
+                  - generic [ref=f1e110]:
+                    - text: 休息秒数
+                    - spinbutton "休息秒数" [ref=f1e111]: "60"
+                  - button "移除上斜哑铃弯举" [ref=f1e112] [cursor=pointer]: ×
+                  - generic [ref=f1e113]:
+                    - generic [ref=f1e114]: 可选目标重量（kg）
+                    - text: kg
+                    - spinbutton "选填" [ref=f1e115]
+                - generic [ref=f1e116]:
+                  - combobox "为拉日选择动作" [ref=f1e117]:
+                    - option "从动作库选择动作…" [selected]
+                    - option "坐姿髋外展 · 髋外展肌群 · 固定器械"
+                    - option "下斜凳卷腹 · 腹肌 · 徒手"
+                    - option "仰卧卷腹 · 腹肌 · 徒手"
+                    - option "俄罗斯转体 · 腹肌 · 徒手"
+                    - option "坐姿绳索转体 · 腹肌 · 绳索器械"
+                    - option "悬垂举腿 · 腹肌 · 徒手"
+                    - option "站姿绳索卷腹 · 腹肌 · 绳索器械"
+                    - option "罗马椅直腿举 · 腹肌 · 徒手"
+                    - option "负重平板支撑 · 腹肌 · 徒手"
+                    - option "跪姿绳索卷腹 · 腹肌 · 绳索器械"
+                    - option "辅助悬垂屈膝举腿 · 腹肌 · 徒手"
+                    - option "坐姿髋内收 · 髋内收肌群 · 固定器械"
+                    - option "反握杠铃弯举 · 肱二头肌 · 杠铃"
+                    - option "哑铃弯举 · 肱二头肌 · 哑铃"
+                    - option "哑铃锤式弯举 · 肱二头肌 · 哑铃"
+                    - option "器械牧师凳弯举 · 肱二头肌 · 固定器械"
+                    - option "杠铃弯举 · 肱二头肌 · 杠铃"
+                    - option "牧师凳杠铃弯举 · 肱二头肌 · 杠铃"
+                    - option "绳索弯举 · 肱二头肌 · 绳索器械"
+                    - option "绳索牧师凳弯举 · 肱二头肌 · 绳索器械"
+                    - option "绳索锤式弯举 · 肱二头肌 · 绳索器械"
+                    - option "台阶站姿提踵 · 小腿 · 徒手"
+                    - option "哑铃站姿提踵 · 小腿 · 哑铃"
+                    - option "坐姿提踵 · 小腿 · 固定器械"
+                    - option "站姿器械提踵 · 小腿 · 固定器械"
+                    - option "俯身哑铃反向飞鸟 · 三角肌 · 哑铃"
+                    - option "单臂绳索侧平举 · 三角肌 · 绳索器械"
+                    - option "哑铃侧平举 · 三角肌 · 哑铃"
+                    - option "哑铃前平举 · 三角肌 · 哑铃"
+                    - option "器械反向飞鸟 · 三角肌 · 固定器械"
+                    - option "器械肩推 · 三角肌 · 固定器械"
+                    - option "坐姿哑铃肩推 · 三角肌 · 哑铃"
+                    - option "坐姿杠铃肩推 · 三角肌 · 杠铃"
+                    - option "绳索前平举 · 三角肌 · 绳索器械"
+                    - option "绳索反向飞鸟 · 三角肌 · 绳索器械"
+                    - option "绳索肩推 · 三角肌 · 绳索器械"
+                    - option "绳索面拉 · 三角肌 · 绳索器械"
+                    - option "阿诺德推举 · 三角肌 · 哑铃"
+                    - option "哑铃罗马尼亚硬拉 · 臀肌 · 哑铃"
+                    - option "杠铃前蹲 · 臀肌 · 杠铃"
+                    - option "杠铃深蹲 · 臀肌 · 杠铃"
+                    - option "杠铃罗马尼亚硬拉 · 臀肌 · 杠铃"
+                    - option "杠铃臀桥 · 臀肌 · 杠铃"
+                    - option "绳索 pull-through 臀铰链 · 臀肌 · 绳索器械"
+                    - option "臀桥 · 臀肌 · 徒手"
+                    - option "跪姿弹力带髋推 · 臀肌 · 弹力带"
+                    - option "俯卧腿弯举 · 腘绳肌 · 固定器械"
+                    - option "坐姿腿弯举 · 腘绳肌 · 固定器械"
+                    - option "杠铃直腿硬拉 · 腘绳肌 · 杠铃"
+                    - option "中立握引体向上 · 背阔肌 · 徒手"
+                    - option "全程高位下拉 · 背阔肌 · 绳索器械"
+                    - option "单臂高位下拉 · 背阔肌 · 绳索器械"
+                    - option "反手引体向上 · 背阔肌 · 徒手"
+                    - option "宽握引体向上 · 背阔肌 · 徒手"
+                    - option "绳索直臂下压 · 背阔肌 · 绳索器械"
+                    - option "辅助引体向上 · 背阔肌 · 徒手"
+                    - option "高位下拉 · 背阔肌 · 绳索器械"
+                    - option "上斜俯卧撑 · 胸肌 · 徒手"
+                    - option "上斜哑铃卧推 · 胸肌 · 哑铃"
+                    - option "上斜杠铃卧推 · 胸肌 · 杠铃"
+                    - option "上斜绳索夹胸 · 胸肌 · 绳索器械"
+                    - option "下斜哑铃卧推 · 胸肌 · 哑铃"
+                    - option "下斜杠铃卧推 · 胸肌 · 杠铃"
+                    - option "双杠臂屈伸（胸部） · 胸肌 · 徒手"
+                    - option "哑铃卧推 · 胸肌 · 哑铃"
+                    - option "坐姿器械推胸 · 胸肌 · 固定器械"
+                    - option "杠铃卧推 · 胸肌 · 杠铃"
+                    - option "站姿绳索交叉夹胸 · 胸肌 · 绳索器械"
+                    - option "绳索夹胸 · 胸肌 · 绳索器械"
+                    - option "绳索胸推 · 胸肌 · 绳索器械"
+                    - option "脚抬高俯卧撑 · 胸肌 · 徒手"
+                    - option "蝴蝶机夹胸 · 胸肌 · 固定器械"
+                    - option "史密斯箱式深蹲 · 股四头肌 · 史密斯机"
+                    - option "哑铃上台阶 · 股四头肌 · 哑铃"
+                    - option "哑铃保加利亚分腿蹲 · 股四头肌 · 哑铃"
+                    - option "哑铃高脚杯深蹲 · 股四头肌 · 哑铃"
+                    - option "坐姿腿屈伸 · 股四头肌 · 固定器械"
+                    - option "杠铃侧向分腿蹲 · 股四头肌 · 杠铃"
+                    - option "杠铃分腿蹲 · 股四头肌 · 杠铃"
+                    - option "腿举机 · 股四头肌 · 固定器械"
+                    - option "哑铃耸肩 · 斜方肌 · 哑铃"
+                    - option "杠铃耸肩 · 斜方肌 · 杠铃"
+                    - option "仰卧杠铃臂屈伸 · 肱三头肌 · 杠铃"
+                    - option "单臂绳索下压 · 肱三头肌 · 绳索器械"
+                    - option "哑铃臂后伸 · 肱三头肌 · 哑铃"
+                    - option "器械臂屈伸 · 肱三头肌 · 固定器械"
+                    - option "坐姿杠铃过顶臂屈伸 · 肱三头肌 · 杠铃"
+                    - option "直杆下压 · 肱三头肌 · 绳索器械"
+                    - option "窄握卧推 · 肱三头肌 · 杠铃"
+                    - option "绳索下压 · 肱三头肌 · 绳索器械"
+                    - option "绳索过顶臂屈伸 · 肱三头肌 · 绳索器械"
+                    - option "辅助双杠臂屈伸（肱三头） · 肱三头肌 · 徒手"
+                    - option "上斜凳哑铃划船 · 上背部 · 哑铃"
+                    - option "上斜凳胸托杠铃划船 · 上背部 · 杠铃"
+                    - option "单臂绳索划船 · 上背部 · 绳索器械"
+                    - option "反手杠铃划船 · 上背部 · 杠铃"
+                    - option "器械 T 杆划船 · 上背部 · 固定器械"
+                    - option "坐姿器械划船 · 上背部 · 固定器械"
+                    - option "坐姿绳索划船 · 上背部 · 绳索器械"
+                    - option "杠铃俯身划船 · 上背部 · 杠铃"
+                    - option "潘德雷划船 · 上背部 · 杠铃"
+                  - button "添加动作" [ref=f1e118] [cursor=pointer]
+              - generic [ref=f1e119]:
+                - generic [ref=f1e120]:
+                  - generic [ref=f1e121]:
+                    - text: 训练日名称
+                    - textbox "训练日名称" [ref=f1e122]: 腿日
+                  - generic [ref=f1e123]:
+                    - text: 训练重点
+                    - textbox "训练重点" [ref=f1e124]:
+                      - /placeholder: 例如：胸、肩、三头
+                      - text: 臀腿核心
+                  - generic [ref=f1e125]: 第 3 天 · 1/20 动作
+                - article [ref=f1e127]:
+                  - generic [ref=f1e128]:
+                    - strong [ref=f1e129]: 坐姿髋外展
+                    - generic [ref=f1e130]: 髋外展肌群 · 固定器械
+                  - generic [ref=f1e131]:
+                    - text: 组数
+                    - spinbutton "组数" [ref=f1e132]: "1"
+                  - generic [ref=f1e133]:
+                    - text: 次数下限
+                    - spinbutton "次数下限" [ref=f1e134]: "8"
+                  - generic [ref=f1e135]:
+                    - text: 次数上限
+                    - spinbutton "次数上限" [ref=f1e136]: "12"
+                  - generic [ref=f1e137]:
+                    - text: 目标 RIR
+                    - spinbutton "目标 RIR" [ref=f1e138]: "2"
+                  - generic [ref=f1e139]:
+                    - text: 休息秒数
+                    - spinbutton "休息秒数" [ref=f1e140]: "60"
+                  - button "移除坐姿髋外展" [ref=f1e141] [cursor=pointer]: ×
+                  - generic [ref=f1e142]:
+                    - generic [ref=f1e143]: 可选目标重量（kg）
+                    - text: kg
+                    - spinbutton "选填" [ref=f1e144]
+                - generic [ref=f1e145]:
+                  - combobox "为腿日选择动作" [ref=f1e146]:
+                    - option "从动作库选择动作…" [selected]
+                    - option "下斜凳卷腹 · 腹肌 · 徒手"
+                    - option "仰卧卷腹 · 腹肌 · 徒手"
+                    - option "俄罗斯转体 · 腹肌 · 徒手"
+                    - option "坐姿绳索转体 · 腹肌 · 绳索器械"
+                    - option "悬垂举腿 · 腹肌 · 徒手"
+                    - option "站姿绳索卷腹 · 腹肌 · 绳索器械"
+                    - option "罗马椅直腿举 · 腹肌 · 徒手"
+                    - option "负重平板支撑 · 腹肌 · 徒手"
+                    - option "跪姿绳索卷腹 · 腹肌 · 绳索器械"
+                    - option "辅助悬垂屈膝举腿 · 腹肌 · 徒手"
+                    - option "坐姿髋内收 · 髋内收肌群 · 固定器械"
+                    - option "上斜哑铃弯举 · 肱二头肌 · 哑铃"
+                    - option "反握杠铃弯举 · 肱二头肌 · 杠铃"
+                    - option "哑铃弯举 · 肱二头肌 · 哑铃"
+                    - option "哑铃锤式弯举 · 肱二头肌 · 哑铃"
+                    - option "器械牧师凳弯举 · 肱二头肌 · 固定器械"
+                    - option "杠铃弯举 · 肱二头肌 · 杠铃"
+                    - option "牧师凳杠铃弯举 · 肱二头肌 · 杠铃"
+                    - option "绳索弯举 · 肱二头肌 · 绳索器械"
+                    - option "绳索牧师凳弯举 · 肱二头肌 · 绳索器械"
+                    - option "绳索锤式弯举 · 肱二头肌 · 绳索器械"
+                    - option "台阶站姿提踵 · 小腿 · 徒手"
+                    - option "哑铃站姿提踵 · 小腿 · 哑铃"
+                    - option "坐姿提踵 · 小腿 · 固定器械"
+                    - option "站姿器械提踵 · 小腿 · 固定器械"
+                    - option "俯身哑铃反向飞鸟 · 三角肌 · 哑铃"
+                    - option "单臂绳索侧平举 · 三角肌 · 绳索器械"
+                    - option "哑铃侧平举 · 三角肌 · 哑铃"
+                    - option "哑铃前平举 · 三角肌 · 哑铃"
+                    - option "器械反向飞鸟 · 三角肌 · 固定器械"
+                    - option "器械肩推 · 三角肌 · 固定器械"
+                    - option "坐姿哑铃肩推 · 三角肌 · 哑铃"
+                    - option "坐姿杠铃肩推 · 三角肌 · 杠铃"
+                    - option "绳索前平举 · 三角肌 · 绳索器械"
+                    - option "绳索反向飞鸟 · 三角肌 · 绳索器械"
+                    - option "绳索肩推 · 三角肌 · 绳索器械"
+                    - option "绳索面拉 · 三角肌 · 绳索器械"
+                    - option "阿诺德推举 · 三角肌 · 哑铃"
+                    - option "哑铃罗马尼亚硬拉 · 臀肌 · 哑铃"
+                    - option "杠铃前蹲 · 臀肌 · 杠铃"
+                    - option "杠铃深蹲 · 臀肌 · 杠铃"
+                    - option "杠铃罗马尼亚硬拉 · 臀肌 · 杠铃"
+                    - option "杠铃臀桥 · 臀肌 · 杠铃"
+                    - option "绳索 pull-through 臀铰链 · 臀肌 · 绳索器械"
+                    - option "臀桥 · 臀肌 · 徒手"
+                    - option "跪姿弹力带髋推 · 臀肌 · 弹力带"
+                    - option "俯卧腿弯举 · 腘绳肌 · 固定器械"
+                    - option "坐姿腿弯举 · 腘绳肌 · 固定器械"
+                    - option "杠铃直腿硬拉 · 腘绳肌 · 杠铃"
+                    - option "中立握引体向上 · 背阔肌 · 徒手"
+                    - option "全程高位下拉 · 背阔肌 · 绳索器械"
+                    - option "单臂高位下拉 · 背阔肌 · 绳索器械"
+                    - option "反手引体向上 · 背阔肌 · 徒手"
+                    - option "宽握引体向上 · 背阔肌 · 徒手"
+                    - option "绳索直臂下压 · 背阔肌 · 绳索器械"
+                    - option "辅助引体向上 · 背阔肌 · 徒手"
+                    - option "高位下拉 · 背阔肌 · 绳索器械"
+                    - option "上斜俯卧撑 · 胸肌 · 徒手"
+                    - option "上斜哑铃卧推 · 胸肌 · 哑铃"
+                    - option "上斜杠铃卧推 · 胸肌 · 杠铃"
+                    - option "上斜绳索夹胸 · 胸肌 · 绳索器械"
+                    - option "下斜哑铃卧推 · 胸肌 · 哑铃"
+                    - option "下斜杠铃卧推 · 胸肌 · 杠铃"
+                    - option "双杠臂屈伸（胸部） · 胸肌 · 徒手"
+                    - option "哑铃卧推 · 胸肌 · 哑铃"
+                    - option "坐姿器械推胸 · 胸肌 · 固定器械"
+                    - option "杠铃卧推 · 胸肌 · 杠铃"
+                    - option "站姿绳索交叉夹胸 · 胸肌 · 绳索器械"
+                    - option "绳索夹胸 · 胸肌 · 绳索器械"
+                    - option "绳索胸推 · 胸肌 · 绳索器械"
+                    - option "脚抬高俯卧撑 · 胸肌 · 徒手"
+                    - option "蝴蝶机夹胸 · 胸肌 · 固定器械"
+                    - option "史密斯箱式深蹲 · 股四头肌 · 史密斯机"
+                    - option "哑铃上台阶 · 股四头肌 · 哑铃"
+                    - option "哑铃保加利亚分腿蹲 · 股四头肌 · 哑铃"
+                    - option "哑铃高脚杯深蹲 · 股四头肌 · 哑铃"
+                    - option "坐姿腿屈伸 · 股四头肌 · 固定器械"
+                    - option "杠铃侧向分腿蹲 · 股四头肌 · 杠铃"
+                    - option "杠铃分腿蹲 · 股四头肌 · 杠铃"
+                    - option "腿举机 · 股四头肌 · 固定器械"
+                    - option "哑铃耸肩 · 斜方肌 · 哑铃"
+                    - option "杠铃耸肩 · 斜方肌 · 杠铃"
+                    - option "仰卧杠铃臂屈伸 · 肱三头肌 · 杠铃"
+                    - option "单臂绳索下压 · 肱三头肌 · 绳索器械"
+                    - option "哑铃臂后伸 · 肱三头肌 · 哑铃"
+                    - option "器械臂屈伸 · 肱三头肌 · 固定器械"
+                    - option "坐姿杠铃过顶臂屈伸 · 肱三头肌 · 杠铃"
+                    - option "直杆下压 · 肱三头肌 · 绳索器械"
+                    - option "窄握卧推 · 肱三头肌 · 杠铃"
+                    - option "绳索下压 · 肱三头肌 · 绳索器械"
+                    - option "绳索过顶臂屈伸 · 肱三头肌 · 绳索器械"
+                    - option "辅助双杠臂屈伸（肱三头） · 肱三头肌 · 徒手"
+                    - option "上斜凳哑铃划船 · 上背部 · 哑铃"
+                    - option "上斜凳胸托杠铃划船 · 上背部 · 杠铃"
+                    - option "单臂绳索划船 · 上背部 · 绳索器械"
+                    - option "反手杠铃划船 · 上背部 · 杠铃"
+                    - option "器械 T 杆划船 · 上背部 · 固定器械"
+                    - option "坐姿器械划船 · 上背部 · 固定器械"
+                    - option "坐姿绳索划船 · 上背部 · 绳索器械"
+                    - option "杠铃俯身划船 · 上背部 · 杠铃"
+                    - option "潘德雷划船 · 上背部 · 杠铃"
+                  - button "添加动作" [ref=f1e147] [cursor=pointer]
+            - generic [ref=f1e148]:
+              - heading "版本历史" [level=3] [ref=f1e149]
+              - list [ref=f1e150]:
+                - listitem [ref=f1e151]: v1 · 当前 · 2026-09-29
+            - generic [ref=f1e152]:
+              - status [ref=f1e153]: 当前正式版本 v1 保持不变；草稿确认后才会生成下一版。
+              - button "保存草稿" [ref=f1e154] [cursor=pointer]
+      - region [ref=f1e155]:
+        - generic [ref=f1e156]:
+          - generic [ref=f1e157]:
+            - paragraph [ref=f1e158]: MEMBER WORKOUT LOG
+            - heading "个人训练记录" [level=2] [ref=f1e159]
+            - paragraph [ref=f1e160]: 基于已确认计划开始训练；每组重量、次数与 RIR 单独保存。
+          - button "开始下一训练日" [ref=f1e161] [cursor=pointer]
+        - status [ref=f1e162]: 当前计划：隔离验收计划 2026-09-29 已编辑 · 下一训练日：第 2 天 拉日。开始后会固定使用版本 v1 的动作快照。
+        - generic [ref=f1e163]:
+          - generic [ref=f1e164]:
+            - heading "训练历史" [level=3] [ref=f1e165]
+            - generic [ref=f1e166]: 仅显示你的会员计划训练
+          - generic [ref=f1e167]:
+            - article [ref=f1e168]:
+              - generic [ref=f1e169]:
+                - strong [ref=f1e170]: 隔离验收计划 2026-09-29 已编辑 · 第 2 天 · 拉日
+                - generic [ref=f1e171]: 9/29 17:30
+              - generic [ref=f1e172]: 已放弃
+              - button "查看记录" [ref=f1e173] [cursor=pointer]
+            - article [ref=f1e174]:
+              - generic [ref=f1e175]:
+                - strong [ref=f1e176]: 隔离验收计划 2026-09-29 已编辑 · 第 1 天 · 推日
+                - generic [ref=f1e177]: 9/29 17:30 · 0:00
+              - generic [ref=f1e178]: 已完成
+              - button "查看记录" [ref=f1e179] [cursor=pointer]
+  - contentinfo [ref=f1e180]:
+    - generic [ref=f1e181]: 训练计划由你掌控
+    - generic [ref=f1e182]: AI 推荐服务尚未配置，不会发送你的资料

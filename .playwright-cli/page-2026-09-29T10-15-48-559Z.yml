@@ -1,0 +1,35 @@
+- main [ref=f1e2]:
+  - generic [ref=f1e3]:
+    - link "← 训练中心" [ref=f1e4] [cursor=pointer]:
+      - /url: /
+    - generic [ref=f1e5]:
+      - generic [ref=f1e6]:
+        - paragraph [ref=f1e7]: THIN MUSCLE · GYM
+        - heading "健身房训练" [level=1] [ref=f1e8]
+      - generic [ref=f1e9]: yhone · 管理员 / 学员 / 总管理员
+    - paragraph [ref=f1e10]: 教练计划、训练记录和身体进度，集中在这里。
+  - generic [ref=f1e11]:
+    - navigation "工作台功能" [ref=f1e12]:
+      - button "我的计划" [ref=f1e13] [cursor=pointer]
+      - button "展示圈" [ref=f1e14] [cursor=pointer]
+      - button "教练工作台" [ref=f1e15] [cursor=pointer]
+      - button "管理工作台" [ref=f1e16] [cursor=pointer]
+      - button "退出登录" [ref=f1e17] [cursor=pointer]
+    - generic [ref=f1e18]:
+      - generic [ref=f1e20]:
+        - paragraph [ref=f1e21]: MY GYM TRAINING
+        - heading "学员空间" [level=2] [ref=f1e22]
+      - navigation "学员空间菜单" [ref=f1e23]:
+        - button "我的计划" [ref=f1e24] [cursor=pointer]
+        - button "训练记录" [ref=f1e25] [cursor=pointer]
+        - button "身体数据" [ref=f1e26] [cursor=pointer]
+        - button "我的照片" [ref=f1e27] [cursor=pointer]
+      - generic [ref=f1e28]:
+        - generic [ref=f1e29]: 你还没有已发布的教练计划。接受邀请后，教练可以为你创建。
+        - generic [ref=f1e31]:
+          - generic [ref=f1e32]:
+            - text: 教练邀请链接中的邀请码
+            - textbox "教练邀请链接中的邀请码" [ref=f1e33]:
+              - /placeholder: 粘贴一次性邀请码
+          - button "接受邀请" [ref=f1e34] [cursor=pointer]
+  - status

@@ -1,0 +1,2786 @@
+[
+  {
+    "slug": "pectorals/barbell-bench-press",
+    "nameZh": "杠铃卧推",
+    "nameEn": "Barbell Bench Press",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "triceps",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌",
+      "三角肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "肩胛向后下方稳定、双脚踩稳；下放至舒适胸前位置，再沿原路径推起。",
+    "sourceFile": "pectorals/barbell-bench-press.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/barbell-bench-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/barbell-incline-bench-press",
+    "nameZh": "上斜杠铃卧推",
+    "nameEn": "Barbell Incline Bench Press",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "triceps",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌",
+      "三角肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "肩胛向后下方稳定、双脚踩稳；下放至舒适胸前位置，再沿原路径推起。",
+    "sourceFile": "pectorals/barbell-incline-bench-press.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/barbell-incline-bench-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/barbell-decline-bench-press",
+    "nameZh": "下斜杠铃卧推",
+    "nameEn": "Barbell Decline Bench Press",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "triceps",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌",
+      "三角肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "肩胛向后下方稳定、双脚踩稳；下放至舒适胸前位置，再沿原路径推起。",
+    "sourceFile": "pectorals/barbell-decline-bench-press.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/barbell-decline-bench-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/dumbbell-bench-press",
+    "nameZh": "哑铃卧推",
+    "nameEn": "Dumbbell Bench Press",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "triceps",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌",
+      "三角肌"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "肩胛向后下方稳定、双脚踩稳；下放至舒适胸前位置，再沿原路径推起。",
+    "sourceFile": "pectorals/dumbbell-bench-press.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/dumbbell-bench-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/dumbbell-incline-bench-press",
+    "nameZh": "上斜哑铃卧推",
+    "nameEn": "Dumbbell Incline Bench Press",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "triceps",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌",
+      "三角肌"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "肩胛向后下方稳定、双脚踩稳；下放至舒适胸前位置，再沿原路径推起。",
+    "sourceFile": "pectorals/dumbbell-incline-bench-press.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/dumbbell-incline-bench-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/dumbbell-decline-bench-press",
+    "nameZh": "下斜哑铃卧推",
+    "nameEn": "Dumbbell Decline Bench Press",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "triceps",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌",
+      "三角肌"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "肩胛向后下方稳定、双脚踩稳；下放至舒适胸前位置，再沿原路径推起。",
+    "sourceFile": "pectorals/dumbbell-decline-bench-press.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/dumbbell-decline-bench-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/cable-bench-press",
+    "nameZh": "绳索胸推",
+    "nameEn": "Cable Bench Press",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "triceps",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌",
+      "三角肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "肩胛向后下方稳定、双脚踩稳；下放至舒适胸前位置，再沿原路径推起。",
+    "sourceFile": "pectorals/cable-bench-press.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/cable-bench-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/cable-cross-over-variation",
+    "nameZh": "绳索夹胸",
+    "nameEn": "Cable Cross Over Variation",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "肩胛保持稳定、肘部微屈；用胸肌把手臂向前合拢，回程控制幅度。",
+    "sourceFile": "pectorals/cable-cross-over-variation.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/cable-cross-over-variation.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/cable-incline-fly",
+    "nameZh": "上斜绳索夹胸",
+    "nameEn": "Cable Incline Fly",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "肩胛保持稳定、肘部微屈；用胸肌把手臂向前合拢，回程控制幅度。",
+    "sourceFile": "pectorals/cable-incline-fly.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/cable-incline-fly.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/cable-standing-up-straight-crossovers",
+    "nameZh": "站姿绳索交叉夹胸",
+    "nameEn": "Cable Standing Up Straight Crossovers",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "肩胛保持稳定、肘部微屈；用胸肌把手臂向前合拢，回程控制幅度。",
+    "sourceFile": "pectorals/cable-standing-up-straight-crossovers.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/cable-standing-up-straight-crossovers.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/lever-chest-press",
+    "nameZh": "坐姿器械推胸",
+    "nameEn": "Lever Chest Press",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "triceps",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌",
+      "三角肌"
+    ],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "肩胛向后下方稳定、双脚踩稳；下放至舒适胸前位置，再沿原路径推起。",
+    "sourceFile": "pectorals/lever-chest-press.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/lever-chest-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/lever-seated-fly",
+    "nameZh": "蝴蝶机夹胸",
+    "nameEn": "Lever Seated Fly",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌"
+    ],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "肩胛保持稳定、肘部微屈；用胸肌把手臂向前合拢，回程控制幅度。",
+    "sourceFile": "pectorals/lever-seated-fly.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/lever-seated-fly.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/chest-dip-on-straight-bar",
+    "nameZh": "双杠臂屈伸（胸部）",
+    "nameEn": "Chest Dip On Straight Bar",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "triceps",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌",
+      "三角肌"
+    ],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "身体略前倾，肩膀远离耳朵；在肩部舒适范围下降，再用胸肌推回。",
+    "sourceFile": "pectorals/chest-dip-on-straight-bar.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/chest-dip-on-straight-bar.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/incline-push-up",
+    "nameZh": "上斜俯卧撑",
+    "nameEn": "Incline Push Up",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "triceps",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌",
+      "三角肌"
+    ],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "头、躯干和髋部保持一条线；胸部靠近支撑面，肘部斜向后打开。",
+    "sourceFile": "pectorals/incline-push-up.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/incline-push-up.gif",
+    "isActive": true
+  },
+  {
+    "slug": "pectorals/decline-push-up",
+    "nameZh": "脚抬高俯卧撑",
+    "nameEn": "Decline Push Up",
+    "primaryMuscle": "pectorals",
+    "primaryMuscleZh": "胸肌",
+    "secondaryMuscles": [
+      "triceps",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌",
+      "三角肌"
+    ],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "chest",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_chest"
+    ],
+    "cueZh": "头、躯干和髋部保持一条线；胸部靠近支撑面，肘部斜向后打开。",
+    "sourceFile": "pectorals/decline-push-up.gif",
+    "mediaPath": "/gym/media/exercises/pectorals/decline-push-up.gif",
+    "isActive": true
+  },
+  {
+    "slug": "upper-back/barbell-bent-over-row",
+    "nameZh": "杠铃俯身划船",
+    "nameEn": "Barbell Bent Over Row",
+    "primaryMuscle": "upper-back",
+    "primaryMuscleZh": "上背部",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts",
+      "lats"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌",
+      "背阔肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "躯干保持稳定、脊柱中立；先控制肩胛，再把肘部向后拉，避免耸肩和借腰摆动。",
+    "sourceFile": "upper-back/barbell-bent-over-row.gif",
+    "mediaPath": "/gym/media/exercises/upper-back/barbell-bent-over-row.gif",
+    "isActive": true
+  },
+  {
+    "slug": "upper-back/barbell-incline-row",
+    "nameZh": "上斜凳胸托杠铃划船",
+    "nameEn": "Barbell Incline Row",
+    "primaryMuscle": "upper-back",
+    "primaryMuscleZh": "上背部",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts",
+      "lats"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌",
+      "背阔肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "躯干保持稳定、脊柱中立；先控制肩胛，再把肘部向后拉，避免耸肩和借腰摆动。",
+    "sourceFile": "upper-back/barbell-incline-row.gif",
+    "mediaPath": "/gym/media/exercises/upper-back/barbell-incline-row.gif",
+    "isActive": true
+  },
+  {
+    "slug": "upper-back/barbell-pendlay-row",
+    "nameZh": "潘德雷划船",
+    "nameEn": "Barbell Pendlay Row",
+    "primaryMuscle": "upper-back",
+    "primaryMuscleZh": "上背部",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts",
+      "lats"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌",
+      "背阔肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "躯干保持稳定、脊柱中立；先控制肩胛，再把肘部向后拉，避免耸肩和借腰摆动。",
+    "sourceFile": "upper-back/barbell-pendlay-row.gif",
+    "mediaPath": "/gym/media/exercises/upper-back/barbell-pendlay-row.gif",
+    "isActive": true
+  },
+  {
+    "slug": "upper-back/barbell-reverse-grip-bent-over-row",
+    "nameZh": "反手杠铃划船",
+    "nameEn": "Barbell Reverse Grip Bent Over Row",
+    "primaryMuscle": "upper-back",
+    "primaryMuscleZh": "上背部",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts",
+      "lats"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌",
+      "背阔肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "躯干保持稳定、脊柱中立；先控制肩胛，再把肘部向后拉，避免耸肩和借腰摆动。",
+    "sourceFile": "upper-back/barbell-reverse-grip-bent-over-row.gif",
+    "mediaPath": "/gym/media/exercises/upper-back/barbell-reverse-grip-bent-over-row.gif",
+    "isActive": true
+  },
+  {
+    "slug": "upper-back/dumbbell-incline-row",
+    "nameZh": "上斜凳哑铃划船",
+    "nameEn": "Dumbbell Incline Row",
+    "primaryMuscle": "upper-back",
+    "primaryMuscleZh": "上背部",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts",
+      "lats"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌",
+      "背阔肌"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "躯干保持稳定、脊柱中立；先控制肩胛，再把肘部向后拉，避免耸肩和借腰摆动。",
+    "sourceFile": "upper-back/dumbbell-incline-row.gif",
+    "mediaPath": "/gym/media/exercises/upper-back/dumbbell-incline-row.gif",
+    "isActive": true
+  },
+  {
+    "slug": "upper-back/cable-low-seated-row",
+    "nameZh": "坐姿绳索划船",
+    "nameEn": "Cable Low Seated Row",
+    "primaryMuscle": "upper-back",
+    "primaryMuscleZh": "上背部",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts",
+      "lats"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌",
+      "背阔肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "躯干保持稳定、脊柱中立；先控制肩胛，再把肘部向后拉，避免耸肩和借腰摆动。",
+    "sourceFile": "upper-back/cable-low-seated-row.gif",
+    "mediaPath": "/gym/media/exercises/upper-back/cable-low-seated-row.gif",
+    "isActive": true
+  },
+  {
+    "slug": "upper-back/cable-one-arm-bent-over-row",
+    "nameZh": "单臂绳索划船",
+    "nameEn": "Cable One Arm Bent Over Row",
+    "primaryMuscle": "upper-back",
+    "primaryMuscleZh": "上背部",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts",
+      "lats"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌",
+      "背阔肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "躯干保持稳定、脊柱中立；先控制肩胛，再把肘部向后拉，避免耸肩和借腰摆动。",
+    "sourceFile": "upper-back/cable-one-arm-bent-over-row.gif",
+    "mediaPath": "/gym/media/exercises/upper-back/cable-one-arm-bent-over-row.gif",
+    "isActive": true
+  },
+  {
+    "slug": "upper-back/lever-seated-row",
+    "nameZh": "坐姿器械划船",
+    "nameEn": "Lever Seated Row",
+    "primaryMuscle": "upper-back",
+    "primaryMuscleZh": "上背部",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts",
+      "lats"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌",
+      "背阔肌"
+    ],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "躯干保持稳定、脊柱中立；先控制肩胛，再把肘部向后拉，避免耸肩和借腰摆动。",
+    "sourceFile": "upper-back/lever-seated-row.gif",
+    "mediaPath": "/gym/media/exercises/upper-back/lever-seated-row.gif",
+    "isActive": true
+  },
+  {
+    "slug": "upper-back/lever-t-bar-row",
+    "nameZh": "器械 T 杆划船",
+    "nameEn": "Lever T Bar Row",
+    "primaryMuscle": "upper-back",
+    "primaryMuscleZh": "上背部",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts",
+      "lats"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌",
+      "背阔肌"
+    ],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "躯干保持稳定、脊柱中立；先控制肩胛，再把肘部向后拉，避免耸肩和借腰摆动。",
+    "sourceFile": "upper-back/lever-t-bar-row.gif",
+    "mediaPath": "/gym/media/exercises/upper-back/lever-t-bar-row.gif",
+    "isActive": true
+  },
+  {
+    "slug": "lats/cable-pulldown",
+    "nameZh": "高位下拉",
+    "nameEn": "Cable Pulldown",
+    "primaryMuscle": "lats",
+    "primaryMuscleZh": "背阔肌",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "胸廓保持稳定、肩膀远离耳朵；肘部沿身体方向下拉，不用后仰借力。",
+    "sourceFile": "lats/cable-pulldown.gif",
+    "mediaPath": "/gym/media/exercises/lats/cable-pulldown.gif",
+    "isActive": true
+  },
+  {
+    "slug": "lats/cable-lat-pulldown-full-range-of-motion",
+    "nameZh": "全程高位下拉",
+    "nameEn": "Cable Lat Pulldown Full Range Of Motion",
+    "primaryMuscle": "lats",
+    "primaryMuscleZh": "背阔肌",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "胸廓保持稳定、肩膀远离耳朵；肘部沿身体方向下拉，不用后仰借力。",
+    "sourceFile": "lats/cable-lat-pulldown-full-range-of-motion.gif",
+    "mediaPath": "/gym/media/exercises/lats/cable-lat-pulldown-full-range-of-motion.gif",
+    "isActive": true
+  },
+  {
+    "slug": "lats/cable-one-arm-pulldown",
+    "nameZh": "单臂高位下拉",
+    "nameEn": "Cable One Arm Pulldown",
+    "primaryMuscle": "lats",
+    "primaryMuscleZh": "背阔肌",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "胸廓保持稳定、肩膀远离耳朵；肘部沿身体方向下拉，不用后仰借力。",
+    "sourceFile": "lats/cable-one-arm-pulldown.gif",
+    "mediaPath": "/gym/media/exercises/lats/cable-one-arm-pulldown.gif",
+    "isActive": true
+  },
+  {
+    "slug": "lats/cable-straight-arm-pulldown-with-rope",
+    "nameZh": "绳索直臂下压",
+    "nameEn": "Cable Straight Arm Pulldown With Rope",
+    "primaryMuscle": "lats",
+    "primaryMuscleZh": "背阔肌",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "手肘保持微屈且角度固定；肩膀远离耳朵，从肩关节把手臂压向大腿。",
+    "sourceFile": "lats/cable-straight-arm-pulldown-with-rope.gif",
+    "mediaPath": "/gym/media/exercises/lats/cable-straight-arm-pulldown-with-rope.gif",
+    "isActive": true
+  },
+  {
+    "slug": "lats/wide-grip-pull-up",
+    "nameZh": "宽握引体向上",
+    "nameEn": "Wide Grip Pull Up",
+    "primaryMuscle": "lats",
+    "primaryMuscleZh": "背阔肌",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌"
+    ],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "先让肩胛下沉，再把肘部向下拉；身体不摆动，避免用颈部去够横杆。",
+    "sourceFile": "lats/wide-grip-pull-up.gif",
+    "mediaPath": "/gym/media/exercises/lats/wide-grip-pull-up.gif",
+    "isActive": true
+  },
+  {
+    "slug": "lats/chin-up",
+    "nameZh": "反手引体向上",
+    "nameEn": "Chin Up",
+    "primaryMuscle": "lats",
+    "primaryMuscleZh": "背阔肌",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌"
+    ],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "先让肩胛下沉，再把肘部向下拉；身体不摆动，避免用颈部去够横杆。",
+    "sourceFile": "lats/chin-up.gif",
+    "mediaPath": "/gym/media/exercises/lats/chin-up.gif",
+    "isActive": true
+  },
+  {
+    "slug": "lats/assisted-pull-up",
+    "nameZh": "辅助引体向上",
+    "nameEn": "Assisted Pull Up",
+    "primaryMuscle": "lats",
+    "primaryMuscleZh": "背阔肌",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌"
+    ],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "先让肩胛下沉，再把肘部向下拉；身体不摆动，避免用颈部去够横杆。",
+    "sourceFile": "lats/assisted-pull-up.gif",
+    "mediaPath": "/gym/media/exercises/lats/assisted-pull-up.gif",
+    "isActive": true
+  },
+  {
+    "slug": "lats/pull-up-neutral-grip",
+    "nameZh": "中立握引体向上",
+    "nameEn": "Pull Up Neutral Grip",
+    "primaryMuscle": "lats",
+    "primaryMuscleZh": "背阔肌",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂",
+      "三角肌"
+    ],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "先让肩胛下沉，再把肘部向下拉；身体不摆动，避免用颈部去够横杆。",
+    "sourceFile": "lats/pull-up-neutral-grip.gif",
+    "mediaPath": "/gym/media/exercises/lats/pull-up-neutral-grip.gif",
+    "isActive": true
+  },
+  {
+    "slug": "delts/cable-kneeling-rear-delt-row-with-rope-male",
+    "nameZh": "绳索面拉",
+    "nameEn": "Cable Kneeling Rear Delt Row With Rope Male",
+    "primaryMuscle": "delts",
+    "primaryMuscleZh": "三角肌",
+    "secondaryMuscles": [
+      "biceps",
+      "forearms"
+    ],
+    "secondaryMusclesZh": [
+      "肱二头肌",
+      "前臂"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "shoulders",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_shoulders"
+    ],
+    "cueZh": "躯干稳定、肩膀远离耳朵；手肘向两侧打开，控制回程，不耸肩借力。",
+    "sourceFile": "delts/cable-kneeling-rear-delt-row-with-rope-male.gif",
+    "mediaPath": "/gym/media/exercises/delts/cable-kneeling-rear-delt-row-with-rope-male.gif",
+    "isActive": true
+  },
+  {
+    "slug": "traps/barbell-shrug",
+    "nameZh": "杠铃耸肩",
+    "nameEn": "Barbell Shrug",
+    "primaryMuscle": "traps",
+    "primaryMuscleZh": "斜方肌",
+    "secondaryMuscles": [
+      "delts",
+      "forearms"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌",
+      "前臂"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "肩膀垂直向上提至舒适范围，顶端停顿后缓慢放下；避免绕肩或弹震。",
+    "sourceFile": "traps/barbell-shrug.gif",
+    "mediaPath": "/gym/media/exercises/traps/barbell-shrug.gif",
+    "isActive": true
+  },
+  {
+    "slug": "traps/dumbbell-shrug",
+    "nameZh": "哑铃耸肩",
+    "nameEn": "Dumbbell Shrug",
+    "primaryMuscle": "traps",
+    "primaryMuscleZh": "斜方肌",
+    "secondaryMuscles": [
+      "delts",
+      "forearms"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌",
+      "前臂"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "back",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_back"
+    ],
+    "cueZh": "肩膀垂直向上提至舒适范围，顶端停顿后缓慢放下；避免绕肩或弹震。",
+    "sourceFile": "traps/dumbbell-shrug.gif",
+    "mediaPath": "/gym/media/exercises/traps/dumbbell-shrug.gif",
+    "isActive": true
+  },
+  {
+    "slug": "delts/barbell-seated-overhead-press",
+    "nameZh": "坐姿杠铃肩推",
+    "nameEn": "Barbell Seated Overhead Press",
+    "primaryMuscle": "delts",
+    "primaryMuscleZh": "三角肌",
+    "secondaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "shoulders",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_shoulders"
+    ],
+    "cueZh": "臀腹收紧、肋骨保持下沉；向上推时不顶腰，下降到肩部舒适范围。",
+    "sourceFile": "delts/barbell-seated-overhead-press.gif",
+    "mediaPath": "/gym/media/exercises/delts/barbell-seated-overhead-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "delts/dumbbell-bench-seated-press",
+    "nameZh": "坐姿哑铃肩推",
+    "nameEn": "Dumbbell Bench Seated Press",
+    "primaryMuscle": "delts",
+    "primaryMuscleZh": "三角肌",
+    "secondaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "shoulders",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_shoulders"
+    ],
+    "cueZh": "臀腹收紧、肋骨保持下沉；向上推时不顶腰，下降到肩部舒适范围。",
+    "sourceFile": "delts/dumbbell-bench-seated-press.gif",
+    "mediaPath": "/gym/media/exercises/delts/dumbbell-bench-seated-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "delts/cable-shoulder-press",
+    "nameZh": "绳索肩推",
+    "nameEn": "Cable Shoulder Press",
+    "primaryMuscle": "delts",
+    "primaryMuscleZh": "三角肌",
+    "secondaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "shoulders",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_shoulders"
+    ],
+    "cueZh": "臀腹收紧、肋骨保持下沉；向上推时不顶腰，下降到肩部舒适范围。",
+    "sourceFile": "delts/cable-shoulder-press.gif",
+    "mediaPath": "/gym/media/exercises/delts/cable-shoulder-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "delts/lever-shoulder-press",
+    "nameZh": "器械肩推",
+    "nameEn": "Lever Shoulder Press",
+    "primaryMuscle": "delts",
+    "primaryMuscleZh": "三角肌",
+    "secondaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌"
+    ],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "shoulders",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_shoulders"
+    ],
+    "cueZh": "臀腹收紧、肋骨保持下沉；向上推时不顶腰，下降到肩部舒适范围。",
+    "sourceFile": "delts/lever-shoulder-press.gif",
+    "mediaPath": "/gym/media/exercises/delts/lever-shoulder-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "delts/dumbbell-arnold-press",
+    "nameZh": "阿诺德推举",
+    "nameEn": "Dumbbell Arnold Press",
+    "primaryMuscle": "delts",
+    "primaryMuscleZh": "三角肌",
+    "secondaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "shoulders",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_shoulders"
+    ],
+    "cueZh": "臀腹收紧、肋骨保持下沉；向上推时不顶腰，下降到肩部舒适范围。",
+    "sourceFile": "delts/dumbbell-arnold-press.gif",
+    "mediaPath": "/gym/media/exercises/delts/dumbbell-arnold-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "delts/dumbbell-lateral-raise",
+    "nameZh": "哑铃侧平举",
+    "nameEn": "Dumbbell Lateral Raise",
+    "primaryMuscle": "delts",
+    "primaryMuscleZh": "三角肌",
+    "secondaryMuscles": [
+      "traps"
+    ],
+    "secondaryMusclesZh": [
+      "斜方肌"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "shoulders",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_shoulders"
+    ],
+    "cueZh": "肘部微屈，手臂略在身体前侧抬起至肩高附近；不耸肩、不甩动躯干。",
+    "sourceFile": "delts/dumbbell-lateral-raise.gif",
+    "mediaPath": "/gym/media/exercises/delts/dumbbell-lateral-raise.gif",
+    "isActive": true
+  },
+  {
+    "slug": "delts/cable-one-arm-lateral-raise",
+    "nameZh": "单臂绳索侧平举",
+    "nameEn": "Cable One Arm Lateral Raise",
+    "primaryMuscle": "delts",
+    "primaryMuscleZh": "三角肌",
+    "secondaryMuscles": [
+      "traps"
+    ],
+    "secondaryMusclesZh": [
+      "斜方肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "shoulders",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_shoulders"
+    ],
+    "cueZh": "肘部微屈，手臂略在身体前侧抬起至肩高附近；不耸肩、不甩动躯干。",
+    "sourceFile": "delts/cable-one-arm-lateral-raise.gif",
+    "mediaPath": "/gym/media/exercises/delts/cable-one-arm-lateral-raise.gif",
+    "isActive": true
+  },
+  {
+    "slug": "delts/dumbbell-front-raise",
+    "nameZh": "哑铃前平举",
+    "nameEn": "Dumbbell Front Raise",
+    "primaryMuscle": "delts",
+    "primaryMuscleZh": "三角肌",
+    "secondaryMuscles": [
+      "traps"
+    ],
+    "secondaryMusclesZh": [
+      "斜方肌"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "shoulders",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_shoulders"
+    ],
+    "cueZh": "腹部收紧、躯干不后仰；控制手臂前举幅度，避免耸肩。",
+    "sourceFile": "delts/dumbbell-front-raise.gif",
+    "mediaPath": "/gym/media/exercises/delts/dumbbell-front-raise.gif",
+    "isActive": true
+  },
+  {
+    "slug": "delts/cable-front-raise",
+    "nameZh": "绳索前平举",
+    "nameEn": "Cable Front Raise",
+    "primaryMuscle": "delts",
+    "primaryMuscleZh": "三角肌",
+    "secondaryMuscles": [
+      "traps"
+    ],
+    "secondaryMusclesZh": [
+      "斜方肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "shoulders",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_shoulders"
+    ],
+    "cueZh": "腹部收紧、躯干不后仰；控制手臂前举幅度，避免耸肩。",
+    "sourceFile": "delts/cable-front-raise.gif",
+    "mediaPath": "/gym/media/exercises/delts/cable-front-raise.gif",
+    "isActive": true
+  },
+  {
+    "slug": "delts/dumbbell-reverse-fly",
+    "nameZh": "俯身哑铃反向飞鸟",
+    "nameEn": "Dumbbell Reverse Fly",
+    "primaryMuscle": "delts",
+    "primaryMuscleZh": "三角肌",
+    "secondaryMuscles": [
+      "traps",
+      "upper-back"
+    ],
+    "secondaryMusclesZh": [
+      "斜方肌",
+      "上背部"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "shoulders",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_shoulders"
+    ],
+    "cueZh": "躯干稳定、肩膀远离耳朵；手肘向两侧打开，控制回程，不耸肩借力。",
+    "sourceFile": "delts/dumbbell-reverse-fly.gif",
+    "mediaPath": "/gym/media/exercises/delts/dumbbell-reverse-fly.gif",
+    "isActive": true
+  },
+  {
+    "slug": "delts/lever-seated-reverse-fly",
+    "nameZh": "器械反向飞鸟",
+    "nameEn": "Lever Seated Reverse Fly",
+    "primaryMuscle": "delts",
+    "primaryMuscleZh": "三角肌",
+    "secondaryMuscles": [
+      "traps",
+      "upper-back"
+    ],
+    "secondaryMusclesZh": [
+      "斜方肌",
+      "上背部"
+    ],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "shoulders",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_shoulders"
+    ],
+    "cueZh": "躯干稳定、肩膀远离耳朵；手肘向两侧打开，控制回程，不耸肩借力。",
+    "sourceFile": "delts/lever-seated-reverse-fly.gif",
+    "mediaPath": "/gym/media/exercises/delts/lever-seated-reverse-fly.gif",
+    "isActive": true
+  },
+  {
+    "slug": "delts/cable-standing-cross-over-high-reverse-fly",
+    "nameZh": "绳索反向飞鸟",
+    "nameEn": "Cable Standing Cross Over High Reverse Fly",
+    "primaryMuscle": "delts",
+    "primaryMuscleZh": "三角肌",
+    "secondaryMuscles": [
+      "traps",
+      "upper-back"
+    ],
+    "secondaryMusclesZh": [
+      "斜方肌",
+      "上背部"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "shoulders",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_shoulders"
+    ],
+    "cueZh": "躯干稳定、肩膀远离耳朵；手肘向两侧打开，控制回程，不耸肩借力。",
+    "sourceFile": "delts/cable-standing-cross-over-high-reverse-fly.gif",
+    "mediaPath": "/gym/media/exercises/delts/cable-standing-cross-over-high-reverse-fly.gif",
+    "isActive": true
+  },
+  {
+    "slug": "biceps/barbell-curl",
+    "nameZh": "杠铃弯举",
+    "nameEn": "Barbell Curl",
+    "primaryMuscle": "biceps",
+    "primaryMuscleZh": "肱二头肌",
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMusclesZh": [
+      "前臂"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂靠近身体或支撑面并保持稳定；弯起后控制下放，不用躯干摆动借力。",
+    "sourceFile": "biceps/barbell-curl.gif",
+    "mediaPath": "/gym/media/exercises/biceps/barbell-curl.gif",
+    "isActive": true
+  },
+  {
+    "slug": "biceps/barbell-preacher-curl",
+    "nameZh": "牧师凳杠铃弯举",
+    "nameEn": "Barbell Preacher Curl",
+    "primaryMuscle": "biceps",
+    "primaryMuscleZh": "肱二头肌",
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMusclesZh": [
+      "前臂"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂靠近身体或支撑面并保持稳定；弯起后控制下放，不用躯干摆动借力。",
+    "sourceFile": "biceps/barbell-preacher-curl.gif",
+    "mediaPath": "/gym/media/exercises/biceps/barbell-preacher-curl.gif",
+    "isActive": true
+  },
+  {
+    "slug": "biceps/dumbbell-biceps-curl",
+    "nameZh": "哑铃弯举",
+    "nameEn": "Dumbbell Biceps Curl",
+    "primaryMuscle": "biceps",
+    "primaryMuscleZh": "肱二头肌",
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMusclesZh": [
+      "前臂"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂靠近身体或支撑面并保持稳定；弯起后控制下放，不用躯干摆动借力。",
+    "sourceFile": "biceps/dumbbell-biceps-curl.gif",
+    "mediaPath": "/gym/media/exercises/biceps/dumbbell-biceps-curl.gif",
+    "isActive": true
+  },
+  {
+    "slug": "biceps/dumbbell-hammer-curl",
+    "nameZh": "哑铃锤式弯举",
+    "nameEn": "Dumbbell Hammer Curl",
+    "primaryMuscle": "biceps",
+    "primaryMuscleZh": "肱二头肌",
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMusclesZh": [
+      "前臂"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂靠近身体或支撑面并保持稳定；弯起后控制下放，不用躯干摆动借力。",
+    "sourceFile": "biceps/dumbbell-hammer-curl.gif",
+    "mediaPath": "/gym/media/exercises/biceps/dumbbell-hammer-curl.gif",
+    "isActive": true
+  },
+  {
+    "slug": "biceps/dumbbell-incline-biceps-curl",
+    "nameZh": "上斜哑铃弯举",
+    "nameEn": "Dumbbell Incline Biceps Curl",
+    "primaryMuscle": "biceps",
+    "primaryMuscleZh": "肱二头肌",
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMusclesZh": [
+      "前臂"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂靠近身体或支撑面并保持稳定；弯起后控制下放，不用躯干摆动借力。",
+    "sourceFile": "biceps/dumbbell-incline-biceps-curl.gif",
+    "mediaPath": "/gym/media/exercises/biceps/dumbbell-incline-biceps-curl.gif",
+    "isActive": true
+  },
+  {
+    "slug": "biceps/cable-curl",
+    "nameZh": "绳索弯举",
+    "nameEn": "Cable Curl",
+    "primaryMuscle": "biceps",
+    "primaryMuscleZh": "肱二头肌",
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMusclesZh": [
+      "前臂"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂靠近身体或支撑面并保持稳定；弯起后控制下放，不用躯干摆动借力。",
+    "sourceFile": "biceps/cable-curl.gif",
+    "mediaPath": "/gym/media/exercises/biceps/cable-curl.gif",
+    "isActive": true
+  },
+  {
+    "slug": "biceps/cable-hammer-curl-with-rope",
+    "nameZh": "绳索锤式弯举",
+    "nameEn": "Cable Hammer Curl With Rope",
+    "primaryMuscle": "biceps",
+    "primaryMuscleZh": "肱二头肌",
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMusclesZh": [
+      "前臂"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂靠近身体或支撑面并保持稳定；弯起后控制下放，不用躯干摆动借力。",
+    "sourceFile": "biceps/cable-hammer-curl-with-rope.gif",
+    "mediaPath": "/gym/media/exercises/biceps/cable-hammer-curl-with-rope.gif",
+    "isActive": true
+  },
+  {
+    "slug": "biceps/cable-preacher-curl",
+    "nameZh": "绳索牧师凳弯举",
+    "nameEn": "Cable Preacher Curl",
+    "primaryMuscle": "biceps",
+    "primaryMuscleZh": "肱二头肌",
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMusclesZh": [
+      "前臂"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂靠近身体或支撑面并保持稳定；弯起后控制下放，不用躯干摆动借力。",
+    "sourceFile": "biceps/cable-preacher-curl.gif",
+    "mediaPath": "/gym/media/exercises/biceps/cable-preacher-curl.gif",
+    "isActive": true
+  },
+  {
+    "slug": "biceps/lever-preacher-curl",
+    "nameZh": "器械牧师凳弯举",
+    "nameEn": "Lever Preacher Curl",
+    "primaryMuscle": "biceps",
+    "primaryMuscleZh": "肱二头肌",
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMusclesZh": [
+      "前臂"
+    ],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂靠近身体或支撑面并保持稳定；弯起后控制下放，不用躯干摆动借力。",
+    "sourceFile": "biceps/lever-preacher-curl.gif",
+    "mediaPath": "/gym/media/exercises/biceps/lever-preacher-curl.gif",
+    "isActive": true
+  },
+  {
+    "slug": "biceps/barbell-reverse-curl",
+    "nameZh": "反握杠铃弯举",
+    "nameEn": "Barbell Reverse Curl",
+    "primaryMuscle": "biceps",
+    "primaryMuscleZh": "肱二头肌",
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMusclesZh": [
+      "前臂"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_pull",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂靠近身体或支撑面并保持稳定；弯起后控制下放，不用躯干摆动借力。",
+    "sourceFile": "biceps/barbell-reverse-curl.gif",
+    "mediaPath": "/gym/media/exercises/biceps/barbell-reverse-curl.gif",
+    "isActive": true
+  },
+  {
+    "slug": "triceps/cable-pushdown-with-rope-attachment",
+    "nameZh": "绳索下压",
+    "nameEn": "Cable Pushdown With Rope Attachment",
+    "primaryMuscle": "triceps",
+    "primaryMuscleZh": "肱三头肌",
+    "secondaryMuscles": [
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂贴近身体并固定；伸肘时控制到底，回程缓慢，不耸肩或锁肘顶死。",
+    "sourceFile": "triceps/cable-pushdown-with-rope-attachment.gif",
+    "mediaPath": "/gym/media/exercises/triceps/cable-pushdown-with-rope-attachment.gif",
+    "isActive": true
+  },
+  {
+    "slug": "triceps/cable-pushdown",
+    "nameZh": "直杆下压",
+    "nameEn": "Cable Pushdown",
+    "primaryMuscle": "triceps",
+    "primaryMuscleZh": "肱三头肌",
+    "secondaryMuscles": [
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂贴近身体并固定；伸肘时控制到底，回程缓慢，不耸肩或锁肘顶死。",
+    "sourceFile": "triceps/cable-pushdown.gif",
+    "mediaPath": "/gym/media/exercises/triceps/cable-pushdown.gif",
+    "isActive": true
+  },
+  {
+    "slug": "triceps/cable-high-pulley-overhead-tricep-extension",
+    "nameZh": "绳索过顶臂屈伸",
+    "nameEn": "Cable High Pulley Overhead Tricep Extension",
+    "primaryMuscle": "triceps",
+    "primaryMuscleZh": "肱三头肌",
+    "secondaryMuscles": [
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂尽量保持稳定，在肘部舒适范围屈伸；回程慢而可控，不外展顶肩。",
+    "sourceFile": "triceps/cable-high-pulley-overhead-tricep-extension.gif",
+    "mediaPath": "/gym/media/exercises/triceps/cable-high-pulley-overhead-tricep-extension.gif",
+    "isActive": true
+  },
+  {
+    "slug": "triceps/cable-one-arm-tricep-pushdown",
+    "nameZh": "单臂绳索下压",
+    "nameEn": "Cable One Arm Tricep Pushdown",
+    "primaryMuscle": "triceps",
+    "primaryMuscleZh": "肱三头肌",
+    "secondaryMuscles": [
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂贴近身体并固定；伸肘时控制到底，回程缓慢，不耸肩或锁肘顶死。",
+    "sourceFile": "triceps/cable-one-arm-tricep-pushdown.gif",
+    "mediaPath": "/gym/media/exercises/triceps/cable-one-arm-tricep-pushdown.gif",
+    "isActive": true
+  },
+  {
+    "slug": "triceps/barbell-lying-triceps-extension-skull-crusher",
+    "nameZh": "仰卧杠铃臂屈伸",
+    "nameEn": "Barbell Lying Triceps Extension Skull Crusher",
+    "primaryMuscle": "triceps",
+    "primaryMuscleZh": "肱三头肌",
+    "secondaryMuscles": [
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂尽量保持稳定，在肘部舒适范围屈伸；回程慢而可控，不外展顶肩。",
+    "sourceFile": "triceps/barbell-lying-triceps-extension-skull-crusher.gif",
+    "mediaPath": "/gym/media/exercises/triceps/barbell-lying-triceps-extension-skull-crusher.gif",
+    "isActive": true
+  },
+  {
+    "slug": "triceps/barbell-seated-overhead-triceps-extension",
+    "nameZh": "坐姿杠铃过顶臂屈伸",
+    "nameEn": "Barbell Seated Overhead Triceps Extension",
+    "primaryMuscle": "triceps",
+    "primaryMuscleZh": "肱三头肌",
+    "secondaryMuscles": [
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂尽量保持稳定，在肘部舒适范围屈伸；回程慢而可控，不外展顶肩。",
+    "sourceFile": "triceps/barbell-seated-overhead-triceps-extension.gif",
+    "mediaPath": "/gym/media/exercises/triceps/barbell-seated-overhead-triceps-extension.gif",
+    "isActive": true
+  },
+  {
+    "slug": "triceps/lever-triceps-extension",
+    "nameZh": "器械臂屈伸",
+    "nameEn": "Lever Triceps Extension",
+    "primaryMuscle": "triceps",
+    "primaryMuscleZh": "肱三头肌",
+    "secondaryMuscles": [
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌"
+    ],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂尽量保持稳定，在肘部舒适范围屈伸；回程慢而可控，不外展顶肩。",
+    "sourceFile": "triceps/lever-triceps-extension.gif",
+    "mediaPath": "/gym/media/exercises/triceps/lever-triceps-extension.gif",
+    "isActive": true
+  },
+  {
+    "slug": "triceps/barbell-close-grip-bench-press",
+    "nameZh": "窄握卧推",
+    "nameEn": "Barbell Close Grip Bench Press",
+    "primaryMuscle": "triceps",
+    "primaryMuscleZh": "肱三头肌",
+    "secondaryMuscles": [
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂尽量保持稳定，在肘部舒适范围屈伸；回程慢而可控，不外展顶肩。",
+    "sourceFile": "triceps/barbell-close-grip-bench-press.gif",
+    "mediaPath": "/gym/media/exercises/triceps/barbell-close-grip-bench-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "triceps/assisted-triceps-dip-kneeling",
+    "nameZh": "辅助双杠臂屈伸（肱三头）",
+    "nameEn": "Assisted Triceps Dip Kneeling",
+    "primaryMuscle": "triceps",
+    "primaryMuscleZh": "肱三头肌",
+    "secondaryMuscles": [
+      "delts",
+      "pectorals"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌",
+      "胸肌"
+    ],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂尽量保持稳定，在肘部舒适范围屈伸；回程慢而可控，不外展顶肩。",
+    "sourceFile": "triceps/assisted-triceps-dip-kneeling.gif",
+    "mediaPath": "/gym/media/exercises/triceps/assisted-triceps-dip-kneeling.gif",
+    "isActive": true
+  },
+  {
+    "slug": "triceps/dumbbell-kickback",
+    "nameZh": "哑铃臂后伸",
+    "nameEn": "Dumbbell Kickback",
+    "primaryMuscle": "triceps",
+    "primaryMuscleZh": "肱三头肌",
+    "secondaryMuscles": [
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "arms",
+    "category": "strength",
+    "splitTags": [
+      "ppl_push",
+      "upper_lower_upper",
+      "five_arms"
+    ],
+    "cueZh": "上臂尽量保持稳定，在肘部舒适范围屈伸；回程慢而可控，不外展顶肩。",
+    "sourceFile": "triceps/dumbbell-kickback.gif",
+    "mediaPath": "/gym/media/exercises/triceps/dumbbell-kickback.gif",
+    "isActive": true
+  },
+  {
+    "slug": "glutes/barbell-full-squat",
+    "nameZh": "杠铃深蹲",
+    "nameEn": "Barbell Full Squat",
+    "primaryMuscle": "glutes",
+    "primaryMuscleZh": "臀肌",
+    "secondaryMuscles": [
+      "hamstrings",
+      "calves"
+    ],
+    "secondaryMusclesZh": [
+      "腘绳肌",
+      "小腿"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "全脚掌踩稳，膝盖跟随脚尖方向；下蹲时保持躯干稳定，按活动度控制深度。",
+    "sourceFile": "glutes/barbell-full-squat.gif",
+    "mediaPath": "/gym/media/exercises/glutes/barbell-full-squat.gif",
+    "isActive": true
+  },
+  {
+    "slug": "glutes/barbell-front-squat",
+    "nameZh": "杠铃前蹲",
+    "nameEn": "Barbell Front Squat",
+    "primaryMuscle": "glutes",
+    "primaryMuscleZh": "臀肌",
+    "secondaryMuscles": [
+      "hamstrings",
+      "calves"
+    ],
+    "secondaryMusclesZh": [
+      "腘绳肌",
+      "小腿"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "全脚掌踩稳，膝盖跟随脚尖方向；下蹲时保持躯干稳定，按活动度控制深度。",
+    "sourceFile": "glutes/barbell-front-squat.gif",
+    "mediaPath": "/gym/media/exercises/glutes/barbell-front-squat.gif",
+    "isActive": true
+  },
+  {
+    "slug": "quads/dumbbell-goblet-squat",
+    "nameZh": "哑铃高脚杯深蹲",
+    "nameEn": "Dumbbell Goblet Squat",
+    "primaryMuscle": "quads",
+    "primaryMuscleZh": "股四头肌",
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "secondaryMusclesZh": [
+      "臀肌",
+      "腘绳肌",
+      "小腿"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "全脚掌踩稳，膝盖跟随脚尖方向；下蹲时保持躯干稳定，按活动度控制深度。",
+    "sourceFile": "quads/dumbbell-goblet-squat.gif",
+    "mediaPath": "/gym/media/exercises/quads/dumbbell-goblet-squat.gif",
+    "isActive": true
+  },
+  {
+    "slug": "quads/lever-alternate-leg-press",
+    "nameZh": "腿举机",
+    "nameEn": "Lever Alternate Leg Press",
+    "primaryMuscle": "quads",
+    "primaryMuscleZh": "股四头肌",
+    "secondaryMuscles": [
+      "triceps",
+      "delts"
+    ],
+    "secondaryMusclesZh": [
+      "肱三头肌",
+      "三角肌"
+    ],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "腰背贴稳靠垫，膝盖对准脚尖；下降到骨盆不卷起的位置，再平稳推回。",
+    "sourceFile": "quads/lever-alternate-leg-press.gif",
+    "mediaPath": "/gym/media/exercises/quads/lever-alternate-leg-press.gif",
+    "isActive": true
+  },
+  {
+    "slug": "quads/lever-leg-extension",
+    "nameZh": "坐姿腿屈伸",
+    "nameEn": "Lever Leg Extension",
+    "primaryMuscle": "quads",
+    "primaryMuscleZh": "股四头肌",
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings"
+    ],
+    "secondaryMusclesZh": [
+      "臀肌",
+      "腘绳肌"
+    ],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "脚掌踩稳，膝盖跟随脚尖；按能力控制深度，不追求疼痛范围。",
+    "sourceFile": "quads/lever-leg-extension.gif",
+    "mediaPath": "/gym/media/exercises/quads/lever-leg-extension.gif",
+    "isActive": true
+  },
+  {
+    "slug": "quads/barbell-split-squat-v-2",
+    "nameZh": "杠铃分腿蹲",
+    "nameEn": "Barbell Split Squat v2",
+    "primaryMuscle": "quads",
+    "primaryMuscleZh": "股四头肌",
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "secondaryMusclesZh": [
+      "臀肌",
+      "腘绳肌",
+      "小腿"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "全脚掌踩稳，膝盖跟随脚尖方向；下蹲时保持躯干稳定，按活动度控制深度。",
+    "sourceFile": "quads/barbell-split-squat-v-2.gif",
+    "mediaPath": "/gym/media/exercises/quads/barbell-split-squat-v-2.gif",
+    "isActive": true
+  },
+  {
+    "slug": "quads/dumbbell-single-leg-split-squat",
+    "nameZh": "哑铃保加利亚分腿蹲",
+    "nameEn": "Dumbbell Single Leg Split Squat",
+    "primaryMuscle": "quads",
+    "primaryMuscleZh": "股四头肌",
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "secondaryMusclesZh": [
+      "臀肌",
+      "腘绳肌",
+      "小腿"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "全脚掌踩稳，膝盖跟随脚尖方向；下蹲时保持躯干稳定，按活动度控制深度。",
+    "sourceFile": "quads/dumbbell-single-leg-split-squat.gif",
+    "mediaPath": "/gym/media/exercises/quads/dumbbell-single-leg-split-squat.gif",
+    "isActive": true
+  },
+  {
+    "slug": "quads/dumbbell-step-up-lunge",
+    "nameZh": "哑铃上台阶",
+    "nameEn": "Dumbbell Step Up Lunge",
+    "primaryMuscle": "quads",
+    "primaryMuscleZh": "股四头肌",
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "secondaryMusclesZh": [
+      "臀肌",
+      "腘绳肌",
+      "小腿"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "前脚踩稳、膝盖跟随脚尖；身体保持平衡，缓慢下放后由前腿发力站起。",
+    "sourceFile": "quads/dumbbell-step-up-lunge.gif",
+    "mediaPath": "/gym/media/exercises/quads/dumbbell-step-up-lunge.gif",
+    "isActive": true
+  },
+  {
+    "slug": "quads/smith-chair-squat",
+    "nameZh": "史密斯箱式深蹲",
+    "nameEn": "Smith Chair Squat",
+    "primaryMuscle": "quads",
+    "primaryMuscleZh": "股四头肌",
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "secondaryMusclesZh": [
+      "臀肌",
+      "腘绳肌",
+      "小腿"
+    ],
+    "equipment": "smith",
+    "equipmentZh": "史密斯机",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "全脚掌踩稳，膝盖跟随脚尖方向；下蹲时保持躯干稳定，按活动度控制深度。",
+    "sourceFile": "quads/smith-chair-squat.gif",
+    "mediaPath": "/gym/media/exercises/quads/smith-chair-squat.gif",
+    "isActive": true
+  },
+  {
+    "slug": "quads/barbell-side-split-squat",
+    "nameZh": "杠铃侧向分腿蹲",
+    "nameEn": "Barbell Side Split Squat",
+    "primaryMuscle": "quads",
+    "primaryMuscleZh": "股四头肌",
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "secondaryMusclesZh": [
+      "臀肌",
+      "腘绳肌",
+      "小腿"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "全脚掌踩稳，膝盖跟随脚尖方向；下蹲时保持躯干稳定，按活动度控制深度。",
+    "sourceFile": "quads/barbell-side-split-squat.gif",
+    "mediaPath": "/gym/media/exercises/quads/barbell-side-split-squat.gif",
+    "isActive": true
+  },
+  {
+    "slug": "hamstrings/lever-lying-leg-curl",
+    "nameZh": "俯卧腿弯举",
+    "nameEn": "Lever Lying Leg Curl",
+    "primaryMuscle": "hamstrings",
+    "primaryMuscleZh": "腘绳肌",
+    "secondaryMuscles": [
+      "glutes",
+      "calves"
+    ],
+    "secondaryMusclesZh": [
+      "臀肌",
+      "小腿"
+    ],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "膝关节对准器械转轴，屈膝时平稳发力；回程缓慢，不用惯性弹动。",
+    "sourceFile": "hamstrings/lever-lying-leg-curl.gif",
+    "mediaPath": "/gym/media/exercises/hamstrings/lever-lying-leg-curl.gif",
+    "isActive": true
+  },
+  {
+    "slug": "hamstrings/lever-seated-leg-curl",
+    "nameZh": "坐姿腿弯举",
+    "nameEn": "Lever Seated Leg Curl",
+    "primaryMuscle": "hamstrings",
+    "primaryMuscleZh": "腘绳肌",
+    "secondaryMuscles": [
+      "glutes",
+      "calves"
+    ],
+    "secondaryMusclesZh": [
+      "臀肌",
+      "小腿"
+    ],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "膝关节对准器械转轴，屈膝时平稳发力；回程缓慢，不用惯性弹动。",
+    "sourceFile": "hamstrings/lever-seated-leg-curl.gif",
+    "mediaPath": "/gym/media/exercises/hamstrings/lever-seated-leg-curl.gif",
+    "isActive": true
+  },
+  {
+    "slug": "hamstrings/barbell-straight-leg-deadlift",
+    "nameZh": "杠铃直腿硬拉",
+    "nameEn": "Barbell Straight Leg Deadlift",
+    "primaryMuscle": "hamstrings",
+    "primaryMuscleZh": "腘绳肌",
+    "secondaryMuscles": [
+      "glutes",
+      "lats",
+      "traps",
+      "forearms",
+      "spine"
+    ],
+    "secondaryMusclesZh": [
+      "臀肌",
+      "背阔肌",
+      "斜方肌",
+      "前臂",
+      "竖脊肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "髋部向后折叠、膝微屈且脊柱中立；重物贴腿移动，感受大腿后侧拉伸。",
+    "sourceFile": "hamstrings/barbell-straight-leg-deadlift.gif",
+    "mediaPath": "/gym/media/exercises/hamstrings/barbell-straight-leg-deadlift.gif",
+    "isActive": true
+  },
+  {
+    "slug": "glutes/barbell-romanian-deadlift",
+    "nameZh": "杠铃罗马尼亚硬拉",
+    "nameEn": "Barbell Romanian Deadlift",
+    "primaryMuscle": "glutes",
+    "primaryMuscleZh": "臀肌",
+    "secondaryMuscles": [
+      "hamstrings",
+      "lats",
+      "traps",
+      "forearms",
+      "spine"
+    ],
+    "secondaryMusclesZh": [
+      "腘绳肌",
+      "背阔肌",
+      "斜方肌",
+      "前臂",
+      "竖脊肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "膝微屈、髋部向后折叠，重物贴近腿部；保持脊柱中立，用臀腿伸髋站起。",
+    "sourceFile": "glutes/barbell-romanian-deadlift.gif",
+    "mediaPath": "/gym/media/exercises/glutes/barbell-romanian-deadlift.gif",
+    "isActive": true
+  },
+  {
+    "slug": "glutes/dumbbell-romanian-deadlift",
+    "nameZh": "哑铃罗马尼亚硬拉",
+    "nameEn": "Dumbbell Romanian Deadlift",
+    "primaryMuscle": "glutes",
+    "primaryMuscleZh": "臀肌",
+    "secondaryMuscles": [
+      "hamstrings",
+      "lats",
+      "traps",
+      "forearms",
+      "spine"
+    ],
+    "secondaryMusclesZh": [
+      "腘绳肌",
+      "背阔肌",
+      "斜方肌",
+      "前臂",
+      "竖脊肌"
+    ],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "膝微屈、髋部向后折叠，重物贴近腿部；保持脊柱中立，用臀腿伸髋站起。",
+    "sourceFile": "glutes/dumbbell-romanian-deadlift.gif",
+    "mediaPath": "/gym/media/exercises/glutes/dumbbell-romanian-deadlift.gif",
+    "isActive": true
+  },
+  {
+    "slug": "glutes/barbell-glute-bridge",
+    "nameZh": "杠铃臀桥",
+    "nameEn": "Barbell Glute Bridge",
+    "primaryMuscle": "glutes",
+    "primaryMuscleZh": "臀肌",
+    "secondaryMuscles": [
+      "hamstrings",
+      "abs"
+    ],
+    "secondaryMusclesZh": [
+      "腘绳肌",
+      "腹肌"
+    ],
+    "equipment": "barbell",
+    "equipmentZh": "杠铃",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "肋骨下沉、骨盆保持中立；用臀部抬髋，顶端收紧但不要过度反弓腰部。",
+    "sourceFile": "glutes/barbell-glute-bridge.gif",
+    "mediaPath": "/gym/media/exercises/glutes/barbell-glute-bridge.gif",
+    "isActive": true
+  },
+  {
+    "slug": "glutes/low-glute-bridge-on-floor",
+    "nameZh": "臀桥",
+    "nameEn": "Low Glute Bridge On Floor",
+    "primaryMuscle": "glutes",
+    "primaryMuscleZh": "臀肌",
+    "secondaryMuscles": [
+      "hamstrings",
+      "abs"
+    ],
+    "secondaryMusclesZh": [
+      "腘绳肌",
+      "腹肌"
+    ],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "肋骨下沉、骨盆保持中立；用臀部抬髋，顶端收紧但不要过度反弓腰部。",
+    "sourceFile": "glutes/low-glute-bridge-on-floor.gif",
+    "mediaPath": "/gym/media/exercises/glutes/low-glute-bridge-on-floor.gif",
+    "isActive": true
+  },
+  {
+    "slug": "glutes/cable-pull-through-with-rope",
+    "nameZh": "绳索 pull-through 臀铰链",
+    "nameEn": "Cable Pull Through With Rope",
+    "primaryMuscle": "glutes",
+    "primaryMuscleZh": "臀肌",
+    "secondaryMuscles": [
+      "hamstrings",
+      "spine"
+    ],
+    "secondaryMusclesZh": [
+      "腘绳肌",
+      "竖脊肌"
+    ],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "保持躯干稳定，以髋关节伸展发力；顶端收紧臀部但不顶腰。",
+    "sourceFile": "glutes/cable-pull-through-with-rope.gif",
+    "mediaPath": "/gym/media/exercises/glutes/cable-pull-through-with-rope.gif",
+    "isActive": true
+  },
+  {
+    "slug": "glutes/resistance-band-hip-thrusts-on-knees-female",
+    "nameZh": "跪姿弹力带髋推",
+    "nameEn": "Resistance Band Hip Thrusts On Knees Female",
+    "primaryMuscle": "glutes",
+    "primaryMuscleZh": "臀肌",
+    "secondaryMuscles": [
+      "hamstrings",
+      "abs"
+    ],
+    "secondaryMusclesZh": [
+      "腘绳肌",
+      "腹肌"
+    ],
+    "equipment": "band",
+    "equipmentZh": "弹力带",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "肋骨下沉、骨盆保持中立；用臀部抬髋，顶端收紧但不要过度反弓腰部。",
+    "sourceFile": "glutes/resistance-band-hip-thrusts-on-knees-female.gif",
+    "mediaPath": "/gym/media/exercises/glutes/resistance-band-hip-thrusts-on-knees-female.gif",
+    "isActive": true
+  },
+  {
+    "slug": "abductors/lever-seated-hip-abduction",
+    "nameZh": "坐姿髋外展",
+    "nameEn": "Lever Seated Hip Abduction",
+    "primaryMuscle": "abductors",
+    "primaryMuscleZh": "髋外展肌群",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "躯干和骨盆保持稳定；用髋部肌群控制开合，不用快速弹动或左右摇摆。",
+    "sourceFile": "abductors/lever-seated-hip-abduction.gif",
+    "mediaPath": "/gym/media/exercises/abductors/lever-seated-hip-abduction.gif",
+    "isActive": true
+  },
+  {
+    "slug": "adductors/lever-seated-hip-adduction",
+    "nameZh": "坐姿髋内收",
+    "nameEn": "Lever Seated Hip Adduction",
+    "primaryMuscle": "adductors",
+    "primaryMuscleZh": "髋内收肌群",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "躯干和骨盆保持稳定；用髋部肌群控制开合，不用快速弹动或左右摇摆。",
+    "sourceFile": "adductors/lever-seated-hip-adduction.gif",
+    "mediaPath": "/gym/media/exercises/adductors/lever-seated-hip-adduction.gif",
+    "isActive": true
+  },
+  {
+    "slug": "calves/lever-seated-calf-raise",
+    "nameZh": "坐姿提踵",
+    "nameEn": "Lever Seated Calf Raise",
+    "primaryMuscle": "calves",
+    "primaryMuscleZh": "小腿",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "脚掌前部踩稳，脚跟充分下沉再抬高；顶端稍停，避免弹震借力。",
+    "sourceFile": "calves/lever-seated-calf-raise.gif",
+    "mediaPath": "/gym/media/exercises/calves/lever-seated-calf-raise.gif",
+    "isActive": true
+  },
+  {
+    "slug": "calves/lever-standing-calf-raise",
+    "nameZh": "站姿器械提踵",
+    "nameEn": "Lever Standing Calf Raise",
+    "primaryMuscle": "calves",
+    "primaryMuscleZh": "小腿",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "lever",
+    "equipmentZh": "固定器械",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "脚掌前部踩稳，脚跟充分下沉再抬高；顶端稍停，避免弹震借力。",
+    "sourceFile": "calves/lever-standing-calf-raise.gif",
+    "mediaPath": "/gym/media/exercises/calves/lever-standing-calf-raise.gif",
+    "isActive": true
+  },
+  {
+    "slug": "calves/standing-calf-raise-on-a-staircase",
+    "nameZh": "台阶站姿提踵",
+    "nameEn": "Standing Calf Raise On A Staircase",
+    "primaryMuscle": "calves",
+    "primaryMuscleZh": "小腿",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "脚掌前部踩稳，脚跟充分下沉再抬高；顶端稍停，避免弹震借力。",
+    "sourceFile": "calves/standing-calf-raise-on-a-staircase.gif",
+    "mediaPath": "/gym/media/exercises/calves/standing-calf-raise-on-a-staircase.gif",
+    "isActive": true
+  },
+  {
+    "slug": "calves/dumbbell-standing-calf-raise",
+    "nameZh": "哑铃站姿提踵",
+    "nameEn": "Dumbbell Standing Calf Raise",
+    "primaryMuscle": "calves",
+    "primaryMuscleZh": "小腿",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "dumbbell",
+    "equipmentZh": "哑铃",
+    "bodyPart": "legs",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_legs"
+    ],
+    "cueZh": "脚掌前部踩稳，脚跟充分下沉再抬高；顶端稍停，避免弹震借力。",
+    "sourceFile": "calves/dumbbell-standing-calf-raise.gif",
+    "mediaPath": "/gym/media/exercises/calves/dumbbell-standing-calf-raise.gif",
+    "isActive": true
+  },
+  {
+    "slug": "abs/cable-kneeling-crunch",
+    "nameZh": "跪姿绳索卷腹",
+    "nameEn": "Cable Kneeling Crunch",
+    "primaryMuscle": "abs",
+    "primaryMuscleZh": "腹肌",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "core",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_arms"
+    ],
+    "cueZh": "呼气时收紧腹部并卷起躯干，腰部保持舒适；回程缓慢，不用手臂拉颈部。",
+    "sourceFile": "abs/cable-kneeling-crunch.gif",
+    "mediaPath": "/gym/media/exercises/abs/cable-kneeling-crunch.gif",
+    "isActive": true
+  },
+  {
+    "slug": "abs/cable-standing-crunch-with-rope-attachment",
+    "nameZh": "站姿绳索卷腹",
+    "nameEn": "Cable Standing Crunch With Rope Attachment",
+    "primaryMuscle": "abs",
+    "primaryMuscleZh": "腹肌",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "core",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_arms"
+    ],
+    "cueZh": "呼气时收紧腹部并卷起躯干，腰部保持舒适；回程缓慢，不用手臂拉颈部。",
+    "sourceFile": "abs/cable-standing-crunch-with-rope-attachment.gif",
+    "mediaPath": "/gym/media/exercises/abs/cable-standing-crunch-with-rope-attachment.gif",
+    "isActive": true
+  },
+  {
+    "slug": "abs/captains-chair-straight-leg-raise",
+    "nameZh": "罗马椅直腿举",
+    "nameEn": "Captains Chair Straight Leg Raise",
+    "primaryMuscle": "abs",
+    "primaryMuscleZh": "腹肌",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "core",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_arms"
+    ],
+    "cueZh": "先收紧腹部并稳定骨盆，再抬腿；避免摆动借力和腰部过度反弓。",
+    "sourceFile": "abs/captains-chair-straight-leg-raise.gif",
+    "mediaPath": "/gym/media/exercises/abs/captains-chair-straight-leg-raise.gif",
+    "isActive": true
+  },
+  {
+    "slug": "abs/hanging-leg-raise",
+    "nameZh": "悬垂举腿",
+    "nameEn": "Hanging Leg Raise",
+    "primaryMuscle": "abs",
+    "primaryMuscleZh": "腹肌",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "core",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_arms"
+    ],
+    "cueZh": "先收紧腹部并稳定骨盆，再抬腿；避免摆动借力和腰部过度反弓。",
+    "sourceFile": "abs/hanging-leg-raise.gif",
+    "mediaPath": "/gym/media/exercises/abs/hanging-leg-raise.gif",
+    "isActive": true
+  },
+  {
+    "slug": "abs/assisted-hanging-knee-raise",
+    "nameZh": "辅助悬垂屈膝举腿",
+    "nameEn": "Assisted Hanging Knee Raise",
+    "primaryMuscle": "abs",
+    "primaryMuscleZh": "腹肌",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "core",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_arms"
+    ],
+    "cueZh": "先收紧腹部并稳定骨盆，再抬腿；避免摆动借力和腰部过度反弓。",
+    "sourceFile": "abs/assisted-hanging-knee-raise.gif",
+    "mediaPath": "/gym/media/exercises/abs/assisted-hanging-knee-raise.gif",
+    "isActive": true
+  },
+  {
+    "slug": "abs/crunch-floor",
+    "nameZh": "仰卧卷腹",
+    "nameEn": "Crunch Floor",
+    "primaryMuscle": "abs",
+    "primaryMuscleZh": "腹肌",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "core",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_arms"
+    ],
+    "cueZh": "呼气时收紧腹部并卷起躯干，腰部保持舒适；回程缓慢，不用手臂拉颈部。",
+    "sourceFile": "abs/crunch-floor.gif",
+    "mediaPath": "/gym/media/exercises/abs/crunch-floor.gif",
+    "isActive": true
+  },
+  {
+    "slug": "abs/decline-crunch",
+    "nameZh": "下斜凳卷腹",
+    "nameEn": "Decline Crunch",
+    "primaryMuscle": "abs",
+    "primaryMuscleZh": "腹肌",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "core",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_arms"
+    ],
+    "cueZh": "呼气时收紧腹部并卷起躯干，腰部保持舒适；回程缓慢，不用手臂拉颈部。",
+    "sourceFile": "abs/decline-crunch.gif",
+    "mediaPath": "/gym/media/exercises/abs/decline-crunch.gif",
+    "isActive": true
+  },
+  {
+    "slug": "abs/russian-twist",
+    "nameZh": "俄罗斯转体",
+    "nameEn": "Russian Twist",
+    "primaryMuscle": "abs",
+    "primaryMuscleZh": "腹肌",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "core",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_arms"
+    ],
+    "cueZh": "骨盆保持稳定，以躯干控制旋转；幅度适中、呼气发力，不猛甩腰部。",
+    "sourceFile": "abs/russian-twist.gif",
+    "mediaPath": "/gym/media/exercises/abs/russian-twist.gif",
+    "isActive": true
+  },
+  {
+    "slug": "abs/weighted-front-plank",
+    "nameZh": "负重平板支撑",
+    "nameEn": "Weighted Front Plank",
+    "primaryMuscle": "abs",
+    "primaryMuscleZh": "腹肌",
+    "secondaryMuscles": [
+      "delts",
+      "glutes"
+    ],
+    "secondaryMusclesZh": [
+      "三角肌",
+      "臀肌"
+    ],
+    "equipment": "bodyweight",
+    "equipmentZh": "徒手",
+    "bodyPart": "core",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_arms"
+    ],
+    "cueZh": "头、躯干和髋保持一条线，腹部持续收紧并正常呼吸；避免塌腰或憋气。",
+    "sourceFile": "abs/weighted-front-plank.gif",
+    "mediaPath": "/gym/media/exercises/abs/weighted-front-plank.gif",
+    "isActive": true
+  },
+  {
+    "slug": "abs/cable-seated-twist",
+    "nameZh": "坐姿绳索转体",
+    "nameEn": "Cable Seated Twist",
+    "primaryMuscle": "abs",
+    "primaryMuscleZh": "腹肌",
+    "secondaryMuscles": [],
+    "secondaryMusclesZh": [],
+    "equipment": "cable",
+    "equipmentZh": "绳索器械",
+    "bodyPart": "core",
+    "category": "strength",
+    "splitTags": [
+      "ppl_legs",
+      "upper_lower_lower",
+      "five_arms"
+    ],
+    "cueZh": "骨盆保持稳定，以躯干控制旋转；幅度适中、呼气发力，不猛甩腰部。",
+    "sourceFile": "abs/cable-seated-twist.gif",
+    "mediaPath": "/gym/media/exercises/abs/cable-seated-twist.gif",
+    "isActive": true
+  }
+]

@@ -1,0 +1,80 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - link "轻健身训练中心首页" [ref=e4] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e5]: TM
+      - generic [ref=e6]:
+        - strong [ref=e7]: 轻健身
+        - generic [ref=e8]: 训练中心
+    - generic [ref=e30]:
+      - generic [ref=e31]: yhone
+      - button "退出登录" [ref=e32] [cursor=pointer]
+  - generic [ref=e9]:
+    - paragraph [ref=e10]: THIN MUSCLE · TRAINING CENTER
+    - heading "你好，yhone" [level=1] [ref=e33]
+    - paragraph [ref=e12]: 总管理员账号已开放全部训练与管理权限。
+  - generic [ref=e34]:
+    - region "训练日历" [ref=e35]:
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - strong [ref=e38]: 训练日历
+          - generic [ref=e39]: 所有训练共用 · 本周已练 1 天 · 37分
+        - button "查看月度日历" [ref=e40] [cursor=pointer]
+      - generic [ref=e41]:
+        - button "2026-10-26" [ref=e42] [cursor=pointer]:
+          - generic [ref=e43]: "26"
+        - button "2026-10-27 已训练" [ref=e44] [cursor=pointer]:
+          - generic [ref=e45]: "27"
+        - button "2026-10-28" [ref=e46] [cursor=pointer]:
+          - generic [ref=e47]: "28"
+        - button "2026-10-29" [ref=e48] [cursor=pointer]:
+          - generic [ref=e49]: "29"
+        - button "2026-10-30" [ref=e50] [cursor=pointer]:
+          - generic [ref=e51]: "30"
+        - button "2026-10-31" [ref=e52] [cursor=pointer]:
+          - generic [ref=e53]: "31"
+        - button "2026-11-01" [ref=e54] [cursor=pointer]:
+          - generic [ref=e55]: "1"
+      - paragraph [ref=e56]: 健身房与会员自助历史按现有接口各汇总最近100条；仅统计已完成训练。
+    - generic [ref=e57]:
+      - generic [ref=e58]:
+        - paragraph [ref=e59]: YOUR ACCESS
+        - heading "可用训练入口" [level=2] [ref=e60]
+      - generic [ref=e61]: 总管理员
+    - generic [ref=e62]:
+      - generic [ref=e63]: 总管理员 · 全权限
+      - generic [ref=e64]: 居家训练已开放
+      - generic [ref=e65]: 会员自助计划已开放
+    - generic [ref=e66]:
+      - article [ref=e67]:
+        - heading "居家训练" [level=3] [ref=e68]
+        - paragraph [ref=e69]: 进入你的薄肌训练计划、计时与历史记录。
+        - link "进入居家训练" [ref=e70] [cursor=pointer]:
+          - /url: /home/
+          - text: 进入居家训练
+          - generic [aria-hidden] [ref=e71]: →
+      - article [ref=e72]:
+        - heading "健身房训练" [level=3] [ref=e73]
+        - paragraph [ref=e74]: 查看教练为你安排的计划，或进入健身房训练工作台。
+        - link "进入健身房训练" [ref=e75] [cursor=pointer]:
+          - /url: /gym/
+          - text: 进入健身房训练
+          - generic [aria-hidden] [ref=e76]: →
+      - article [ref=e77]:
+        - heading "会员自助计划" [level=3] [ref=e78]
+        - paragraph [ref=e79]: 创建、调整和确认自己的训练计划版本。
+        - link "管理我的训练计划" [ref=e80] [cursor=pointer]:
+          - /url: /member/
+          - text: 管理我的训练计划
+          - generic [aria-hidden] [ref=e81]: →
+      - article [ref=e82]:
+        - heading "管理工作台" [level=3] [ref=e83]
+        - paragraph [ref=e84]: 管理教练资格、会员授权、动作库与照片审核。
+        - link "打开管理工作台" [ref=e85] [cursor=pointer]:
+          - /url: /gym/
+          - text: 打开管理工作台
+          - generic [aria-hidden] [ref=e86]: →
+    - status [ref=e87]
+  - generic [ref=e27]:
+    - generic [ref=e28]: 训练计划与记录
+    - generic [ref=e29]: 本地部署 · 账号数据隔离

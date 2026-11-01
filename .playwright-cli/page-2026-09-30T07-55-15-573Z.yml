@@ -1,0 +1,29 @@
+- main [ref=f4e2]:
+  - link "轻健身训练中心首页" [ref=f4e4] [cursor=pointer]:
+    - /url: /
+    - generic [ref=f4e5]: TM
+    - generic [ref=f4e6]:
+      - strong [ref=f4e7]: 轻健身
+      - generic [ref=f4e8]: 训练中心
+  - generic [ref=f4e9]:
+    - paragraph [ref=f4e10]: THIN MUSCLE · TRAINING CENTER
+    - heading "训练安排，从这里开始" [level=1] [ref=f4e11]
+    - paragraph [ref=f4e12]: 登录后进入你的居家训练、健身房计划与训练记录。
+  - region [ref=f4e13]:
+    - generic [ref=f4e15]:
+      - paragraph [ref=f4e16]: ACCOUNT
+      - heading "登录你的账号" [level=2] [ref=f4e17]
+    - generic [ref=f4e18]:
+      - generic [ref=f4e19]:
+        - text: 用户名
+        - textbox "用户名" [ref=f4e20]
+      - generic [ref=f4e21]:
+        - text: 密码
+        - textbox "密码" [ref=f4e22]
+      - button "登录" [ref=f4e23] [cursor=pointer]
+    - status [ref=f4e24]
+    - button "没有账号？注册学员账号" [ref=f4e25] [cursor=pointer]
+    - paragraph [ref=f4e26]: 训练记录按账号隔离保存。会员功能根据账号权限开放。
+  - generic [ref=f4e27]:
+    - generic [ref=f4e28]: 训练计划与记录
+    - generic [ref=f4e29]: 本地部署 · 账号数据隔离
