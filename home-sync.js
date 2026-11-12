@@ -2,6 +2,9 @@
   const api = createApi();
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.HomeSync = api;
+  // This file is mounted at the site root, so it is also the service-worker
+  // entrypoint that can control /home/ without a Service-Worker-Allowed header.
+  if (typeof document === 'undefined' && typeof importScripts === 'function') importScripts('/portal/home-sw.js?v=20261112-3');
 })(globalThis, () => {
   const LEGACY_KEYS = Object.freeze([
     'thinMuscleDoneV8',
@@ -15,6 +18,7 @@
     'thinMuscleMrtV1',
     'thinMuscleCindyV1',
     'thinMuscleHomePlanV1',
+    'thinMuscleExerciseFavoritesV1',
   ]);
   const OWNER_KEY = 'thinMuscleStateOwnerV1';
   const SNAPSHOT_PREFIX = 'thinMuscleLocalSnapshotV1:';

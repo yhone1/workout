@@ -43,6 +43,23 @@ test('each round freezes its band load alongside level and setup revision',()=>{
   assert.equal(P.sameSetup(first,entry,1),false);assert.equal(first.levelName,'中阻力侧平举');assert.equal(entry.xp,23);
   assert.match(ctx.roundHistoryHtml(section,ex,2),/阻力 15 kg/);
 });
+
+test('changing combined bands between rounds preserves older snapshots and cannot claim same-setting progress',()=>{
+  const {ctx,growth}=context(),P=ctx.HomeProgression;
+  ctx.levelSnapshot=()=>({index:1,current:{name:'弹力带侧平举'},entry:growth});
+  P.setBandLoad(growth,1,{combination:'65+32',unit:'lb',mode:'resistance'});
+  ctx.savePerformanceEntry('main',1,ex.name,{reps:18,rir:3});
+  const original=JSON.stringify(ctx.activePerformanceEntry('main',1,ex.name));
+  P.setBandLoad(growth,1,{combination:'65+32+20',unit:'lb',mode:'resistance'});
+  for(const round of [2,3])ctx.savePerformanceEntry('main',round,ex.name,{reps:18,rir:3});
+  assert.equal(JSON.stringify(ctx.activePerformanceEntry('main',1,ex.name)),original);
+  assert.equal(P.bandLabel(ctx.activePerformanceEntry('main',1,ex.name).bandLoad),'阻力 65+32 lb');
+  assert.equal(P.bandLabel(ctx.activePerformanceEntry('main',2,ex.name).bandLoad),'阻力 65+32+20 lb');
+  const session=ctx.ensurePerformanceSession();session.finalized=true;
+  assert.equal(ctx.performanceAnalysis('push','A',section,ex).mode,'new');
+  ctx.processGrowthAfterSession(ctx.sessionState.active,session,'right');assert.equal(growth.upgradeStreak,0);assert.equal(growth.levelIndex,1);
+  assert.match(ctx.roundHistoryHtml(section,ex,3),/65\+32 lb.*65\+32\+20 lb/);
+});
 test('omitted RIR keeps the actual count through all three rounds',()=>{
   const {ctx}=context();record(ctx,[{rir:null}]);
   assert.equal(ctx.targetForRound('push','A',section,ex,2).target,13);
@@ -89,7 +106,7 @@ test('historical targets compare against each action own RIR',()=>{
 test('unfinished appended rounds do not become finalized calibration rows',()=>{
   const {ctx}=context();const session=record(ctx,[{rir:3},{rir:3},{rir:3},{rir:0}],true);
   session.roundProgress={main:{completed:3,target:4}};
-  const rows=ctx.latestFinalizedPerformance('push','A','main',ex.name).rows;
+  const rows=ctx.latestFinalizedPerformance('push','main',ex.name).rows;
   assert.equal(rows.length,3);assert.equal(rows.at(-1).rir,3);
 });
 test('no RIR and low reps do not accumulate an automatic downgrade',()=>{
@@ -105,9 +122,9 @@ test('explicit full rounds still permit an upgrade after two qualifying sessions
 });
 test('suggested reps are prefilled without saving them or selecting RIR; edits and clearing survive rendering',()=>{
   const {ctx}=context();const html=ctx.repLogHtml('push','A',section,ex,1,false);
-  assert.match(html,/value="15" placeholder="填写" data-reps-input/);
+  assert.match(html,/value="15" placeholder="填写" aria-label="每侧实际次数" data-reps-input/);
   assert.equal(Object.keys(ctx.ensurePerformanceSession().values).length,0);
-  assert.doesNotMatch(html,/class="rir-button active"/);assert.match(html,/rir-default active/);
+  assert.doesNotMatch(html,/class="rir-button active"/);assert.doesNotMatch(html,/data-rir-default/);
   ctx.savePerformanceEntry('main',1,ex.name,{reps:13,rir:null});
   const saved=ctx.repLogHtml('push','A',section,ex,1,false);
   assert.match(saved,/value="13"/);assert.doesNotMatch(saved,/class="rir-button active"/);
@@ -231,7 +248,7 @@ test('legacy unknown sets and timers are not retroactively assigned default RIR'
 
 test('real round-button and RIR handlers save defaults, allow overrides and retain input on error',()=>{
   const {ctx}=context(),listeners=new Map(),input={value:'13'},preview={innerHTML:''};
-  const makeButton=dataset=>({dataset,classList:{toggle(){}},addEventListener(type,fn){listeners.set(this,fn);},hasAttribute(name){return name==='data-rir-value'&&this.dataset.rirValue!==undefined;}});
+  const makeButton=dataset=>({dataset,classList:{toggle(){}},setAttribute(){},addEventListener(type,fn){listeners.set(this,fn);},hasAttribute(name){return name==='data-rir-value'&&this.dataset.rirValue!==undefined;}});
   const complete=makeButton({completeRound:'push::A::main',round:'1'}),fallback=makeButton({sectionId:'main',round:'1',exerciseName:ex.name});
   const zero=makeButton({...fallback.dataset,rirValue:'0'}),three=makeButton({...fallback.dataset,rirValue:'3'});
   const picker={querySelectorAll:()=>[fallback,zero,three]};
@@ -245,10 +262,10 @@ test('real round-button and RIR handlers save defaults, allow overrides and reta
   }
   ctx.bindPanelEvents(root);
   listeners.get(zero)();assert.equal(ctx.activePerformanceEntry('main',1,ex.name).rir,0);
-  listeners.get(fallback)();assert.equal(ctx.rirLabel(ctx.activePerformanceEntry('main',1,ex.name)),'1–2（默认）');
+  listeners.get(zero)();assert.equal(ctx.rirLabel(ctx.activePerformanceEntry('main',1,ex.name)),'1–2（默认）');
   assert.match(preview.innerHTML,/默认RIR 1–2/);
   listeners.get(three)();assert.equal(ctx.activePerformanceEntry('main',1,ex.name).rir,3);
-  listeners.get(fallback)();listeners.get(complete)();
+  listeners.get(three)();listeners.get(complete)();
   assert.equal(completed,1);assert.equal(renders,1);assert.equal(rests,1);
   assert.equal(ctx.rirLabel(ctx.activePerformanceEntry('main',1,ex.name)),'1–2（默认）');
   assert.equal(ctx.targetForRound('push','A',section,{...ex,rir:2},2).target,13);
@@ -257,4 +274,32 @@ test('real round-button and RIR handlers save defaults, allow overrides and reta
   assert.equal(ctx.activePerformanceEntry('main',2,ex.name),null);
   input.value='12';listeners.get(complete)();assert.equal(completed,2);
   assert.equal(ctx.rirLabel(ctx.activePerformanceEntry('main',2,ex.name)),'1–2（默认）');
+});
+
+test('an action moved between A/B groups inherits completed reps from the newest matching setup',()=>{
+  const {ctx,growth}=context();
+  const movement={name:'弹力带抗阻俯卧撑',repMin:6,repMax:12,rir:2};
+  const main={id:'main',rounds:3,exercises:[movement]};
+  growth.setupRevision=1;
+  ctx.levelSnapshot=()=>({index:1,current:{name:movement.name},entry:growth});
+  const row=(reps,setupRevision)=>({reps,...ctx.defaultRir(),levelIndex:1,setupRevision});
+  ctx.performanceState.sessions={
+    100:{day:'push',variant:'B',finalized:true,endedAt:100,roundProgress:{main:{completed:3}},values:Object.fromEntries([1,2,3].map(n=>[`main::${n}::${movement.name}`,row(12,0)]))},
+    200:{day:'push',variant:'A',finalized:true,endedAt:200,roundProgress:{secondary:{completed:2}},values:{[`secondary::1::${movement.name}`]:row(12,1),[`secondary::2::${movement.name}`]:row(12,1),[`secondary::3::${movement.name}`]:row(6,1)}},
+    300:{day:'push',variant:'B',finalized:false,endedAt:300,values:{[`main::1::${movement.name}`]:row(6,1)}}
+  };
+  const result=ctx.performanceAnalysis('push','B',main,movement);
+  assert.deepEqual(Array.from(result.targets),[12,12,12]);
+  assert.equal(result.rows.length,2);
+  assert.equal(ctx.targetForRound('push','B',main,movement,1).target,12);
+  growth.setupRevision=2;
+  assert.equal(ctx.targetForRound('push','B',main,movement,1).target,9);
+});
+
+test('hitting the rep cap keeps all targets at the cap while the setup stays the same',()=>{
+  const {ctx}=context(),movement={...ex,repMin:6,repMax:12,rir:2};
+  record(ctx,Array.from({length:3},()=>({reps:12,...ctx.defaultRir()})),true);
+  const result=ctx.performanceAnalysis('push','A',section,movement);
+  assert.equal(result.mode,'progress');
+  assert.deepEqual(Array.from(result.targets),[12,12,12]);
 });

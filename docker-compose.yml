@@ -22,6 +22,10 @@ services:
       DATABASE_URL: postgres://thin:thin@db:5432/thinmuscle
       PORT: 3000
       COACH_INVITE_ENCRYPTION_KEY: ${COACH_INVITE_ENCRYPTION_KEY:-}
+      AI_COACH_API_KEY: ${AI_COACH_API_KEY:-}
+      AI_COACH_BASE_URL: ${AI_COACH_BASE_URL:-https://api.deepseek.com}
+      AI_COACH_MODEL: ${AI_COACH_MODEL:-deepseek-chat}
+      AI_COACH_TIMEOUT_MS: ${AI_COACH_TIMEOUT_MS:-60000}
     ports:
       - "0.0.0.0:3001:3000"
     volumes:

@@ -92,6 +92,18 @@
   function usesBand(name){return /弹力带/.test(name)||routes[name]?.levels.some(item=>/弹力带/.test(item.name))||false;}
   function normalizeBandLoad(value){
     if(value==null)return null;
+    const combination=String(value.combination??'').trim().replace(/\s/g,'').replace(/＋/g,'+');
+    if(combination){
+      if(combination.length>80)throw Error('弹力带重量组合最多80字符。');
+      if(!['kg','lb'].includes(value.unit)||!['resistance','assistance'].includes(value.mode))throw Error('请选择kg或lb及阻力/辅助。');
+      const number='(?:\\d+(?:\\.\\d+)?|\\.\\d+)';
+      const range=combination.match(new RegExp(`^(${number})(?:[-–](${number}))?$`));
+      if(range)return normalizeBandLoad({min:range[1],max:range[2]||range[1],unit:value.unit,mode:value.mode});
+      if(!new RegExp(`^${number}(?:\\+${number})+$`).test(combination))throw Error('请填写单值、范围或加号组合，例如65、15-25、65+32+20（最多80字符）。');
+      const parts=combination.split('+').map(Number);
+      if(parts.some(n=>!Number.isFinite(n)||n<=0||n>1000))throw Error('每条弹力带的标称重量须大于0且不超过1000。');
+      return {combination:parts.join('+'),unit:value.unit,mode:value.mode};
+    }
     const low=String(value.min??'').trim(),high=String(value.max??'').trim();
     if(!low&&!high)return null;
     const min=Number(low),max=high?Number(high):min;
@@ -99,7 +111,8 @@
     return {min,max,unit:value.unit,mode:value.mode};
   }
   function bandLoad(entry,index=entry?.levelIndex){try{return normalizeBandLoad(entry?.bandLoads?.[index]);}catch{return null;}}
-  function bandLabel(value){try{const load=normalizeBandLoad(value);return load?`${load.mode==='assistance'?'辅助':'阻力'} ${load.min}${load.max!==load.min?'–'+load.max:''} ${load.unit}`:'';}catch{return '';}}
+  function bandInput(value){try{const load=normalizeBandLoad(value);return load?(load.combination||`${load.min}${load.max!==load.min?'–'+load.max:''}`):'';}catch{return '';}}
+  function bandLabel(value){try{const load=normalizeBandLoad(value);return load?`${load.mode==='assistance'?'辅助':'阻力'} ${bandInput(load)} ${load.unit}`:'';}catch{return '';}}
   function setBandLoad(entry,index,value){
     if(!Number.isInteger(index)||index<0)throw Error('动作等级无效。');
     const next=normalizeBandLoad(value);if(JSON.stringify(bandLoad(entry,index))===JSON.stringify(next))return false;
@@ -107,5 +120,5 @@
     if(next)loads[index]=next;else delete loads[index];
     entry.bandLoads=loads;entry.setupRevision=setupRevision(entry)+1;entry.upgradeStreak=0;entry.hardStreak=0;return true;
   }
-  return {extend,routes,escape,setupRevision,sameSetup,setSetup,usesBand,normalizeBandLoad,bandLoad,bandLabel,setBandLoad};
+  return {extend,routes,escape,setupRevision,sameSetup,setSetup,usesBand,normalizeBandLoad,bandLoad,bandInput,bandLabel,setBandLoad};
 });

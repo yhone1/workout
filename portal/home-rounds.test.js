@@ -16,7 +16,7 @@ function harness(saved,mode='threeDay'){
     'performanceSessionId','ensurePerformanceSession','performanceEntryKey','savePerformanceEntry','activePerformanceEntry',
     'ensureRoundFlow','getSectionsForVariant','getSections','completedRounds','workoutRoundSummary','persistRoundProgress',
     'addWorkoutRound','advanceWorkoutSection','activePhase','roundProgressText','processGrowthAfterSession','roundSectionChoiceHtml',
-    'rirLabel','previousRoundSession','previousRoundHistoryHtml']){
+    'roundCompletionActionsHtml','isWarmupRound','rirLabel','previousRoundSession','previousRoundHistoryHtml']){
     const start=source.indexOf(`  function ${name}(`),end=source.indexOf('\n  function ',start+1);
     assert.ok(start>=0&&end>start,name);vm.runInContext(source.slice(start,end),ctx);
   }

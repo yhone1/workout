@@ -1,0 +1,701 @@
+/* 轻健身 Home v2：只改视觉与布局，不改业务结构。 */
+html{background:var(--bg)}
+body{
+  margin:0;min-height:100vh;color:var(--text);background:var(--bg);
+  font-family:var(--font-sans);font-size:15px;line-height:1.55;
+  padding-bottom:calc(84px + env(safe-area-inset-bottom));
+}
+body.training-focus{padding-bottom:calc(120px + env(safe-area-inset-bottom))}
+h1,h2,h3,h4,p{margin-top:0}
+button{font-family:inherit}
+a{color:var(--accent)}
+
+/* ── 导航：桌面侧栏 / 手机底栏 ── */
+.app-rail{
+  position:fixed;left:0;top:0;bottom:0;z-index:70;width:220px;
+  display:none;flex-direction:column;gap:4px;padding:24px 16px;
+  background:var(--rail);border-right:1px solid var(--line);
+}
+.rail-brand{display:flex;align-items:center;gap:10px;margin:0 8px 24px}
+.brand-mark{
+  display:grid;place-items:center;width:36px;height:36px;border-radius:10px;
+  background:var(--accent);color:var(--accent-ink);font-size:14px;font-weight:800;letter-spacing:-.04em;
+}
+.rail-brand strong{font-size:17px;font-weight:700}
+.rail-nav{display:flex;flex-direction:column;gap:4px}
+.rail-nav button{
+  width:100%;min-height:44px;padding:12px;border:0;border-radius:12px;
+  text-align:left;font-size:15px;font-weight:600;color:var(--muted);background:transparent;
+}
+.rail-nav button:hover{background:rgba(255,255,255,.04);color:var(--text)}
+.rail-nav button.active{background:var(--surface-2);color:var(--accent);font-weight:700}
+.rail-user{margin-top:auto;padding:0 12px;color:var(--muted);font-size:14px}
+.rail-user a{display:block;margin-top:10px;font-size:13px;color:var(--muted);text-decoration:none}
+.bottom-nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:75;display:flex;
+  height:calc(68px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);
+  background:var(--rail);border-top:1px solid var(--line);
+}
+.bottom-nav button{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px;
+  min-height:56px;padding:12px 4px 0;border:0;background:transparent;color:#8A9790;font-size:12px;font-weight:600;
+}
+.bottom-nav button i{display:block;width:22px;height:4px;border-radius:2px;background:currentColor;opacity:.35}
+.bottom-nav button.active{color:var(--accent)}
+.bottom-nav button.active i{opacity:1}
+body.training-focus .app-rail,body.training-focus .bottom-nav{display:none!important}
+
+/* ── 页面外壳与视图 ── */
+.shell{width:100%;max-width:1100px;margin:0 auto;padding:20px 20px 8px;min-width:0}
+.view{display:none;min-width:0}
+body[data-view="today"] .view-today,
+body[data-view="data"] .view-data,
+body[data-view="plan"] .view-plan,
+body[data-view="mine"] .view-mine{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:.3;transform:translateY(4px)}to{opacity:1;transform:none}}
+body.training-focus .view{display:none!important}
+body.training-focus .view-today{display:block!important}
+.view-title{margin:4px 0 16px;font-size:26px;font-weight:700;letter-spacing:-.02em}
+.view-sub{margin:-8px 0 18px;color:var(--muted);font-size:14px}
+
+/* ── 今日头部 ── */
+.today-head{padding:4px 0 0}
+.brand-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:nowrap}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand-name{font-size:17px;font-weight:700;white-space:nowrap}
+.today-user{font-size:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.greeting{margin-top:24px}
+.greeting .eyebrow{margin:0 0 4px;color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.14em}
+.greeting h1{margin:0;font-size:28px;line-height:1.2;font-weight:700;letter-spacing:-.02em;background:none;-webkit-text-fill-color:currentColor;transform:none}
+.today-sub{margin:6px 0 0;color:var(--muted);font-size:14px}
+body.training-focus .today-head{display:none}
+
+/* ── 日历 ── */
+.training-calendar{margin:18px 0 0;padding:0;border:0;border-radius:0;background:transparent;min-width:0}
+.training-calendar button{min-height:44px;border:0;color:var(--text);background:var(--surface);padding:7px 10px}
+.training-calendar button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tc-heading strong{font-size:16px;font-weight:700}
+.tc-heading span{color:var(--muted);font-size:13px;margin-top:3px}
+.tc-heading>button{border:0;background:transparent;color:var(--muted);font-size:13px;padding:0 4px}
+.tc-week,.tc-grid{gap:6px}
+.tc-week{margin-top:12px}
+.training-calendar .tc-day{
+  min-height:48px;border:0;border-radius:12px;background:var(--surface);color:var(--muted);
+  font-size:15px;font-weight:600;
+}
+.tc-day small{font-size:12px;color:var(--ok)}
+.training-calendar .tc-done{background:#1E3A2B;color:#7BE8A0}
+.training-calendar .tc-today{background:var(--surface);box-shadow:inset 0 0 0 2px var(--accent);color:var(--accent)}
+.training-calendar .tc-today.tc-done{background:#1E3A2B;color:#7BE8A0;box-shadow:inset 0 0 0 2px var(--accent)}
+.training-calendar .tc-selected{outline:2px solid var(--accent);outline-offset:2px}
+.tc-month{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+.tc-controls>strong{font-size:15px}
+.tc-summary,.tc-note,.tc-error{font-size:13px;color:var(--muted)}
+.tc-weekdays{color:var(--muted);font-size:12px}
+.tc-grid .tc-day{min-height:52px}
+.tc-detail{border:0;border-radius:12px;background:var(--surface-2);font-size:14px}
+
+/* ── 训练日切换 ── */
+.home-schedule-label{
+  display:block;margin:14px 0 0;color:var(--muted);font-size:13px;line-height:1.5;white-space:normal;
+}
+.home-schedule-label:before{content:"当前安排 · ";color:var(--muted)}
+.tabs{
+  position:static;display:flex;gap:8px;overflow-x:auto;margin:14px 0 14px;padding:0;
+  border:0;border-radius:0;background:transparent;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:0 0 auto;min-height:44px;padding:10px 16px;border:0;border-radius:12px;
+  background:var(--surface-2);color:var(--muted);font-size:14px;font-weight:600;
+}
+.tab:hover{color:var(--text)}
+.tab.active{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.challenge-nav-group{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:2px;padding:0;border:0;background:transparent;
+}
+.challenge-nav-heading{display:none}
+.challenge-nav-toggle{
+  min-height:44px;padding:8px 12px;border:0;border-radius:10px;background:var(--surface);
+  color:var(--muted);font-size:13px;font-weight:600;
+}
+.challenge-nav-items{display:flex;gap:8px;flex-wrap:wrap}
+.challenge-nav-group .tab{font-size:13px;padding:8px 12px;min-height:40px}
+.tab[hidden]{display:none!important}
+
+/* ── 今日训练卡 ── */
+.training-control{
+  margin:0 0 14px;padding:20px;border:0;border-radius:var(--radius-card);
+  background:var(--surface);box-shadow:none;
+}
+.training-control-top,.training-control-bottom{gap:14px}
+.training-control h2{font-size:26px;font-weight:700;line-height:1.2;letter-spacing:-.01em}
+.training-control p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.training-meta{gap:8px}
+.training-meta span{color:var(--muted);font-size:13px}
+.training-meta b{color:var(--text)}
+.training-schedule{color:var(--accent)!important;font-weight:600}
+.training-control-bottom{margin-top:16px;align-items:center}
+.control-live{font-size:28px;font-weight:700;color:var(--accent);letter-spacing:-.02em}
+.control-progress{min-width:160px;margin-left:auto}
+.control-progress-label{font-size:12px;color:var(--muted)}
+.workout-progress{height:8px;border:0;border-radius:4px;background:var(--line);overflow:hidden}
+.workout-progress>div{
+  height:100%;background:var(--accent);background-image:none;box-shadow:none;
+  -webkit-mask:repeating-linear-gradient(90deg,#000 0 calc(20% - 6px),transparent calc(20% - 6px) 20%);
+  mask:repeating-linear-gradient(90deg,#000 0 calc(20% - 6px),transparent calc(20% - 6px) 20%);
+}
+.control-actions{gap:8px}
+.control-start{
+  min-height:52px;padding:0 22px;border:0;border-radius:14px;
+  background:var(--accent);color:var(--accent-ink);font-size:17px;font-weight:700;
+  box-shadow:none;animation:none!important;
+}
+.control-start.finish{background:var(--accent);color:var(--accent-ink);animation:none!important}
+.control-abandon{
+  min-height:44px;padding:0 16px;border:0;border-radius:12px;
+  color:var(--danger);background:rgba(255,107,107,.08);font-size:14px;font-weight:600;
+}
+.control-abandon:hover{background:rgba(255,107,107,.14)}
+.time-budget{margin-top:14px;padding:0;border:0;background:transparent}
+.time-budget-track{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.time-budget-track>div{background:var(--warn);background-image:none;box-shadow:none}
+.time-budget-grid span{background:var(--surface-2);border:0;color:var(--muted);font-size:12px}
+
+/* ── 计划详情与说明 ── */
+.plan-details{margin:0 0 12px;border:0;border-radius:16px;background:var(--surface);overflow:hidden}
+.plan-details summary{
+  min-height:52px;padding:6px 16px;display:flex;align-items:center;justify-content:space-between;
+  color:var(--muted);font-size:14px;cursor:pointer;
+}
+.plan-details summary:after{
+  min-width:auto;padding:6px 10px;border:0;border-radius:8px;color:var(--text);
+  background:var(--surface-2);font-size:12px;font-weight:600;
+}
+.plan-details[open] summary:after{color:var(--muted);background:var(--surface-2)}
+.plan-details-body{padding:0 16px 16px}
+.thin-muscle-principle{border-left:0;border-radius:12px;background:var(--surface-2);font-size:13px}
+.sex-plan-note{background:var(--surface-2);font-size:13px;border-radius:12px}
+.variant-card{padding:14px;border:0;border-radius:14px;background:var(--surface-2)}
+.variant-kicker{color:var(--accent);font-size:12px;letter-spacing:.12em}
+.variant-card h3{font-size:17px}
+.variant-card p{font-size:13px;color:var(--muted)}
+.variant-buttons button{min-height:44px;border:0;border-radius:12px;background:var(--surface);color:var(--muted);font-size:14px;font-weight:600}
+.variant-buttons button.active{background:var(--accent);color:var(--accent-ink)}
+.growth-overview{border:0;border-radius:14px;background:var(--surface-2);padding:14px}
+.tips{gap:8px;margin-top:10px}
+.tip{padding:12px 0 0;border:0;background:transparent}
+.tip strong{font-size:14px}
+.tip span{color:var(--muted);font-size:13px}
+
+/* ── 分组与动作 ── */
+#panels{min-width:0}
+.day-panel .section{box-shadow:none;background:transparent;border:0;border-radius:0;overflow:visible}
+.section{margin-top:12px;border:0;border-radius:var(--radius-card);background:var(--surface)}
+.section-title{padding:18px 20px 0;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.section-title h3{
+  position:static;padding:0;font-size:18px;font-weight:700;letter-spacing:0;
+}
+.section-title h3:before{display:none!important;content:none!important}
+.section-title span{color:var(--muted);font-size:13px}
+.section-body{padding:12px 16px 16px}
+.round-box{padding:14px 20px;border:0;background:transparent}
+.round-section .round-box{padding:14px 20px;margin-bottom:12px;border:0;background:transparent;box-shadow:none}
+.round-current{font-size:16px;font-weight:700}
+.round-hint{color:var(--muted);font-size:13px;line-height:1.55}
+.round-reset{min-height:44px;padding:6px 10px;border:0;border-radius:10px;background:var(--surface-2);color:var(--muted);font-size:12px;font-weight:600}
+.round-chips{gap:6px;margin-top:12px}
+.round-chip{
+  min-height:44px;padding:8px 14px;border:0;border-radius:var(--radius-pill);
+  color:var(--muted);background:var(--surface-2);font-size:13px;font-weight:600;
+}
+.round-chip.current{color:var(--accent-ink);background:var(--accent);border:0}
+.round-chip.done{color:var(--ok);background:rgba(74,222,128,.12);border:0}
+.round-chip.boost{color:var(--warn);background:rgba(245,165,36,.12);border:0}
+.round-chip.boost.current{color:var(--accent-ink);background:var(--accent)}
+.round-schedule{margin:8px 20px 0;color:var(--muted);font-size:13px}
+.round-schedule .is-current{color:var(--accent);font-weight:600}
+.previous-round-history{margin:10px 20px 0}
+.previous-workout-exercise{padding:12px 14px;border:0;border-radius:12px;background:var(--surface-2);font-size:13px;color:var(--muted)}
+.previous-workout-exercise strong{color:var(--text);font-size:14px}
+.previous-workout-exercise span{color:var(--muted)}
+
+.training-exercise{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,220px);gap:18px;align-items:start;
+  padding:16px;border:0;border-radius:16px;background:var(--surface-2);
+}
+.training-exercise:hover{border:0}
+.training-exercise.is-current{background:var(--surface-2);box-shadow:none;border:0}
+.training-exercise.is-compact{padding:14px 16px;background:var(--surface);opacity:1}
+.training-exercise.is-completed{opacity:.72}
+.exercise-title-wrap h4{margin:0;font-size:18px;font-weight:700;line-height:1.3}
+.exercise-top>h4{font-size:17px}
+.exercise-top>span{font-size:13px;color:var(--muted);white-space:nowrap}
+.exercise-meta{gap:6px;margin-top:8px}
+.exercise-meta span{
+  padding:4px 10px;border-radius:var(--radius-pill);color:#C9D4CE;background:var(--surface);
+  font-size:12px;font-weight:600;
+}
+.exercise-meta .target{color:var(--accent-ink);background:var(--accent)}
+.level-controls{gap:6px}
+.level-controls button{
+  min-height:36px;padding:6px 10px;border:0;border-radius:10px;
+  color:var(--muted);background:var(--surface);font-size:12px;font-weight:600;
+}
+.level-controls button:hover{color:var(--accent);background:var(--surface)}
+.exercise-detail{margin:10px 0 0;color:var(--muted);font-size:14px;line-height:1.6}
+.tempo-cue{color:#D6E0DA;background:var(--surface);border-radius:10px;font-size:13px}
+.tempo-cue strong{color:var(--accent)}
+.joint-guard{border:0;border-radius:10px;background:rgba(245,165,36,.1);color:var(--warn);font-size:13px;min-height:36px}
+.exercise-operation{margin-top:14px}
+.exercise-operation .target-pill{padding:6px 10px;border:0;border-radius:var(--radius-pill);background:var(--surface);color:var(--text)}
+.exercise-operation .target-pill b{color:var(--accent);font-size:16px}
+.round-target{gap:8px}
+.round-target-label{color:var(--muted);font-size:13px}
+.round-target-label b{color:var(--text);font-size:15px}
+.rep-log{margin-top:10px;padding:0;border:0;background:transparent}
+.training-exercise .rep-log-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.actual-reps,.training-exercise .actual-reps{
+  display:inline-flex;align-items:center;gap:10px;padding:0;border-radius:0;
+  background:transparent;color:var(--muted);font-size:14px;white-space:nowrap;
+}
+.rep-stepper{gap:10px;align-items:center}
+.rep-stepper input,.training-exercise .rep-stepper input{
+  width:56px!important;padding:0;border:0!important;border-radius:0;background:transparent;
+  color:var(--text);font-size:36px;font-weight:700;line-height:1.1;text-align:center;
+}
+.rep-stepper input::-webkit-outer-spin-button,.rep-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.rep-stepper input[type=number]{-moz-appearance:textfield;appearance:textfield}
+.rep-adjust,.training-exercise .rep-adjust{
+  width:48px;height:48px;min-height:48px;padding:0;border:0;border-radius:14px;
+  background:var(--surface);color:var(--text);font-size:24px;line-height:1;
+}
+.rep-adjust:last-child{color:var(--accent)}
+.rir-picker{gap:6px;flex-wrap:nowrap;align-items:center}
+.rir-picker>span,.training-exercise .rir-picker>span{font-size:13px;color:var(--muted);margin-right:2px}
+.rir-button,.training-exercise .rir-button{
+  min-width:44px;min-height:44px;padding:6px;border:0;border-radius:12px;
+  background:var(--surface);color:var(--text);font-size:15px;font-weight:600;
+}
+.rir-button.active{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.next-round-preview{margin-top:8px;color:var(--muted);font-size:12px}
+.next-round-preview strong{color:var(--text)}
+.rir-help{display:none}
+.round-history{gap:0;margin-top:10px;padding:0;border-radius:0;background:transparent}
+.history-chip{padding:0 8px;border-right:1px solid var(--line);background:transparent;color:var(--muted);font-size:12px}
+.history-chip strong{color:var(--text)}
+.compact-round-summary{color:var(--muted);font-size:13px}
+.advanced-details{margin-top:10px}
+.advanced-details summary{color:var(--muted);font-size:12px;min-height:44px;display:flex;align-items:center}
+.advanced-details summary:before{color:var(--accent)}
+.growth-card{background:transparent}
+.growth-cue,.growth-next,.exercise-adjustment{color:var(--muted);font-size:13px}
+.band-load-settings{margin-top:10px;padding:0;border:0;background:transparent}
+.band-load-settings summary{color:var(--muted);font-size:13px;min-height:44px;display:flex;align-items:center}
+.band-load-settings-body{border:0;background:var(--surface)}
+.pending-round-summary,.single-pending-summary{color:var(--muted);font-size:13px}
+
+/* 白底动作图统一浅色容器 */
+.exercise-guide{align-self:start;width:100%;padding:0;border:0;border-radius:16px;background:transparent}
+.exercise-guide-label{margin:0 0 6px;color:var(--muted);font-size:12px}
+.exercise-guide-media{gap:6px}
+.exercise-guide-frame{
+  aspect-ratio:auto;min-height:150px;border:0;border-radius:16px;background:var(--image-surface);overflow:hidden;
+}
+.exercise-guide-frame img,.training-exercise .exercise-guide-frame img{
+  width:100%;height:172px!important;object-fit:contain;background:var(--image-surface);
+}
+.exercise-guide-frame .image-label{color:#5B6761;font-size:12px}
+.training-exercise.is-compact .exercise-guide-frame{min-height:120px}
+.training-exercise.is-compact .exercise-guide-frame img{height:132px!important}
+.training-exercise.is-compact .exercise-guide{opacity:1}
+.round-exercise-gifs img{background:var(--image-surface);border-radius:8px}
+
+/* 完成按钮 */
+.round-complete{padding:14px 20px 18px;border-top:1px solid var(--line);background:transparent}
+.round-complete button{
+  width:100%;min-height:56px;border:0;border-radius:16px;
+  background:var(--accent);color:var(--accent-ink);font-size:17px;font-weight:700;
+  box-shadow:none;animation:none!important;
+}
+.round-complete button:disabled{opacity:.45}
+.round-note{color:var(--muted);font-size:13px;text-align:center;margin-top:8px}
+.round-complete .body-adjustment{border-left:0;border-radius:12px;background:var(--surface-2);font-size:13px;color:var(--muted)}
+.time-cap-note{color:var(--muted);font-size:12px}
+.single-section-complete button{min-height:52px;border:0;border-radius:14px;background:var(--accent);color:var(--accent-ink);font-size:16px;font-weight:700;box-shadow:none}
+.round-exercise-group{
+  padding:14px 16px;border:0;border-radius:14px;background:var(--surface-2);font-size:13px;color:var(--muted);
+}
+.round-exercise-group strong{color:var(--text);font-size:14px}
+
+/* 动作卡折叠状态 */
+.training-exercise.is-pending .exercise-detail,.training-exercise.is-recorded .exercise-detail,
+.training-exercise.is-pending .exercise-operation,.training-exercise.is-recorded .exercise-operation{display:none}
+.single-training-exercise{grid-template-columns:auto minmax(0,1fr) minmax(180px,220px) auto}
+.check{
+  width:28px;height:28px;min-height:28px;border:2px solid var(--line);border-radius:9px;
+  background:transparent;color:var(--accent-ink);font-size:16px;font-weight:700;
+}
+.check[aria-pressed="true"]{border-color:var(--ok);background:var(--ok)}
+
+/* ── 计时与休息 ── */
+.timer-dock{
+  position:fixed;left:50%;bottom:calc(78px + env(safe-area-inset-bottom));z-index:60;transform:translateX(-50%);
+  width:min(720px,calc(100% - 24px));padding:12px 14px;border:0;border-radius:18px;
+  background:var(--surface);box-shadow:var(--shadow);
+}
+.timer-ring{background:conic-gradient(var(--accent) var(--p),var(--line) 0)}
+.timer-ring:before{background:var(--surface)}
+.timer-display{font-size:18px;font-weight:700}
+.timer-title strong{font-size:14px}
+.timer-status-pill{background:var(--surface-2);color:var(--muted);font-size:12px}
+.timer-total{font-size:12px;color:var(--muted)}
+.rest-setting{margin-top:10px}
+.rest-row label{font-size:13px;color:var(--muted)}
+.rest-input input{font-size:15px}
+.rest-step{min-width:44px;min-height:44px;border:0;border-radius:10px;background:var(--surface-2);color:var(--text)}
+.preset{min-height:44px;border:0;border-radius:10px;background:var(--surface-2);color:var(--muted);font-size:13px}
+.preset.active{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.timer-controls .primary,.timer-start{
+  min-height:44px;border:0;border-radius:12px;background:var(--accent);color:var(--accent-ink);
+  font-size:15px;font-weight:700;box-shadow:none;
+}
+.timer-controls .secondary{border:0;border-radius:12px;background:var(--surface-2);color:var(--muted);font-size:14px}
+.timer-dock.floating{width:min(400px,calc(100vw - 32px));background:var(--surface);border-radius:20px;box-shadow:var(--shadow)}
+.timer-dock.floating .timer-display{font-size:44px}
+
+/* 专注模式：顶部条、当前动作、底部保存 */
+.focus-head{display:none}
+body.training-focus .focus-head{
+  position:sticky;top:0;z-index:82;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin:0 -20px;padding:12px 20px calc(12px + env(safe-area-inset-top,0px));
+  background:var(--bg);border-bottom:1px solid var(--line);
+}
+.focus-head .focus-brand{font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.focus-head strong{font-size:22px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.focus-head .focus-head-actions{display:flex;gap:8px}
+.focus-head button{min-height:44px;padding:0 14px;border:0;border-radius:11px;background:var(--surface-2);color:var(--text);font-size:13px;font-weight:600}
+.focus-head button.focus-head-end{color:var(--danger);background:rgba(255,107,107,.08)}
+body.training-focus .shell{padding-top:0;padding-bottom:140px}
+body.training-focus .training-calendar,body.training-focus .home-schedule-label,
+body.training-focus .tabs,body.training-focus .challenge-nav-group,body.training-focus .plan-details{display:none!important}
+body.training-focus .training-control{margin:10px 0 8px;padding:12px 0;background:transparent;border-radius:0}
+body.training-focus .training-control .training-control-top h2{font-size:19px}
+body.training-focus .training-control .training-meta,body.training-focus .training-control .time-budget{display:none}
+body.training-focus .training-control .training-control-bottom{margin-top:10px}
+body.training-focus .training-control .control-live{font-size:24px}
+body.training-focus .training-control .control-actions{display:none}
+body.training-focus .training-control .control-progress{flex:1}
+body.training-focus .section{background:var(--surface);border-radius:18px;margin-top:10px}
+body.training-focus .section-title{padding-top:14px}
+body.training-focus .day-panel.active>.section:not(:has(.training-exercise.is-current)):not(.single-section):not(:has(.single-training-exercise.is-current)){display:none}
+body.training-focus .day-panel.active .training-exercise:not(.is-current){display:none!important}
+body.training-focus .round-box{padding-top:10px}
+body.training-focus .round-hint,body.training-focus .round-chips{display:none}
+body.training-focus .training-exercise.is-current{padding:4px 16px 16px;background:transparent}
+body.training-focus .training-exercise.is-current .exercise-title-wrap h4{font-size:26px}
+body.training-focus .training-exercise.is-current .exercise-detail{display:block;font-size:14px;-webkit-line-clamp:unset;overflow:visible}
+body.training-focus .training-exercise.is-current .exercise-guide{width:100%;max-width:none;margin:12px 0 0}
+body.training-focus .exercise-guide-frame{min-height:180px}
+body.training-focus .exercise-guide-frame img{height:200px!important}
+body.training-focus .round-complete{position:fixed;left:0;right:0;bottom:0;z-index:78;padding:10px 20px calc(10px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--bg)}
+body.training-focus .round-complete .round-note{font-size:12px;margin-top:6px}
+body.training-focus .round-complete .body-adjustment,body.training-focus .round-complete .time-cap-note{display:none}
+body.training-focus .focus-bar{display:none!important}
+body.training-focus .timer-dock{bottom:calc(92px + env(safe-area-inset-bottom))}
+body.training-focus .timer-dock.timer-active:not(.timer-done){
+  inset:0;left:0;transform:none;width:100%;height:100%;max-width:none;border-radius:0;
+  display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:24px;
+  padding:32px 24px calc(32px + env(safe-area-inset-bottom));background:var(--bg);z-index:120;
+}
+body.training-focus .timer-dock.timer-active:not(.timer-done) .timer-ring{width:220px;height:220px}
+body.training-focus .timer-dock.timer-active:not(.timer-done) .timer-display{font-size:48px}
+body.training-focus .timer-dock.timer-active:not(.timer-done) .timer-main{text-align:center}
+body.training-focus .timer-dock.timer-active:not(.timer-done) .timer-title{justify-content:center}
+body.training-focus .timer-dock.timer-active:not(.timer-done) .timer-status-pill{display:none}
+body.training-focus .timer-dock.timer-active:not(.timer-done) .rest-setting{width:min(420px,100%)}
+body.training-focus .timer-dock.timer-active:not(.timer-done) .timer-controls{width:min(420px,100%);display:flex;gap:10px}
+body.training-focus .timer-dock.timer-active:not(.timer-done) .timer-controls button{flex:1}
+
+/* ── 数据页 ── */
+.view-data .home-dashboard{margin:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+.dash-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:16px}
+.dash-head h2,.dash-eyebrow{display:none}
+.dash-head p:not(.dash-eyebrow){margin:0;color:var(--muted);font-size:14px;max-width:60ch}
+.dash-window{background:var(--surface);border:0;border-radius:12px;padding:4px;gap:2px;flex-shrink:0}
+.dash-window button{min-height:44px;border:0;border-radius:9px;padding:8px 16px;color:var(--muted);background:transparent;font-size:14px;font-weight:600}
+.dash-window button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.dash-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:0}
+.dash-summary>div{padding:16px;border:0;border-radius:16px;background:var(--surface)}
+.dash-summary strong{font-size:28px;font-weight:700;letter-spacing:-.02em}
+.dash-summary span{margin-top:2px;color:var(--text);font-size:14px;font-weight:500}
+.dash-summary small{margin-top:2px;color:var(--muted);font-size:12px}
+.dash-grid{grid-template-columns:1fr;gap:12px;margin-top:12px}
+.dash-panel{padding:20px;border:0;border-radius:20px;background:var(--surface)}
+.dash-panel-head h3{font-size:18px;font-weight:700}
+.dash-panel-head span{color:var(--muted);font-size:12px}
+.dash-muscles{gap:12px;margin-top:14px}
+.dash-muscle-head{font-size:14px}
+.dash-muscle-head strong{font-size:14px;display:flex;align-items:center;gap:8px}
+.dash-muscle-head strong em{font-style:normal;font-size:12px;font-weight:600;color:var(--muted)}
+.dash-muscle-head span{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.dash-bar{height:8px;margin-top:6px;border-radius:4px;background:var(--line);overflow:visible}
+.dash-bar-fill{height:8px;border-radius:4px;background:var(--warn);box-shadow:none}
+.dash-bar i{top:-3px;bottom:-3px;width:2px;border-radius:2px;background:var(--text);opacity:.6}
+.dash-muscle.ok .dash-bar-fill{background:var(--ok)}
+.dash-muscle.high .dash-bar-fill{background:var(--danger)}
+.dash-muscle.none .dash-bar-fill{background:var(--line)}
+.dash-muscle.low .dash-muscle-head strong em{color:var(--warn)}
+.dash-muscle.ok .dash-muscle-head strong em{color:var(--ok)}
+.dash-muscle.high .dash-muscle-head strong em{color:var(--danger)}
+.dash-muscle-foot{margin-top:4px;color:var(--muted);font-size:12px;justify-content:flex-start;gap:12px}
+.dash-muscle-foot span:first-child{display:none}
+.dash-note{color:var(--muted);font-size:12px;line-height:1.6}
+.dash-progress-list{gap:0;margin-top:8px}
+.dash-progress-row{border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;padding:12px 0;gap:10px}
+.dash-progress-row:last-child{border-bottom:0}
+.dash-progress-name strong{font-size:14px}
+.dash-progress-name span{color:var(--muted);font-size:12px}
+.dash-spark path{stroke:var(--accent)}
+.dash-progress-state b{font-size:13px;font-weight:600}
+.dash-progress-state span{font-size:12px;color:var(--muted)}
+.dash-progress-state.up b,.dash-progress-state.advance b{color:var(--ok)}
+.dash-progress-state.stall b,.dash-progress-state.deload b,.dash-progress-state.adjust b{color:var(--warn)}
+.dash-progress-state.regress b{color:var(--danger)}
+.dash-progress-state.new b,.dash-progress-state.hold b{color:var(--muted)}
+.dash-trend{margin-top:12px}
+.dash-weeks{gap:12px;margin-top:14px;height:auto}
+.dash-week-bar{height:120px;background:var(--line);border-radius:8px 8px 0 0;overflow:hidden}
+.dash-week-bar div{background:var(--accent);border-radius:8px 8px 0 0}
+.dash-week strong{font-size:13px;font-weight:600;color:var(--text)}
+.dash-week span{font-size:12px;color:var(--muted)}
+.dash-week small{display:none}
+.dash-empty{color:var(--muted);font-size:14px}
+.dash-empty-main{border:0;border-radius:16px;background:var(--surface);padding:20px}
+
+/* ── 计划页 ── */
+.plan-card{padding:20px;border-radius:var(--radius-card);background:var(--surface);margin-bottom:12px}
+.plan-card .plan-kicker{margin:0 0 4px;color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.1em}
+.plan-card h2{margin:0;font-size:24px;font-weight:700}
+.plan-card p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.plan-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.plan-actions button{min-height:46px;padding:0 18px;border:0;border-radius:12px;background:var(--surface-2);color:var(--text);font-size:14px;font-weight:600}
+.plan-actions .home-plan-edit-button{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.plan-day-list{display:grid;gap:8px}
+.plan-day{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:68px;padding:14px 16px;border:0;border-radius:16px;background:var(--surface);text-align:left;color:var(--text)}
+.plan-day span{min-width:0}
+.plan-day strong{display:block;font-size:16px;font-weight:600}
+.plan-day small{display:block;margin-top:2px;color:var(--muted);font-size:13px}
+.plan-day b{font-size:22px;font-weight:400;color:var(--muted)}
+.home-plan-sync{display:block;margin-top:10px;color:var(--muted);font-size:12px}
+
+/* ── 我的页 ── */
+.mine-profile{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.mine-metric{padding:14px 16px;border-radius:16px;background:var(--surface)}
+.mine-metric strong{display:block;font-size:22px;font-weight:700}
+.mine-metric span{display:block;margin-top:2px;color:var(--muted);font-size:12px}
+.mine-tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.mine-tools button{min-height:44px;padding:0 14px;border:0;border-radius:12px;background:var(--surface-2);color:var(--text);font-size:14px;font-weight:600}
+.mine-tools .logout{color:var(--danger);background:rgba(255,107,107,.08)}
+.mine-tools{margin-top:0}
+.mine-link{
+  display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:12px;
+  color:var(--muted);background:var(--surface-2);font-size:14px;font-weight:600;text-decoration:none;
+}
+.plan-day[hidden]{display:none}
+.profile-drawer{
+  position:static;inset:auto;z-index:auto;display:block!important;width:auto;height:auto;max-height:none;
+  margin:0 0 12px;padding:20px;border:0;border-radius:var(--radius-card);background:var(--surface);
+  overflow:visible;box-shadow:none;transform:none;
+}
+.profile-drawer .drawer-close{display:none}
+.body-head h2{font-size:20px}
+.body-head p{color:var(--muted);font-size:13px}
+.body-head-actions .body-date{color:var(--muted);font-size:12px}
+.profile-edit{min-height:44px;padding:0 12px;border:0;border-radius:10px;background:var(--surface-2);color:var(--text);font-size:13px;font-weight:600}
+.profile-edit.logout{color:var(--danger);background:rgba(255,107,107,.08)}
+.drawer-profile-meta,.sex-mode-card,.body-summary{border:0;background:var(--surface-2);border-radius:14px}
+.sex-mode-card{padding:14px}
+.sex-mode-badge{background:var(--surface);color:var(--accent);border:0;font-size:12px}
+.sex-mode-copy strong{font-size:14px}
+.sex-mode-copy span{color:var(--muted);font-size:13px}
+.body-field label{color:var(--muted);font-size:13px}
+.body-input input{font-size:22px;font-weight:700}
+.body-input em{color:var(--muted);font-size:13px}
+.body-delta{color:var(--muted);font-size:12px}
+.compare-box,.adaptive-box{background:var(--surface);border:0;border-radius:14px}
+.compare-item b{font-size:20px}
+.compare-item span{color:var(--muted);font-size:12px}
+.adaptive-head span{color:var(--muted);font-size:12px}
+.adaptive-box p{color:var(--muted);font-size:13px}
+.body-actions small{color:var(--muted);font-size:12px}
+.body-save{min-height:48px;border:0;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-size:15px;font-weight:700}
+.baseline-editor{background:var(--surface-2);border:0;border-radius:14px}
+.baseline-note{color:var(--muted);font-size:12px}
+.baseline-save{min-height:44px;border:0;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-weight:700}
+.baseline-cancel{min-height:44px;border:0;border-radius:12px;background:var(--surface);color:var(--muted)}
+
+/* AI 与备份 */
+.ai-coach-host{margin:12px 0 0}
+.ai-coach-card{display:block;padding:0;border:0;border-radius:var(--radius-card);background:var(--surface);overflow:hidden}
+.ai-coach-card>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px;padding:14px 18px;cursor:pointer;list-style:none}
+.ai-coach-card>summary::-webkit-details-marker{display:none}
+.ai-coach-card>summary strong{font-size:16px;font-weight:700;color:var(--text)}
+.ai-coach-card>summary small{display:block;margin-top:2px;color:var(--muted);font-size:13px}
+.ai-status{color:var(--muted);font-size:12px;white-space:nowrap}
+.ai-body{padding:0 18px 18px}
+.ai-section{margin-top:0;padding:16px 0;border-top:1px solid var(--line)}
+.ai-section-head h3{font-size:15px;font-weight:700}
+.ai-section-head button{min-height:44px;padding:0 12px;border:0;border-radius:10px;background:var(--surface-2);color:var(--text);font-size:13px;font-weight:600}
+.ai-section-head button.ai-clear{color:var(--muted)}
+.ai-empty,.ai-hint,.ai-status-line{color:var(--muted);font-size:13px;line-height:1.6}
+.ai-messages{gap:8px}
+.ai-msg{background:var(--surface-2);border:0;border-radius:14px;padding:12px 14px}
+.ai-msg span{color:var(--muted);font-size:12px}
+.ai-msg p{font-size:14px;line-height:1.6}
+.ai-msg.user{background:rgba(200,245,60,.08)}
+.ai-chat-form input{min-height:46px;border:0;border-radius:12px;background:var(--surface-2);color:var(--text);font-size:14px;padding:0 14px}
+.ai-chat-form button{min-height:46px;border:0;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-size:14px;font-weight:700}
+.ai-review{background:var(--surface-2);border:0;border-radius:14px;padding:14px}
+.ai-review p,.ai-review li{font-size:14px;color:var(--text)}
+.ai-review-group b{color:var(--muted);font-size:12px}
+.ai-proposal{background:var(--surface-2);border:0;border-radius:14px;padding:14px}
+.ai-diff{background:var(--surface);border:0;border-radius:10px;font-size:13px}
+.ai-proposal-actions button{min-height:44px;border:0;border-radius:10px;font-size:13px;font-weight:600}
+.ai-proposal-actions button[data-ai-apply]{background:var(--accent);color:var(--accent-ink)}
+.ai-proposal-actions button[data-ai-dismiss]{background:var(--surface);color:var(--muted)}
+.ai-config{background:var(--surface-2);border:0;border-radius:12px;color:var(--muted);font-size:13px}
+.ai-error{color:var(--danger);font-size:13px}
+.ai-status,.ai-status-line{color:var(--muted)}
+.backup-card{margin:12px 0 0;padding:0;border:0;border-radius:var(--radius-card);background:var(--surface)}
+.backup-card summary{min-height:64px;padding:14px 18px}
+.backup-card summary strong{font-size:16px;font-weight:700}
+.backup-card summary small{color:var(--muted);font-size:13px}
+.backup-summary-note{color:var(--muted);font-size:12px}
+.backup-body{padding:0 18px 18px}
+.backup-body p{color:var(--muted);font-size:13px}
+.backup-actions button{min-height:44px;padding:0 14px;border:0;border-radius:12px;background:var(--surface-2);color:var(--text);font-size:13px;font-weight:600}
+.backup-actions .backup-import{color:var(--danger);background:rgba(255,107,107,.08)}
+.backup-status{font-size:13px;color:var(--muted)}
+.install-app{min-height:44px;border:0;border-radius:12px;background:var(--surface-2);color:var(--text);font-size:14px}
+.offline-badge{border:0;background:var(--surface-2);color:var(--warn);font-size:12px}
+
+/* ── 其他弹层与页面 ── */
+.auth-card,.feedback-card{background:var(--surface);border:0;border-radius:20px;box-shadow:var(--shadow)}
+.auth-card h2,.feedback-card h2{font-size:22px}
+.auth-card p,.feedback-card p{color:var(--muted);font-size:14px}
+.auth-field{color:var(--muted);font-size:13px}
+.auth-field input{min-height:46px;border:0;border-radius:12px;background:var(--surface-2);color:var(--text)}
+.auth-submit{min-height:48px;border:0;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-size:15px;font-weight:700}
+.auth-alt button,.auth-import button{color:var(--muted);font-size:13px}
+.auth-import textarea{background:var(--surface-2);border:0;border-radius:12px;color:var(--text)}
+.feedback-option{background:var(--surface-2);border:0;border-radius:14px}
+.feedback-option b{font-size:15px}
+.feedback-option span span{color:var(--muted);font-size:13px}
+.toast{background:var(--surface-2);color:var(--text);border:0;border-radius:12px;box-shadow:var(--shadow)}
+.rest-card{background:var(--surface);border:0;border-radius:var(--radius-card);padding:20px}
+.rest-card h2{font-size:22px}
+.rest-card p{color:var(--muted);font-size:14px}
+.session-card{border:0;border-radius:18px;background:var(--surface)}
+.session-action.start{background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;font-weight:700}
+.session-action.abandon{background:rgba(255,107,107,.08);color:var(--danger);border:0}
+.mrt-action,.cindy-control,.challenge-card{background:var(--surface);border:0;border-radius:16px}
+.mrt-action.is-current{border:0;box-shadow:none;background:var(--surface-2);outline:2px solid var(--accent);outline-offset:-2px}
+.mrt-start{min-height:44px;border:0;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-weight:700}
+.challenge-choice{border:0;border-radius:12px;background:var(--surface-2);font-size:13px}
+.challenge-choice button{min-height:44px;border:0;border-radius:10px;background:var(--accent);color:var(--accent-ink);font-weight:600}
+.tabata-choices{background:var(--surface-2);border:0;border-radius:16px}
+.tabata-move{background:var(--surface);border:0;border-radius:12px}
+.tabata-move img{background:var(--image-surface);border-radius:10px}
+.tabata-move p{color:var(--muted);font-size:13px}
+.tabata-choices small{color:var(--muted);font-size:12px}
+.hp-dialog{background:var(--surface);color:var(--text)}
+.open-editor-note{color:var(--muted);font-size:13px}
+
+/* ── 桌面布局 ── */
+@media(min-width:1024px){
+  body{padding-left:220px;padding-bottom:0}
+  body.training-focus{padding-left:0}
+  .app-rail{display:flex}
+  .bottom-nav{display:none}
+  .shell{max-width:1040px;padding:36px 40px 72px}
+  .view-title{font-size:30px}
+  .greeting h1{font-size:30px}
+  .today-head{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+  .today-head .greeting{margin-top:0}
+  .today-head .brand-row{display:none}
+  .dash-summary{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+  .dash-grid{grid-template-columns:1fr 1fr;gap:24px}
+  .dash-progress-row{grid-template-columns:minmax(0,1fr) auto auto}
+  body.training-focus .shell{max-width:1100px;padding:20px 40px 48px}
+  body.training-focus .focus-head{margin:0 -40px;padding-left:40px;padding-right:40px}
+  body.training-focus .day-panel.active{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;align-items:start}
+  body.training-focus .day-panel.active>.training-control{grid-column:1/-1;margin-bottom:0}
+  body.training-focus .day-panel.active>.plan-details{display:none}
+  body.training-focus .day-panel.active>.section{grid-column:2;margin-top:0}
+  body.training-focus .day-panel.active>.section:has(.training-exercise.is-current),
+  body.training-focus .day-panel.active>.section:has(.single-training-exercise.is-current){grid-column:1;grid-row:2}
+  body.training-focus .day-panel.active>.section:not(:has(.training-exercise.is-current)):not(:has(.single-training-exercise.is-current)){
+    display:block!important;padding:4px 0;background:transparent;border-bottom:1px solid var(--line);border-radius:0;
+  }
+  body.training-focus .day-panel.active>.section:not(:has(.training-exercise.is-current)):not(:has(.single-training-exercise.is-current)) .section-body,
+  body.training-focus .day-panel.active>.section:not(:has(.training-exercise.is-current)):not(:has(.single-training-exercise.is-current)) .round-box,
+  body.training-focus .day-panel.active>.section:not(:has(.training-exercise.is-current)):not(:has(.single-training-exercise.is-current)) .round-schedule,
+  body.training-focus .day-panel.active>.section:not(:has(.training-exercise.is-current)):not(:has(.single-training-exercise.is-current)) .previous-round-history,
+  body.training-focus .day-panel.active>.section:not(:has(.training-exercise.is-current)):not(:has(.single-training-exercise.is-current)) .round-complete{display:none!important}
+  body.training-focus .day-panel.active>.section:not(:has(.training-exercise.is-current)):not(:has(.single-training-exercise.is-current)) .section-title{padding:12px 2px;display:flex}
+  body.training-focus .day-panel.active>.section:not(:has(.training-exercise.is-current)):not(:has(.single-training-exercise.is-current)) .section-title h3{font-size:15px;color:var(--muted);font-weight:600}
+  body.training-focus .day-panel.active>.section:not(:has(.training-exercise.is-current)):not(:has(.single-training-exercise.is-current)) .section-title span{font-size:12px}
+  body.training-focus .round-complete{position:static;padding:14px 20px 18px;background:transparent;border-top:1px solid var(--line)}
+  body.training-focus .round-complete .round-note{display:block}
+  body.training-focus .timer-dock{bottom:20px;width:min(520px,calc(100% - 40px))}
+  body.training-focus .timer-dock.timer-active:not(.timer-done){inset:0;width:100%;height:100%}
+  .timer-dock{bottom:20px}
+}
+
+/* ── 窄屏收尾 ── */
+@media(max-width:650px){
+  .shell{padding:16px 20px 4px}
+  .greeting{margin-top:22px}
+  .greeting h1{font-size:26px}
+  .today-sub{font-size:13px}
+  .training-control{padding:18px}
+  .training-control h2{font-size:23px}
+  .training-control-bottom{flex-wrap:wrap}
+  .control-progress{flex:1 1 100%;margin:0}
+  .control-actions{width:100%}
+  .control-actions .control-start,.control-actions .control-abandon{flex:1}
+  .training-exercise{grid-template-columns:1fr;gap:12px}
+  .exercise-guide{max-width:none;width:100%}
+  .exercise-guide-frame img,.training-exercise .exercise-guide-frame img{height:180px!important}
+  .single-training-exercise{grid-template-columns:auto minmax(0,1fr);gap:10px 12px}
+  .single-training-exercise .check{grid-column:1;grid-row:1;align-self:start;margin-top:4px}
+  .single-training-exercise .exercise-main{grid-column:2;grid-row:1}
+  .single-training-exercise .exercise-guide{grid-column:1/-1;grid-row:2}
+  .single-training-exercise .actions{grid-column:1/-1;grid-row:3}
+  .training-exercise .rep-log-row{gap:10px}
+  .training-exercise .actual-reps{width:100%;flex:1 1 100%;justify-content:space-between}
+  .rep-stepper{flex:1;justify-content:center}
+  .training-exercise .rir-picker{width:100%;flex:1 1 100%;gap:6px}
+  .training-exercise .rir-button{flex:1}
+  .training-exercise.is-current .exercise-guide{width:100%;max-width:none;margin:12px 0 0}
+  .section-title{padding:16px 16px 0}
+  .section-body{padding:10px 12px 14px}
+  .round-box,.round-section .round-box{padding:12px 16px}
+  .round-complete{padding:12px 16px 16px}
+  .mine-profile{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .profile-drawer{padding:16px}
+  .ai-body{padding:0 14px 14px}
+  .backup-body{padding:0 14px 14px}
+  .dash-head{flex-direction:column}
+  .dash-summary>div{padding:14px}
+  .dash-summary strong{font-size:24px}
+  .dash-panel{padding:16px}
+  body.training-focus .focus-head{margin:0 -20px;padding-left:20px;padding-right:20px}
+  body.training-focus .day-panel.active>.section:not(:has(.training-exercise.is-current)):not(:has(.single-training-exercise.is-current)){display:none}
+}
+@media(max-width:390px){
+  .shell{padding-left:16px;padding-right:16px}
+  .rir-button,.training-exercise .rir-button{min-width:40px}
+  .rep-stepper input,.training-exercise .rep-stepper input{width:48px!important}
+}

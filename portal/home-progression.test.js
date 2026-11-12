@@ -56,3 +56,27 @@ test('band load validation rejects invalid values atomically and old unknown dat
   assert.equal(P.bandLoad(entry),null);assert.equal(P.bandLabel({min:'<script>',unit:'kg',mode:'resistance'}),'');
   assert.equal(P.usesBand('弹力带二头弯举'),true);assert.equal(P.usesBand('脚抬高俯卧撑'),true);assert.equal(P.usesBand('引体向上 / 弹力带辅助'),true);assert.equal(P.usesBand('跪姿健腹轮'),false);assert.equal(P.usesBand('TRX划船'),false);
 });
+
+test('combined bands retain the ordered combination per level without treating the sum as actual force',()=>{
+  const entry={levelIndex:0,xp:42,history:[]};
+  P.setBandLoad(entry,0,{combination:' 65 ＋ 32 + 20 ',unit:'lb',mode:'resistance'});
+  const load=P.bandLoad(entry,0);assert.equal(load.combination,'65+32+20');assert.equal(load.min,undefined);
+  assert.equal(P.bandLabel(load),'阻力 65+32+20 lb');assert.equal(P.bandInput(load),'65+32+20');
+  const version=entry.setupRevision;assert.equal(P.setBandLoad(entry,0,{combination:'65+32+20',unit:'lb',mode:'resistance'}),false);assert.equal(entry.setupRevision,version);
+  P.setBandLoad(entry,1,{combination:'32+20',unit:'kg',mode:'assistance'});
+  const restored=JSON.parse(JSON.stringify(entry));assert.equal(P.bandLabel(P.bandLoad(restored,0)),'阻力 65+32+20 lb');assert.equal(P.bandLabel(P.bandLoad(restored,1)),'辅助 32+20 kg');
+  assert.equal(restored.xp,42);assert.equal(restored.levelIndex,0);
+  P.setBandLoad(entry,0,{combination:'',unit:'lb',mode:'resistance'});assert.equal(P.bandLoad(entry,0),null);assert.ok(P.bandLoad(entry,1));
+});
+
+test('text entry keeps legacy single loads and ranges equivalent and rejects malformed combinations atomically',()=>{
+  const entry={levelIndex:0,xp:12,history:[]};P.setBandLoad(entry,0,{min:15,max:25,unit:'kg',mode:'resistance'});
+  assert.equal(P.bandInput(P.bandLoad(entry,0)),'15–25');const revision=entry.setupRevision;
+  assert.equal(P.setBandLoad(entry,0,{combination:'15-25',unit:'kg',mode:'resistance'}),false);assert.equal(entry.setupRevision,revision);
+  P.setBandLoad(entry,1,{min:65,max:65,unit:'lb',mode:'resistance'});
+  assert.equal(P.setBandLoad(entry,1,{combination:'65',unit:'lb',mode:'resistance'}),false);
+  const before=JSON.stringify(entry);
+  for(const combination of ['65++32','65+','+65','65+0','65+-2','1001+20','15-5','NaN+20','Infinity+20','65+32*2','<img src=x onerror=alert(1)>','1+'.repeat(41)+'2']){
+    assert.throws(()=>P.setBandLoad(entry,0,{combination,unit:'kg',mode:'resistance'}),combination);assert.equal(JSON.stringify(entry),before);
+  }
+});

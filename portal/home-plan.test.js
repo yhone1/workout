@@ -164,3 +164,20 @@ test('custom text is escaped and malformed synced custom identifiers are rejecte
   assert.ok(M.read(JSON.stringify(state),extras));const ex=M.compile(p,M.catalog(extras,[c])).push.A.find(s=>s.id==='main').exercises[0];assert.ok(!ex.displayName.includes('<img'));assert.ok(!ex.detail.includes('<script'));
   c.name='" onmouseover="alert(1)';assert.equal(M.read(JSON.stringify(state),extras),null);
 });
+
+test('round schedules expose unequal push and leg doses for both variants without changing the prescription',()=>{
+  const p=M.groupDefaults(),compiled=M.compile(p,catalog),before=JSON.stringify(p);
+  for(const variant of ['A','B'])for(const day of ['push','pull','legs']){
+    const s=compiled[day][variant].find(x=>x.id==='support'),rows=M.roundSchedule(s).map(r=>[r.from,r.to,r.exercises.length]);
+    assert.deepEqual(rows,day==='push'?[[1,3,2],[4,4,1]]:day==='legs'?[[1,2,2],[3,3,1]]:[[1,3,2]]);
+    for(const row of M.roundSchedule(s))for(let n=row.from;n<=row.to;n++)assert.deepEqual(row.exercises,M.exercisesForRound(s,n));
+  }
+  assert.equal(JSON.stringify(p),before);
+});
+
+test('round schedule distinguishes added rounds and restores all actions after the prescribed last round',()=>{
+  const p=M.groupDefaults(),s=M.compile(p,catalog).push.A.find(x=>x.id==='support');
+  const extra={...s,plannedRounds:4,rounds:6};
+  assert.deepEqual(M.roundSchedule(extra).map(r=>[r.from,r.to,r.exercises.length]),[[1,3,2],[4,4,1],[5,6,2]]);
+  assert.equal(M.setCount(extra,extra.exercises[1]),5);assert.equal(extra.exercises[1].sets,3);
+});

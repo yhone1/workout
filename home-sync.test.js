@@ -37,6 +37,7 @@ test('home sync module exposes owner marker and legacy key inventory', () => {
     'thinMuscleDoneV8', 'thinMusclePlanVariantV3', 'thinMuscleWorkoutSessionV3',
     'thinMuscleIntensityRatingsV2', 'thinMuscleRestSecondsV2', 'thinMuscleBodyProfileV1',
     'thinMuscleExercisePerformanceV1', 'thinMuscleGrowthV1', 'thinMuscleMrtV1', 'thinMuscleCindyV1', 'thinMuscleHomePlanV1',
+    'thinMuscleExerciseFavoritesV1',
   ]);
 });
 

@@ -16,7 +16,12 @@
     showGate = null,
     clearPending = null,
     navigate = (url) => windowRef.location.replace(url),
+    now = Date.now,
   } = {}) {
+    const ACCESS_CACHE_KEY = 'thinMuscleHomeAccessV1';
+    // Offline entry is only a short bridge from the last server verification,
+    // never a substitute for membership checks once the server is reachable.
+    const OFFLINE_GRACE_MS = 72 * 60 * 60 * 1000;
     function renderGate(view) {
       if (showGate) return showGate(view);
       const gate = documentRef?.getElementById('homeAccessGate');
@@ -71,6 +76,39 @@
         || profile.entitlements?.homeTraining === true;
     }
 
+    function rememberAccess(profile, allowed) {
+      try {
+        const expiresOn = profile.membership?.expiresOn;
+        storage.setItem(ACCESS_CACHE_KEY, JSON.stringify({
+          version: 1,
+          userId: String(profile.userId),
+          allowed,
+          expiresOn: typeof expiresOn === 'string' ? expiresOn : null,
+          verifiedAt: now(),
+        }));
+      } catch {}
+    }
+
+    function offlineAccess() {
+      let cached = null;
+      try { cached = JSON.parse(storage.getItem(ACCESS_CACHE_KEY) || 'null'); } catch { return null; }
+      if (!cached || cached.version !== 1 || cached.allowed !== true) return null;
+      const userId = String(cached.userId ?? '');
+      if (!/^[1-9]\d*$/.test(userId)) return null;
+      const verifiedAt = Number(cached.verifiedAt);
+      if (!Number.isFinite(verifiedAt) || verifiedAt > now() + 5 * 60 * 1000) return null;
+      if (now() - verifiedAt > OFFLINE_GRACE_MS) return null;
+      if (cached.expiresOn) {
+        const expiresAt = Date.parse(`${cached.expiresOn}T23:59:59`);
+        if (Number.isFinite(expiresAt) && now() > expiresAt) return null;
+      }
+      // Without a matching owner marker, local records may belong to another
+      // account and must not be shown offline.
+      const ownerKey = homeSync?.OWNER_KEY || 'thinMuscleStateOwnerV1';
+      if ((storage.getItem(ownerKey) || '') !== userId) return null;
+      return { userId, verifiedAt };
+    }
+
     function blocked(message, title = '暂时无法进入居家训练') {
       renderGate({
         title,
@@ -106,6 +144,7 @@
             resolve({ allowed: true, userId: result.userId, imported: result.imported });
           } catch (error) {
             busy = false;
+            if (error.status === 403) storage.removeItem(ACCESS_CACHE_KEY);
             const message = error.status === 403
               ? '会员授权已失效或尚未生效。训练数据未被改动。'
               : error.status === 401
@@ -155,11 +194,18 @@
       } catch (error) {
         if (error.status === 401) {
           storage.removeItem('thinMuscleAuthToken');
+          storage.removeItem(ACCESS_CACHE_KEY);
           returnToCenter();
           return { allowed: false };
         }
-        return blocked('当前无法连接验证服务，训练页面保持锁定；本机训练记录不会上传或清除。', '暂时无法验证权限');
+        const cached = (!error.status || error.status >= 500) ? offlineAccess() : null;
+        if (cached) {
+          releaseGate();
+          return { allowed: true, userId: cached.userId, offline: true, verifiedAt: cached.verifiedAt };
+        }
+        return blocked('当前无法连接验证服务，且本机没有可用的离线授权；训练页面保持锁定。本机训练记录不会上传或清除。', '暂时无法验证权限');
       }
+      rememberAccess(profile, canUseHome(profile));
       if (!canUseHome(profile)) {
         const membership = profile.membership || {};
         const status = membership.active
@@ -179,9 +225,11 @@
       } catch (error) {
         if (error.status === 401) {
           storage.removeItem('thinMuscleAuthToken');
+          storage.removeItem(ACCESS_CACHE_KEY);
           returnToCenter();
           return { allowed: false };
         }
+        if (error.status === 403) storage.removeItem(ACCESS_CACHE_KEY);
         const message = error.status === 403
           ? '会员授权已失效或尚未生效。训练页面保持锁定，记录没有清除。'
           : '服务暂不可用，训练页面保持锁定；不会把本机数据同步到其他账号。';

@@ -112,7 +112,7 @@ test('group previews show every action despite old completed rounds or unequal a
   const {ctx}=runtime();ctx.exerciseDisplayName=ex=>ex.name;ctx.exerciseGuides={};ctx.resolveGifUrl=x=>x;
   ctx.previousRoundHistoryHtml=()=>'';ctx.phaseBudget=()=>({support:10});ctx.intensityHtml=()=>'';
   ctx.roundExerciseHtml=()=>'';
-  for(const name of ['roundExerciseGroupHtml','isWarmupRound','sectionHtml'])loadFunction(ctx,name);
+  for(const name of ['roundExerciseGroupHtml','isWarmupRound','roundCompletionActionsHtml','roundScheduleHtml','sectionHtml'])loadFunction(ctx,name);
   const section=ctx.plans.push.A.find(s=>s.id==='support');
   for(let round=1;round<=4;round++)ctx.doneState[ctx.roundKey('push','A','support',round)]=true;
   const before=JSON.stringify(ctx.doneState);
@@ -137,4 +137,171 @@ test('time ranges accumulate in decimal minutes without floating point tails',()
   vm.createContext(ctx);loadFunction(ctx,'phaseTimeline');
   const t=ctx.phaseTimeline('push');
   assert.equal(t.main.end,13.1);assert.equal(t.secondary.end,18.7);assert.equal(t.support.end,34.5);assert.equal(t.finish.start,37.7);
+});
+
+function completionControl(ctx,id,round,action,reps='10'){
+  for(const name of ['isWarmupRound','roundCompletionActionsHtml','bindPanelEvents'])loadFunction(ctx,name);
+  const stats={rests:[],ended:0,click:null},input={value:reps},log={querySelector:()=>input,classList:{add(){}}};
+  const button={dataset:{completeRound:ctx.sectionKey('pull','A',id),round:String(round),...(action?{roundAction:action}:{})},addEventListener(type,fn){stats.click=fn;}};
+  Object.assign(ctx,{CSS:{escape:x=>x},beep(){},finishSuggestion:()=>null,showToast:message=>stats.message=message,
+    startRestTimer(day,section){stats.rests.push(section.restSeconds);},endWorkoutSession(){stats.ended++;}});
+  ctx.bindPanelEvents({querySelectorAll:selector=>selector==='[data-complete-round]'?[button]:[],querySelector:()=>log});
+  return stats;
+}
+
+test('last-round controls combine save with add or advance before the round is completed',()=>{
+  const {ctx}=runtime();for(const name of ['isWarmupRound','roundCompletionActionsHtml'])loadFunction(ctx,name);
+  const section=ctx.getSections('pull')[0];
+  const first=ctx.roundCompletionActionsHtml('pull','A',section,1);
+  assert.match(first,/保存数据并完成第1轮/);assert.doesNotMatch(first,/round-action/);
+  const last=ctx.roundCompletionActionsHtml('pull','A',section,2);
+  assert.match(last,/data-round-action="advance"/);assert.match(last,/data-round-action="add"/);
+  assert.match(last,/title="保存本轮并追加第3轮">再练一轮 · 第3轮/);assert.doesNotMatch(last,/round-choice/);
+});
+
+test('one-click warmup confirmation saves and advances, with the same warmup rest',()=>{
+  const {ctx}=runtime(),warmup=ctx.plans.push.A[0];ctx.sessionState.active.planSnapshot.A=[warmup,...ctx.sessionState.active.planSnapshot.A];
+  const before=JSON.stringify(ctx.sessionState.active.planSnapshot),control=completionControl(ctx,'warmup',1,'advance');
+  control.click();assert.equal(ctx.activePhase('pull'),'group-mixed');assert.deepEqual(control.rests,[30]);
+  assert.equal(ctx.ensurePerformanceSession().roundProgress.warmup.completed,1);
+  const row=ctx.activePerformanceEntry('warmup',1,warmup.exercises[0].name);
+  assert.equal(row.completed,true);assert.equal(row.rir,null);assert.equal(row.rirSource,undefined);
+  assert.equal(JSON.stringify(ctx.sessionState.active.planSnapshot),before);
+  control.click();assert.deepEqual(control.rests,[30],'a stale button cannot complete the next group');
+});
+
+test('save-and-add preserves actual last-round data, then allows further added rounds and refresh',()=>{
+  const {ctx,complete}=runtime();complete('group-mixed');
+  const section=ctx.getSections('pull')[0],strength=section.exercises.find(e=>!e.timer);
+  ctx.completeTimedGroupAction('pull',section.id,2,section.exercises[0].name,123);
+  ctx.savePerformanceEntry(section.id,2,strength.name,{rir:1});
+  const control=completionControl(ctx,section.id,2,'add','11');control.click();
+  assert.equal(ctx.activePhase('pull'),section.id);assert.equal(ctx.getSections('pull')[0].rounds,3);
+  assert.equal(ctx.ensurePerformanceSession().roundProgress[section.id].completed,2);
+  assert.equal(ctx.ensurePerformanceSession().roundProgress[section.id].addedCompleted,0);
+  assert.equal(ctx.activePerformanceEntry(section.id,2,strength.name).reps,11);
+  assert.equal(ctx.activePerformanceEntry(section.id,2,strength.name).rir,1);assert.deepEqual(control.rests,[90]);
+  control.click();assert.equal(ctx.getSections('pull')[0].rounds,3,'double click must not append twice');
+  const reload=runtime().ctx;reload.sessionState=JSON.parse(JSON.stringify(ctx.sessionState));reload.performanceState=JSON.parse(JSON.stringify(ctx.performanceState));reload.doneState=JSON.parse(JSON.stringify(ctx.doneState));
+  assert.equal(reload.getSections('pull')[0].rounds,3);assert.equal(reload.activePhase('pull'),section.id);
+  ctx.completeTimedGroupAction('pull',section.id,3,section.exercises[0].name,123);
+  completionControl(ctx,section.id,3,'add').click();assert.equal(ctx.getSections('pull')[0].rounds,4);
+  ctx.completeTimedGroupAction('pull',section.id,4,section.exercises[0].name,123);
+  completionControl(ctx,section.id,4,'advance').click();assert.equal(ctx.activePhase('pull'),'group-interval');
+  const progress=ctx.ensurePerformanceSession().roundProgress[section.id];assert.equal(progress.completed,4);assert.equal(progress.addedCompleted,2);assert.equal(progress.sets,4);
+});
+
+test('invalid counts and unfinished timers cannot save-and-advance or save-and-add',()=>{
+  for(const action of ['advance','add']){
+    const {ctx,complete}=runtime();complete('group-mixed');
+    const control=completionControl(ctx,'group-mixed',2,action,'');control.click();
+    assert.match(control.message,/请先填写/);assert.equal(ctx.ensurePerformanceSession().roundProgress['group-mixed'].completed,1);
+    assert.equal(ctx.activePhase('pull'),'group-mixed');assert.deepEqual(control.rests,[]);
+    ctx.completeTimedGroupAction('pull','group-mixed',2,'热身活动',123);
+    completionControl(ctx,'group-mixed',2,action,'').click();
+    assert.equal(ctx.ensurePerformanceSession().roundProgress['group-mixed'].completed,1);
+  }
+});
+
+test('final group saves and opens workout completion without a second continue click',()=>{
+  const {ctx,complete}=runtime();complete('group-mixed');complete('group-mixed');ctx.advanceWorkoutSection('pull','group-mixed');
+  complete('group-interval');ctx.advanceWorkoutSection('pull','group-interval');
+  const control=completionControl(ctx,'group-final',1,'advance');control.click();
+  assert.equal(ctx.activePhase('pull'),'finish');assert.equal(control.ended,1);assert.deepEqual(control.rests,[0]);
+  assert.equal(ctx.ensurePerformanceSession().roundProgress['group-final'].completed,1);
+  control.click();assert.equal(control.ended,1);
+});
+
+function restRuntime(mode='threeDay'){
+  const result=runtime(mode),ctx=result.ctx,other=mode==='threeDay'?'fourDay':'threeDay';
+  ctx.homePlanState={active:result.plan,programs:{[other]:M.groupDefaults(other)},custom:[],revision:1};
+  Object.assign(ctx,{window:{HOME_EXTRA_EXERCISES:[]},timer:{day:null,type:'rest',total:90,left:90,running:false},timerRaf:1,performance:{now:()=>10000},cancelAnimationFrame(){},renderTimer(){},persistHomePlan(next){ctx.homePlanState=next;}});
+  for(const name of ['resizeWorkoutRest','applyWorkoutRestDefaults','setWorkoutRest','restPreferenceTarget','startRestTimer'])loadFunction(ctx,name);
+  return result;
+}
+
+test('rest changes save the group long-term default, survive refresh and are used by the next workout',()=>{
+  for(const mode of ['threeDay','fourDay']){
+    const {ctx}=restRuntime(mode),other=mode==='threeDay'?'fourDay':'threeDay',otherPlan=JSON.stringify(ctx.homePlanState.programs[other]);
+    const snapshot=M.clone(ctx.sessionState.active.planSnapshot),originalPlan=JSON.stringify(ctx.homePlanState.active),otherVariant=JSON.stringify(ctx.homePlanState.active.days.pull.B);
+    assert.equal(ctx.setWorkoutRest('pull','group-mixed',45),true);
+    assert.equal(ctx.getSections('pull')[0].restSeconds,45);assert.match(ctx.getSections('pull')[0].note,/休息45秒/);
+    assert.equal(ctx.getSections('pull')[1].restSeconds,60);assert.equal(ctx.ensurePerformanceSession().roundProgress['group-mixed'].restSeconds,45);
+    assert.equal(ctx.homePlanState.active.days.pull.A.groups[0].restSeconds,45);assert.equal(JSON.stringify(ctx.homePlanState.active.days.pull.B),otherVariant);
+    assert.equal(JSON.stringify(ctx.homePlanState.programs[other]),otherPlan);assert.notEqual(JSON.stringify(ctx.homePlanState.active),originalPlan);
+    snapshot.A[0].restSeconds=45;snapshot.A[0].note='本组动作依次完成，每轮后休息45秒';
+    assert.equal(JSON.stringify(ctx.sessionState.active.planSnapshot),JSON.stringify(snapshot));
+    assert.equal(ctx.sessionState.active.roundFlow.restOverrides,undefined);
+    const reloaded=restRuntime(mode).ctx;reloaded.homePlanState=JSON.parse(JSON.stringify(ctx.homePlanState));reloaded.plans=M.compile(reloaded.homePlanState.active,catalog);
+    reloaded.sessionState.active=null;assert.equal(reloaded.getSections('pull')[0].restSeconds,45);
+    const revision=ctx.homePlanState.revision;ctx.setWorkoutRest('pull','group-mixed',45);assert.equal(ctx.homePlanState.revision,revision);
+  }
+});
+
+test('shortening a running rest subtracts elapsed time instead of restarting the countdown',()=>{
+  const {ctx}=restRuntime();ctx.timer={day:'pull',type:'rest',restSectionId:'group-mixed',total:150,left:100,running:true,last:9000,hasStarted:true};
+  ctx.setWorkoutRest('pull','group-mixed',90);
+  assert.equal(ctx.timer.total,90);assert.equal(ctx.timer.left,39);assert.equal(ctx.timer.running,true);assert.equal(ctx.timer.last,10000);
+  ctx.setWorkoutRest('pull','group-mixed',30);assert.equal(ctx.timer.left,0);assert.equal(ctx.timer.running,false);
+  assert.equal(ctx.activePhase('pull'),'group-mixed','ending rest must not complete or skip an action');
+});
+
+test('paused rests remain paused, zero is valid, and invalid values cannot mutate state',()=>{
+  const {ctx}=restRuntime();ctx.timer={day:'pull',type:'rest',restSectionId:'group-mixed',total:90,left:50,running:false,hasStarted:true};
+  ctx.setWorkoutRest('pull','group-mixed',60);assert.equal(ctx.timer.left,20);assert.equal(ctx.timer.running,false);
+  const before=JSON.stringify(ctx.sessionState);
+  for(const value of ['',null,-1,601,2.5,'abc'])assert.equal(ctx.setWorkoutRest('pull','group-mixed',value),false);
+  assert.equal(ctx.setWorkoutRest('push','group-mixed',60),false);assert.equal(ctx.setWorkoutRest('pull','missing',60),false);
+  assert.equal(JSON.stringify(ctx.sessionState),before);
+  ctx.setWorkoutRest('pull','group-mixed',0);assert.equal(ctx.getSections('pull')[0].restSeconds,0);assert.equal(ctx.timer.left,0);
+});
+
+test('rest for a completed group stays attached to that group after advancing and does not alter Tabata',()=>{
+  const {ctx,complete}=restRuntime();complete('group-mixed');complete('group-mixed');ctx.advanceWorkoutSection('pull','group-mixed');
+  ctx.timer={day:'pull',type:'rest',restSectionId:'group-mixed',total:90,left:80,running:false,hasStarted:true};
+  ctx.setWorkoutRest('pull','group-mixed',45);assert.equal(ctx.timer.left,35);assert.equal(ctx.getSections('pull')[1].restSeconds,60);
+  ctx.timer={day:'pull',type:'interval',restSectionId:'group-interval',total:12,left:8,running:true,last:10000};
+  const before=JSON.stringify(ctx.timer);ctx.setWorkoutRest('pull','group-interval',30);assert.equal(JSON.stringify(ctx.timer),before);
+  ctx.pendingWorkoutEnd={};assert.equal(ctx.setWorkoutRest('pull','group-interval',15),false);
+});
+
+test('later and added rounds use the adjusted rest, including a reset to the selected duration',()=>{
+  const {ctx,complete}=restRuntime();ctx.setTimer=(seconds,label,autostart,plan,day)=>{ctx.timer={total:seconds,left:seconds,running:autostart,day};};
+  ctx.setWorkoutRest('pull','group-mixed',45);complete('group-mixed');complete('group-mixed');ctx.addWorkoutRound('pull','group-mixed');
+  ctx.startRestTimer('pull',ctx.getSections('pull')[0]);assert.equal(ctx.timer.total,45);assert.equal(ctx.timer.restSectionId,'group-mixed');assert.equal(ctx.timer.running,true);
+  ctx.startRestTimer('pull',ctx.getSections('pull')[0],false);assert.equal(ctx.timer.total,45);assert.equal(ctx.timer.running,false);
+  ctx.setWorkoutRest('pull','group-mixed',0);ctx.startRestTimer('pull',ctx.getSections('pull')[0]);assert.equal(ctx.timer.total,0);assert.equal(ctx.timer.running,false);
+});
+
+test('applying edited plan defaults updates only rest in the ongoing workout',()=>{
+  const {ctx}=restRuntime(),before=M.clone(ctx.sessionState.active.planSnapshot),plan=M.clone(ctx.homePlanState.active);
+  plan.days.pull.A.groups[0].restSeconds=45;plan.days.pull.A.groups[0].rounds=4;
+  plan.days.pull.A.groups[0].exercises[1].repMax=20;
+  ctx.applyWorkoutRestDefaults(plan);
+  const live=ctx.sessionState.active.planSnapshot.A[0];assert.equal(live.restSeconds,45);assert.equal(live.rounds,before.A[0].rounds);
+  assert.equal(live.exercises[1].repMax,before.A[0].exercises[1].repMax);
+  assert.equal(JSON.stringify(ctx.sessionState.active.planSnapshot.B),JSON.stringify(before.B));
+  const frozen=JSON.stringify(ctx.sessionState.active);ctx.applyWorkoutRestDefaults(M.groupDefaults('fourDay'));assert.equal(JSON.stringify(ctx.sessionState.active),frozen);
+});
+
+test('saving a default preserves unrelated draft edits and the other active schedule',()=>{
+  const {ctx}=restRuntime(),draft=M.clone(ctx.homePlanState.active);
+  draft.days.pull.A.groups[0].exercises[1].repMax=20;ctx.homePlanState.draft=draft;ctx.homePlanState.drafts={threeDay:M.clone(draft)};
+  ctx.setWorkoutRest('pull','group-mixed',45);
+  assert.equal(ctx.homePlanState.draft.days.pull.A.groups[0].restSeconds,45);assert.equal(ctx.homePlanState.draft.days.pull.A.groups[0].exercises[1].repMax,20);
+  assert.equal(ctx.homePlanState.drafts.threeDay.days.pull.A.groups[0].restSeconds,45);
+  ctx.homePlanState.programs.threeDay=M.clone(ctx.homePlanState.active);ctx.homePlanState.active=M.groupDefaults('fourDay');
+  const other=JSON.stringify(ctx.homePlanState.active);ctx.setWorkoutRest('pull','group-mixed',30);
+  assert.equal(JSON.stringify(ctx.homePlanState.active),other);assert.equal(ctx.homePlanState.programs.threeDay.days.pull.A.groups[0].restSeconds,30);
+});
+
+test('unequal-dose notes identify the single-action round and keep names escaped',()=>{
+  const ctx={HomePlan:M};vm.createContext(ctx);loadFunction(ctx,'roundScheduleHtml');
+  const p=M.groupDefaults(),compiled=M.compile(p,catalog),push=compiled.push.A.find(s=>s.id==='support'),legs=compiled.legs.B.find(s=>s.id==='support');
+  const preview=ctx.roundScheduleHtml(push);assert.match(preview,/第1–3轮：弹力带侧平举＋弹力带下压/);assert.match(preview,/第4轮：仅做弹力带侧平举/);
+  assert.match(ctx.roundScheduleHtml(push,4),/class="is-current">第4轮：仅做弹力带侧平举/);
+  assert.match(ctx.roundScheduleHtml(legs,3),/class="is-current">第3轮：仅做微屈膝单腿提踵/);
+  assert.equal(ctx.roundScheduleHtml(compiled.pull.A.find(s=>s.id==='support')),'');
+  assert.match(ctx.roundScheduleHtml({...push,plannedRounds:4,rounds:5},5),/class="is-current">第5轮（加练）：弹力带侧平举＋弹力带下压/);
+  const hostile={...push,exercises:push.exercises.map(ex=>({...ex,name:'<img onerror=alert(1)>'}))};assert.doesNotMatch(ctx.roundScheduleHtml(hostile),/<img/);
 });

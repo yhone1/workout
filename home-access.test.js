@@ -8,8 +8,8 @@ function response(body, status = 200) {
   return { ok: status >= 200 && status < 300, status, json: async () => body };
 }
 
-function setup({ token = 'token', profile, stateResponse, status = 200, fetchError, syncError } = {}) {
-  const storage = new Map(token ? [['thinMuscleAuthToken', token]] : []);
+function setup({ token = 'token', profile, stateResponse, status = 200, fetchError, syncError, seed, now } = {}) {
+  const storage = new Map([...(token ? [['thinMuscleAuthToken', token]] : []), ...(seed || [])]);
   const calls = [];
   const gates = [];
   const navigations = [];
@@ -36,8 +36,20 @@ function setup({ token = 'token', profile, stateResponse, status = 200, fetchErr
     showGate: (message) => gates.push(message),
     clearPending: () => {},
     navigate: (url) => navigations.push(url),
+    now: now || Date.now,
   });
   return { access, calls, gates, navigations, storage };
+}
+
+function accessCache(overrides = {}) {
+  return JSON.stringify({
+    version: 1,
+    userId: '6',
+    allowed: true,
+    expiresOn: null,
+    verifiedAt: Date.now(),
+    ...overrides,
+  });
 }
 
 test('home access module exposes a testable access bootstrap', () => {
@@ -98,6 +110,87 @@ test('file URL never receives account entitlement and remains locked', async () 
   const result = await access.bootstrap();
   assert.equal(result.allowed, false);
   assert.match(gates[0].message, /离线打开不会授予访问权限/);
+});
+
+test('successful verification records a bounded offline access cache', async () => {
+  const { access, storage } = setup({
+    profile: { userId: 6, entitlements: { homeTraining: true }, membership: { active: true, expiresOn: '2099-12-31' } },
+  });
+  assert.equal((await access.bootstrap()).allowed, true);
+  const cached = JSON.parse(storage.get('thinMuscleHomeAccessV1'));
+  assert.equal(cached.userId, '6');
+  assert.equal(cached.allowed, true);
+  assert.equal(cached.expiresOn, '2099-12-31');
+  assert.ok(Number(cached.verifiedAt) > 0);
+});
+
+test('denied membership is cached as denied so offline cannot reuse an old grant', async () => {
+  const { access, storage } = setup({
+    token: 'token',
+    profile: { userId: 6, entitlements: { homeTraining: false }, membership: { active: false } },
+    seed: [['thinMuscleStateOwnerV1', '6']],
+  });
+  assert.equal((await access.bootstrap()).allowed, false);
+  assert.equal(JSON.parse(storage.get('thinMuscleHomeAccessV1')).allowed, false);
+  const offline = setup({
+    fetchError: new Error('offline'),
+    seed: [...storage].filter(([key]) => key !== 'thinMuscleAuthToken'),
+  });
+  assert.equal((await offline.access.bootstrap()).allowed, false);
+});
+
+test('offline fallback enters with a recent verification when local data belongs to the same account', async () => {
+  const { access, calls, gates } = setup({
+    fetchError: new Error('offline'),
+    seed: [
+      ['thinMuscleStateOwnerV1', '6'],
+      ['thinMuscleHomeAccessV1', accessCache()],
+    ],
+  });
+  const result = await access.bootstrap();
+  assert.equal(result.allowed, true);
+  assert.equal(result.offline, true);
+  assert.equal(result.userId, '6');
+  assert.equal(gates.some((view) => view.title === '暂时无法验证权限'), false);
+  assert.deepEqual(calls.map(({ url }) => url), ['/api/auth/me']);
+});
+
+test('offline fallback refuses stale verification, expired membership, foreign local data or non-network errors', async () => {
+  const old = setup({
+    fetchError: new Error('offline'),
+    seed: [['thinMuscleStateOwnerV1', '6'], ['thinMuscleHomeAccessV1', accessCache({ verifiedAt: Date.now() - 73 * 60 * 60 * 1000 })]],
+  });
+  assert.equal((await old.access.bootstrap()).allowed, false);
+
+  const expired = setup({
+    fetchError: new Error('offline'),
+    seed: [['thinMuscleStateOwnerV1', '6'], ['thinMuscleHomeAccessV1', accessCache({ expiresOn: '2020-01-01' })]],
+  });
+  assert.equal((await expired.access.bootstrap()).allowed, false);
+
+  const foreign = setup({
+    fetchError: new Error('offline'),
+    seed: [['thinMuscleStateOwnerV1', '7'], ['thinMuscleHomeAccessV1', accessCache()]],
+  });
+  assert.equal((await foreign.access.bootstrap()).allowed, false);
+
+  const deniedByServer = setup({
+    status: 403,
+    profile: { error: 'forbidden' },
+    seed: [['thinMuscleStateOwnerV1', '6'], ['thinMuscleHomeAccessV1', accessCache()]],
+  });
+  assert.equal((await deniedByServer.access.bootstrap()).allowed, false);
+});
+
+test('expired login clears the offline access cache', async () => {
+  const { access, storage } = setup({
+    status: 401,
+    profile: { error: 'unauthorized' },
+    seed: [['thinMuscleStateOwnerV1', '6'], ['thinMuscleHomeAccessV1', accessCache()]],
+  });
+  assert.equal((await access.bootstrap()).allowed, false);
+  assert.equal(storage.has('thinMuscleHomeAccessV1'), false);
+  assert.equal(storage.has('thinMuscleAuthToken'), false);
 });
 
 test('unowned legacy-data prompt waits for an explicit user choice before unlocking', async () => {

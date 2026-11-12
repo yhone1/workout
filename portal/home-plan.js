@@ -239,6 +239,17 @@
     return [{day:'rest',variant:'A'},{day:'push',variant:'A'},{day:'pull',variant:'A'},{day:'rest',variant:'B'},{day:'push',variant:'B'},{day:'pull',variant:'B'},{day:'rest',variant:'A'}][day];
   }
   function exercisesForRound(section,round){return section.exercises.filter(ex=>ex.sets==null||round<=ex.sets||round>(section.plannedRounds??section.rounds));}
+  function roundSchedule(section){
+    const rounds=section.rounds,planned=section.plannedRounds??rounds;
+    const ends=[...new Set([0,rounds,...section.exercises.map(ex=>ex.sets),planned].filter(n=>Number.isInteger(n)&&n>=0&&n<=rounds))].sort((a,b)=>a-b);
+    const result=[];
+    for(let i=1;i<ends.length;i++){
+      const from=ends[i-1]+1,to=ends[i],exercises=exercisesForRound(section,from),last=result.at(-1);
+      if(last&&last.exercises.length===exercises.length&&last.exercises.every((ex,j)=>ex===exercises[j])&&(last.from>planned)===(from>planned))last.to=to;
+      else result.push({from,to,exercises});
+    }
+    return result;
+  }
   function setCount(section,ex){return Math.min(ex.sets??section.rounds,section.plannedRounds??section.rounds)+Math.max(0,section.rounds-(section.plannedRounds??section.rounds));}
   function defaults(mode='threeDay'){
     if(mode==='fourDay')return fourDayDefaults();
@@ -467,5 +478,37 @@
     state.legLateralRemoved=true;
     return true;
   }
-  return {KEY,clone,escape,HOME_CATALOG,TIMED_CATALOG,SCHEDULES,TABATA:Tabata,schedule,dayKeys,weeklySlot,exercisesForRound,setCount,defaults,groupDefaults,toGroups,groupName,newExercise,migrateGroups,catalog,validate,compile,summary,migrateRearDeltToPushB,migrateLegLateralToPushOnly,read};
+  /* 应用 AI 教练提案：只改数值字段，current 必须与当前计划一致，整体校验失败则不做任何修改。 */
+  function applyOperations(plan,operations,items){
+    const next=clone(plan);
+    if(!Array.isArray(operations)||!operations.length)return {plan:next,errors:['没有可应用的调整。']};
+    const errors=[],seen=new Set(),groupFields=new Set(['rounds','restSeconds']),exerciseFields=new Set(['sets','repMin','repMax','rir']);
+    for(const op of operations){
+      if(!op||typeof op!=='object'){errors.push('调整项格式无效。');continue;}
+      const group=next.days?.[op.day]?.[op.variant]?.groups?.find(g=>g.id===op.sectionId);
+      if(!group){errors.push('调整目标动作组不存在。');continue;}
+      const field=String(op.field||''),value=op.value;
+      if(!Number.isInteger(value)){errors.push('调整数值必须是整数。');continue;}
+      let current;
+      if(groupFields.has(field)){
+        if(op.exerciseId){errors.push('组级调整不应指定动作。');continue;}
+        current=group[field];
+      }else if(exerciseFields.has(field)){
+        const exercise=group.exercises?.find(ex=>ex.exerciseId===op.exerciseId);
+        if(!exercise){errors.push('调整目标动作不存在。');continue;}
+        current=exercise[field];
+      }else{errors.push('不支持调整该字段。');continue;}
+      const key=[op.day,op.variant,op.sectionId,op.exerciseId||'',field].join('|');
+      if(seen.has(key)){errors.push('同一目标字段重复调整。');continue;}
+      seen.add(key);
+      if(op.current!=null&&Number(op.current)!==Number(current)){errors.push('计划已变化，请重新生成提案。');continue;}
+      if(groupFields.has(field))group[field]=value;
+      else group.exercises.find(ex=>ex.exerciseId===op.exerciseId)[field]=value;
+    }
+    if(errors.length)return {plan:clone(plan),errors};
+    const invalid=validate(next,items||[]);
+    if(invalid.length)return {plan:clone(plan),errors:invalid};
+    return {plan:next,errors:[]};
+  }
+  return {KEY,clone,escape,HOME_CATALOG,TIMED_CATALOG,SCHEDULES,TABATA:Tabata,schedule,dayKeys,weeklySlot,exercisesForRound,roundSchedule,setCount,defaults,groupDefaults,toGroups,groupName,newExercise,migrateGroups,catalog,validate,compile,summary,applyOperations,migrateRearDeltToPushB,migrateLegLateralToPushOnly,read};
 });

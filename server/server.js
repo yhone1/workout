@@ -20,6 +20,7 @@ const { mountPhotoFeedRoutes } = require('./modules/photos-feed');
 const { mountMembershipRoutes } = require('./modules/memberships');
 const { mountMemberPlanRoutes } = require('./modules/member-plans');
 const { mountMemberTrainingRoutes } = require('./modules/member-training');
+const { mountAiCoachRoutes } = require('./modules/ai-coach');
 const { mountCoachCapacityRoutes } = require('./modules/coach-capacity');
 const { mountCoachInvitationRoutes, parseInviteEncryptionKey } = require('./modules/coach-invitations');
 const { registerWithInvitation } = require('./modules/invitation-registration');
@@ -220,6 +221,7 @@ mountMemberTrainingRoutes(app, { pool, auth, requireMembership });
 mountCatalogPlanRoutes(app, { pool, auth, staticRoot: STATIC_ROOT });
 mountWorkoutMeasurementRoutes(app, { pool, auth });
 mountPhotoFeedRoutes(app, { pool, auth, privateRoot: PRIVATE_MEDIA_ROOT });
+mountAiCoachRoutes(app, { pool, auth, requireMembership });
 
 app.get('/', (req, res) => res.sendFile(path.join(STATIC_ROOT, 'portal', 'index.html')));
 app.get('/index.html', (req, res) => res.redirect(302, '/home/'));
