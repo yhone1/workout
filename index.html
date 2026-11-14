@@ -2788,32 +2788,40 @@ button:active{transform:scale(0.98);opacity:0.9}
   function playCountdownCrossings(before,after){
     [3,2,1].forEach(mark=>{ if(before>mark&&after<=mark){ beep('countdown'); if(timer.type==='rest') vibrate(40); } });
   }
-  function transitionIntervalPhase(){
+  function transitionIntervalPhase(leftRemaining=timer.left){
+    // 阶段翻转；返回是否真的进入了新阶段。timer.round 在离开训练阶段时就已递增，
+    // 所以不能拿 round 是否到末轮判断该不该继续——末轮之前的那次休息结束时仍要进入下一轮训练，
+    // 只有剩余时间已经不够再来一段训练（只剩末轮休息）时才停在休息，避免凭空多出第 7 轮。
     if(timer.phase==='work'){
       if(timer.round<timer.totalRounds) timer.round+=1;
-      timer.phase='rest'; timer.phaseLeft=timer.intervalPlan.rest; beep('rest');
-    }else if(timer.round<=timer.totalRounds){
-      timer.phase='work'; timer.phaseLeft=timer.intervalPlan.work; beep('work');
+      timer.phase='rest'; timer.phaseLeft=timer.intervalPlan.rest; beep('rest'); return true;
     }
+    if(leftRemaining>timer.intervalPlan.rest+0.0001){
+      timer.phase='work'; timer.phaseLeft=timer.intervalPlan.work; beep('work'); return true;
+    }
+    return false;
   }
-  function advanceInterval(delta){
-    let remaining=delta;
-    while(remaining>0&&timer.left>0&&timer.intervalPlan){
+  function advanceInterval(delta,leftAtFrameStart=timer.left){
+    // 息屏或切到后台再回前台时，一次可能要结算几十秒：必须逐段扣到真实位置，
+    // 不能一进休息就把剩下的量丢掉，否则界面显示的阶段和“当前动作”会落后于总剩余，末轮看着像卡住。
+    // 阶段只能用本帧开始时的总剩余来判断还剩多少：timer.left 已在 tick 里先扣除过，直接用会把跨多个阶段的
+    // 大跳跃误判成“已经走完”，从而停在某个休息段。
+    let remaining=delta,left=leftAtFrameStart,guard=0;
+    while(remaining>0.0001&&left>0.0001&&timer.intervalPlan&&++guard<=128){
       const before=timer.phaseLeft; const used=Math.min(remaining,Math.max(0,timer.phaseLeft));
-      timer.phaseLeft=Math.max(0,timer.phaseLeft-used); remaining-=used; playCountdownCrossings(before,timer.phaseLeft);
-      if(timer.phaseLeft<=0.0001){
-        if(timer.left<=0.0001) break;
-        transitionIntervalPhase();
-        if(timer.phaseLeft<=0.0001||timer.phase!=='work') break;
-      }
-      if(used===0&&timer.phaseLeft>0) break;
+      timer.phaseLeft=Math.max(0,timer.phaseLeft-used); remaining-=used; left-=used; playCountdownCrossings(before,timer.phaseLeft);
+      if(timer.phaseLeft>0.0001||left<=0.0001) break;
+      if(!transitionIntervalPhase(left)) break;
+      // 休息时长为 0 的间歇继续下一轮，不在这里丢量；只剩末轮休息则停在休息，交给 tick 收尾。
+      while(left>0.0001&&timer.phaseLeft<=0.0001&&transitionIntervalPhase(left)&&++guard<=128){}
+      if(timer.phaseLeft<=0.0001||used===0) break;
     }
   }
   function tick(){
     if(!timer.running) return;
     // 用墙钟时间扣除已过时长，页面切到后台或手机息屏后回来也能立即校准。
     const now=Date.now(); const delta=Math.max(0,(now-timer.last)/1000); timer.last=now;
-    timer.left=Math.max(0,timer.left-delta); if(timer.type==='interval') advanceInterval(delta);
+    const leftAtFrameStart=timer.left; timer.left=Math.max(0,timer.left-delta); if(timer.type==='interval') advanceInterval(delta,leftAtFrameStart);
     renderTimer();
     if(timer.left<=0){
       timer.running=false; startPause.textContent='重新开始'; collapseTimer(); beep(timer.day==='mrt'?'normal':'finish'); vibrate([180,90,180]);
