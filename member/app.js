@@ -7,7 +7,7 @@ const SPLITS = {
   five_day: { label: '五分化', days: ['胸', '背', '腿', '肩', '手臂与核心'] },
   custom: { label: '自定义', days: ['训练日 1'] },
 };
-const state = { viewer: null, exercises: [], plans: [], coachPlan: null, selectedPlan: null, isNew: false, splitType: 'ppl', name: '', draft: null, search: '', sessions: [], openSession: null, sessionMessage: '', elapsedTimer: null, startingSession: false, finishingSession: false, view: null };
+const state = { viewer: null, exercises: [], plans: [], coachPlan: null, selectedPlan: null, isNew: false, splitType: 'ppl', name: '', draft: null, search: '', sessions: [], openSession: null, sessionMessage: '', elapsedTimer: null, startingSession: false, finishingSession: false, focusSet: null, view: null };
 const $ = (id) => document.getElementById(id);
 const sessionSaveQueues = new WeakMap();
 const sessionLocalValues = new WeakMap();
@@ -140,7 +140,7 @@ function renderSessionList() {
   list.innerHTML = state.sessions.map((session) => {
     const plan = state.plans.find((item) => Number(item.id) === Number(session.planId));
     const when = session.startedAt ? new Date(session.startedAt).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
-    return `<article class="session-history-item"><div><strong>${escapeHtml(plan?.name || '会员计划')} · 第 ${session.dayNo} 天 · ${escapeHtml(session.dayName)}</strong><span>${escapeHtml(when)}${session.durationSeconds !== null && session.durationSeconds !== undefined ? ` · ${formatDuration(session.durationSeconds)}` : ''}</span></div><span class="session-state">${escapeHtml(statusLabel(session.status))}</span><button class="button button-quiet" type="button" data-open-session="${Number(session.id)}">${session.status === 'draft' ? '继续训练' : '查看记录'}</button></article>`;
+    return `<article class="session-history-item"><div><strong>${escapeHtml(plan?.name || '会员计划')} · 第 ${session.dayNo} 天 · ${escapeHtml(session.dayName)}</strong><span>${escapeHtml(when)}${session.durationSeconds !== null && session.durationSeconds !== undefined ? ` · ${formatDuration(session.durationSeconds)}` : ''}</span></div><span class="session-state">${escapeHtml(statusLabel(session.status))}</span><button class="button small" type="button" data-open-session="${Number(session.id)}">${session.status === 'draft' ? '继续训练' : '查看记录'}</button></article>`;
   }).join('');
 }
 
@@ -155,8 +155,10 @@ function renderOverview() {
   const next = plan.status === 'active' ? nextWorkout(plan) : null;
   const openDraft = state.sessions.find((session) => session.status === 'draft');
   const totalExercises = days.reduce((total, day) => total + (day.exercises || []).length, 0);
+  $('overviewStatus').textContent = plan.status === 'archived' ? '已归档' : `当前计划 · v${plan.currentVersionNo || 1} 已确认`;
+  $('overviewStatus').dataset.state = plan.status === 'archived' ? 'muted' : 'ok';
   $('overviewTitle').textContent = plan.name;
-  $('overviewSummary').textContent = `${SPLITS[plan.splitType]?.label || plan.splitType} · 已确认版本 v${plan.currentVersionNo || 1} · ${days.length} 个训练日 · ${totalExercises} 个动作`;
+  $('overviewSummary').textContent = `${SPLITS[plan.splitType]?.label || plan.splitType} · ${days.length} 个训练日 · ${totalExercises} 个动作`;
   $('overviewEditButton').hidden = plan.status === 'archived';
   const start = $('overviewStartButton');
   start.hidden = plan.status === 'archived';
@@ -175,11 +177,10 @@ function renderOverview() {
   $('overviewDays').innerHTML = days.map((day, index) => {
     const dayName = day.name || `训练日 ${index + 1}`;
     const exercises = day.exercises || [];
-    return `<article class="overview-day">
-      <div class="overview-day-heading"><div><span>DAY ${String(index + 1).padStart(2, '0')}</span><h3>${escapeHtml(dayName)}</h3></div><strong>${exercises.length} 个动作</strong></div>
-      ${day.focus ? `<p class="overview-focus">${escapeHtml(day.focus)}</p>` : ''}
-      <ol>${exercises.map((exercise) => `<li><span><strong>${escapeHtml(exercise.exerciseNameZh || exercise.nameZh || '未命名动作')}</strong><small>${escapeHtml(exercise.primaryMuscleZh || exercise.primaryMuscle || '')}</small></span><span class="overview-target">${Number(exercise.sets) || 0} 组 × ${Number(exercise.repMin) || 0}–${Number(exercise.repMax) || 0} 次 <small>RIR ${Number(exercise.rir) || 0}</small></span></li>`).join('')}</ol>
-    </article>`;
+    return `<details class="overview-day"${index === 0 ? ' open' : ''}>
+      <summary><div><strong>第 ${index + 1} 天 · ${escapeHtml(dayName)}</strong>${day.focus ? `<small>${escapeHtml(day.focus)}</small>` : ''}</div><span>${exercises.length} 个动作</span></summary>
+      <ol>${exercises.map((exercise) => `<li><div><strong>${escapeHtml(exercise.exerciseNameZh || exercise.nameZh || '未命名动作')}</strong><small>目标 RIR ${Number(exercise.rir) || 0}${exercise.targetWeight ? ` · ${Number(exercise.targetWeight)} kg` : ''}</small></div><span class="overview-target">${Number(exercise.sets) || 0} 组 × ${Number(exercise.repMin) || 0}–${Number(exercise.repMax) || 0} 次</span></li>`).join('')}</ol>
+    </details>`;
   }).join('');
   renderSessionList();
 }
@@ -216,28 +217,83 @@ function renderActiveSession() {
   const exercises = session.snapshot?.exercises || [];
   const sets = session.sets || [];
   const elapsed = Math.floor((Date.now() - new Date(session.startedAt).getTime()) / 1000);
-  const setHtml = (row) => {
-    const local = sessionLocalValues.get(session)?.get(`${row.exerciseIndex}:${row.setNo}`);
+  const isDone = (row) => ['completed', 'skipped'].includes(row.status);
+  const doneSets = sets.filter(isDone).length;
+  const allRows = [];
+  exercises.forEach((exercise, exerciseIndex) => {
+    const rows = sets.filter((row) => Number(row.exerciseIndex) === exerciseIndex);
+    rows.forEach((row) => allRows.push({ row, exercise, exerciseIndex, setCount: rows.length }));
+  });
+  const keyOf = (row) => `${row.exerciseIndex}:${row.setNo}`;
+  const localOf = (row) => sessionLocalValues.get(session)?.get(keyOf(row));
+  const requested = state.focusSet ? allRows.find((entry) => keyOf(entry.row) === state.focusSet) : null;
+  const current = requested || allRows.find((entry) => !isDone(entry.row)) || null;
+  const restLabel = (exercise) => exercise.restSeconds == null ? '' : (Number(exercise.restSeconds) === 0 ? '无需组间休息' : `组间休息 ${Number(exercise.restSeconds)} 秒`);
+  const setHtml = (entry) => {
+    const { row, exercise, exerciseIndex, setCount } = entry;
+    const local = localOf(row);
     const display = local || row;
     const skipped = display.status === 'skipped';
     const completed = row.status === 'completed';
-    return `<div class="session-set${completed ? ' is-completed' : ''}${skipped ? ' is-skipped' : ''}" data-session-set="${row.exerciseIndex}:${row.setNo}" data-status="${display.status}">
-      <div class="set-target"><strong>第 ${row.setNo} 组 · 目标 ${row.targetRepMin}–${row.targetRepMax} 次</strong><span>${row.targetWeight !== null && row.targetWeight !== undefined ? `目标 ${row.targetWeight} kg · ` : ''}目标 RIR ${row.targetRir}</span></div>
-      <label>实际重量 kg<input type="number" data-session-field="actualWeight" min="0" max="1000" step="0.25" value="${display.actualWeight ?? ''}" ${!editable || skipped ? 'disabled' : ''}></label>
-      <label>实际次数<input type="number" data-session-field="actualReps" min="0" max="300" step="1" value="${display.actualReps ?? ''}" ${!editable || skipped ? 'disabled' : ''}></label>
-      <label>实际 RIR<input type="number" data-session-field="actualRir" min="0" max="10" step="1" value="${display.actualRir ?? ''}" ${!editable || skipped ? 'disabled' : ''}></label>
+    return `<div class="session-set${completed ? ' is-completed' : ''}${skipped ? ' is-skipped' : ''}" data-session-set="${exerciseIndex}:${row.setNo}" data-status="${display.status}">
+      <div class="set-target"><strong>第 ${row.setNo} 组 / 共 ${setCount} 组</strong><span>目标 ${row.targetRepMin}–${row.targetRepMax} 次 · RIR ${row.targetRir}${row.targetWeight !== null && row.targetWeight !== undefined ? ` · ${row.targetWeight} kg` : ''}</span></div>
+      <label>重量 kg<input type="number" data-session-field="actualWeight" min="0" max="1000" step="0.25" value="${display.actualWeight ?? ''}" ${!editable || skipped ? 'disabled' : ''}></label>
+      <label>次数<input type="number" data-session-field="actualReps" min="0" max="300" step="1" value="${display.actualReps ?? ''}" ${!editable || skipped ? 'disabled' : ''}></label>
+      <label>RIR<input type="number" data-session-field="actualRir" min="0" max="10" step="1" value="${display.actualRir ?? ''}" ${!editable || skipped ? 'disabled' : ''}></label>
       <span class="set-status" data-set-status>${local ? '尚未保存' : skipped ? '已跳过' : completed ? '已保存' : '待填写'}</span>
-      ${editable ? `<button class="skip-set-button" type="button" data-skip-set="${row.exerciseIndex}:${row.setNo}">${skipped ? '恢复本组' : '跳过本组'}</button>` : ''}
+      ${editable ? `<button class="skip-set-button" type="button" data-skip-set="${exerciseIndex}:${row.setNo}">${skipped ? '恢复本组' : '跳过本组'}</button>` : ''}
     </div>`;
   };
-  const workoutHtml = exercises.map((exercise, exerciseIndex) => {
-    const rows = sets.filter((row) => Number(row.exerciseIndex) === exerciseIndex);
-    const rest = exercise.restSeconds != null ? ` · ${Number(exercise.restSeconds) === 0 ? '无需组间休息' : `组间休息 ${Number(exercise.restSeconds)} 秒`}` : '';
-    return `<article class="session-exercise"><h4>${escapeHtml(exercise.exerciseNameZh)}</h4><p>${escapeHtml(exercise.primaryMuscleZh || '')} · ${rows.length} 组${rest}${exercise.cueZh ? ` · ${escapeHtml(exercise.cueZh)}` : ''}</p><div class="session-set-list">${rows.map(setHtml).join('')}</div></article>`;
-  }).join('');
+
+  let bodyHtml = '';
+  let controlsHtml = '';
+  if (!allRows.length) {
+    bodyHtml = '<p class="empty-state">此训练快照没有动作数据。</p>';
+  } else if (!editable) {
+    bodyHtml = exercises.map((exercise, exerciseIndex) => {
+      const rows = sets.filter((row) => Number(row.exerciseIndex) === exerciseIndex);
+      const rest = restLabel(exercise);
+      return `<article class="session-exercise"><h4>${escapeHtml(exercise.exerciseNameZh)}</h4><p>动作 ${exerciseIndex + 1}/${exercises.length} · ${escapeHtml(exercise.primaryMuscleZh || '')} · ${rows.length} 组${rest ? ` · ${rest}` : ''}${exercise.cueZh ? ` · ${escapeHtml(exercise.cueZh)}` : ''}</p><div class="session-set-list">${rows.map((row) => setHtml({ row, exercise, exerciseIndex, setCount: rows.length })).join('')}</div></article>`;
+    }).join('');
+    controlsHtml = `<p class="empty-state">${session.durationSeconds !== null && session.durationSeconds !== undefined ? `训练用时 ${formatDuration(session.durationSeconds)}` : '这场训练未形成正式完成记录。'}</p>`;
+  } else {
+    const logHtml = `<details class="session-log"><summary>本场记录 ${doneSets}/${sets.length}</summary><ol>${allRows.map((entry) => {
+      const { row, exercise, exerciseIndex } = entry;
+      const display = localOf(row) || row;
+      const stateText = display.status === 'skipped' ? '已跳过' : display.status === 'completed' ? `已完成${display.actualWeight != null ? ` · ${display.actualWeight} kg` : ''}${display.actualReps != null ? ` × ${display.actualReps}` : ''}` : '待记录';
+      return `<li><button type="button" data-focus-set="${exerciseIndex}:${row.setNo}" aria-current="${keyOf(row) === (current ? keyOf(current.row) : '')}"><span><strong>${escapeHtml(exercise.exerciseNameZh)}</strong><small>第 ${row.setNo} 组 · ${escapeHtml(stateText)}</small></span><span class="log-target">${row.targetRepMin ?? '–'}–${row.targetRepMax ?? '–'} 次</span></button></li>`;
+    }).join('')}</ol></details>`;
+    if (current) {
+      const { row, exercise, exerciseIndex, setCount } = current;
+      const display = localOf(row) || row;
+      const numeric = (field, value, min, max, step) => `<input type="number" data-session-field="${field}" min="${min}" max="${max}" step="${step}" value="${value ?? ''}"${field === 'actualWeight' ? ' inputmode="decimal"' : ''}>`;
+      const next = allRows.find((entry) => !isDone(entry.row) && keyOf(entry.row) !== keyOf(row));
+      bodyHtml = `<article class="focus-exercise">
+          <p class="focus-position">动作 ${exerciseIndex + 1}/${exercises.length} · 第 ${row.setNo} 组 / 共 ${setCount} 组</p>
+          <h3>${escapeHtml(exercise.exerciseNameZh)}</h3>
+          <div class="focus-chips"><span>${escapeHtml(exercise.primaryMuscleZh || '')}</span><span>目标 ${row.targetRepMin}–${row.targetRepMax} 次</span><span>RIR ${row.targetRir}</span>${restLabel(exercise) ? `<span>${restLabel(exercise)}</span>` : ''}</div>
+          ${exercise.cueZh ? `<p class="focus-cue">${escapeHtml(exercise.cueZh)}</p>` : ''}
+        </article>
+        <div class="focus-set" data-session-set="${exerciseIndex}:${row.setNo}" data-status="${display.status}">
+          <div class="focus-stepper-row"><span>重量 kg</span><div class="focus-stepper"><button type="button" data-step="actualWeight:-0.25" aria-label="减少重量">−</button>${numeric('actualWeight', display.actualWeight, 0, 1000, 0.25)}<button type="button" data-step="actualWeight:0.25" aria-label="增加重量">+</button></div></div>
+          <div class="focus-stepper-row"><span>实际次数</span><div class="focus-stepper"><button type="button" data-step="actualReps:-1" aria-label="减少次数">−</button>${numeric('actualReps', display.actualReps, 0, 300, 1)}<button type="button" data-step="actualReps:1" aria-label="增加次数">+</button></div></div>
+          <div class="focus-rir"><span>RIR</span><div class="rir-chips">${[0, 1, 2, 3, 4, 5].map((value) => `<button type="button" data-rir="${value}" aria-pressed="${Number(display.actualRir) === value}">${value}</button>`).join('')}</div><input class="sr-only" type="number" data-session-field="actualRir" min="0" max="10" step="1" value="${display.actualRir ?? ''}" tabindex="-1"></div>
+          <p class="focus-status" data-set-status>${localOf(row) ? '尚未保存' : isDone(row) ? '已保存' : '填写后自动保存'}</p>
+        </div>
+        ${logHtml}`;
+      controlsHtml = `<div class="session-controls"><button class="button primary" type="button" data-complete-set>保存并完成第 ${row.setNo} 组</button><div class="focus-secondary"><button class="focus-skip" type="button" data-skip-set="${exerciseIndex}:${row.setNo}">跳过本组</button><span>${next ? `下一个：${escapeHtml(next.exercise.exerciseNameZh)} · 第 ${next.row.setNo} 组` : '这是最后一组'}</span></div></div>`;
+    } else {
+      const summaryHtml = exercises.map((exercise) => `<p>${escapeHtml(exercise.exerciseNameZh)}${restLabel(exercise) ? ` · ${restLabel(exercise)}` : ''}</p>`).join('');
+      bodyHtml = `<div class="session-complete-card"><strong>所有组已记录</strong><p>核对本场记录后，点击下方按钮完成训练。</p></div><div class="session-summary">${summaryHtml}</div>${logHtml}`;
+      controlsHtml = '<div class="session-controls"><button class="button primary" type="button" data-complete-session>完成训练</button><button class="button small" type="button" data-abandon-session>放弃本次训练</button></div>';
+    }
+  }
+
+  const progressHtml = sets.length ? `<div class="session-progress" aria-label="已完成 ${doneSets} / ${sets.length} 组">${sets.map((row) => `<span class="${isDone(row) ? 'is-done' : ''}"></span>`).join('')}</div>` : '';
   root.innerHTML = `<div class="active-session-heading"><div><h3>${escapeHtml(session.dayName)} · 第 ${session.dayNo} 天</h3><p>${escapeHtml(session.status === 'draft' ? '训练进行中 · 每组修改自动保存' : statusLabel(session.status))} · 版本快照 v${session.snapshot?.versionNo || session.planVersionId || ''}</p></div>${editable ? `<span class="session-elapsed" data-elapsed>${formatDuration(elapsed)}</span>` : ''}</div>
-    ${workoutHtml || '<p class="empty-state">此训练快照没有动作数据。</p>'}
-    ${editable ? '<div class="session-controls"><button class="button button-primary" type="button" data-complete-session>完成训练</button><button class="button button-quiet" type="button" data-abandon-session>放弃本次训练</button></div>' : `<p class="empty-state">${session.durationSeconds !== null && session.durationSeconds !== undefined ? `训练用时 ${formatDuration(session.durationSeconds)}` : '这场训练未形成正式完成记录。'}</p>`}`;
+    ${progressHtml}
+    ${bodyHtml}
+    ${controlsHtml}`;
   if (editable) {
     if (state.elapsedTimer) clearInterval(state.elapsedTimer);
     state.elapsedTimer = setInterval(() => {
@@ -266,9 +322,9 @@ function filteredExercises(day) {
   });
 }
 
-function numberField(dayNo, exerciseNo, field, label, value, min, max, step = 1) {
+function numberInput(dayNo, exerciseNo, field, label, value, min, max, step = 1) {
   const shown = value === null || value === undefined ? '' : value;
-  return `<label>${label}<input type="number" data-day="${dayNo}" data-exercise="${exerciseNo}" data-field="${field}" value="${escapeHtml(shown)}" min="${min}" max="${max}" step="${step}" ${field === 'targetWeight' ? 'placeholder="选填"' : ''}></label>`;
+  return `<input type="number" data-day="${dayNo}" data-exercise="${exerciseNo}" data-field="${field}" aria-label="${label}" value="${escapeHtml(shown)}" min="${min}" max="${max}" step="${step}" ${field === 'targetWeight' ? 'placeholder="选填"' : ''}>`;
 }
 
 function renderExercise(exercise, dayNo, exerciseNo) {
@@ -277,13 +333,12 @@ function renderExercise(exercise, dayNo, exerciseNo) {
   const muscle = exercise.primaryMuscleZh || exercise.primaryMuscle || libraryItem?.primaryMuscleZh || libraryItem?.primaryMuscle || '';
   return `<article class="exercise-row">
     <div class="exercise-name"><strong>${escapeHtml(exercise.exerciseNameZh || exercise.nameZh || '未命名动作')}</strong><span>${escapeHtml(muscle)}${equipment ? ` · ${escapeHtml(equipment)}` : ''}</span></div>
-    ${numberField(dayNo, exerciseNo, 'sets', '组数', exercise.sets, 1, 10)}
-    ${numberField(dayNo, exerciseNo, 'repMin', '次数下限', exercise.repMin, 1, 100)}
-    ${numberField(dayNo, exerciseNo, 'repMax', '次数上限', exercise.repMax, 1, 100)}
-    ${numberField(dayNo, exerciseNo, 'rir', '目标 RIR', exercise.rir, 0, 5)}
-    ${numberField(dayNo, exerciseNo, 'restSeconds', '休息秒数', exercise.restSeconds, 0, 600)}
+    <label class="cell"><span class="cell-label">组数</span>${numberInput(dayNo, exerciseNo, 'sets', '组数', exercise.sets, 1, 10)}</label>
+    <div class="cell cell-reps"><span class="cell-label">次数范围</span><div class="rep-range">${numberInput(dayNo, exerciseNo, 'repMin', '次数下限', exercise.repMin, 1, 100)}<span class="rep-dash">–</span>${numberInput(dayNo, exerciseNo, 'repMax', '次数上限', exercise.repMax, 1, 100)}</div></div>
+    <label class="cell"><span class="cell-label">RIR</span>${numberInput(dayNo, exerciseNo, 'rir', '目标 RIR', exercise.rir, 0, 5)}</label>
+    <label class="cell"><span class="cell-label">休息（秒）</span>${numberInput(dayNo, exerciseNo, 'restSeconds', '休息秒数', exercise.restSeconds, 0, 600)}</label>
+    <label class="cell"><span class="cell-label">目标重量</span><span class="weight-input">${numberInput(dayNo, exerciseNo, 'targetWeight', '目标重量 kg', exercise.targetWeight, 0, 1000, 0.25)}<span class="weight-unit">kg</span></span></label>
     <button class="remove-button" type="button" data-remove-day="${dayNo}" data-remove-exercise="${exerciseNo}" aria-label="移除${escapeHtml(exercise.exerciseNameZh || exercise.nameZh)}">×</button>
-    <div class="exercise-name weight-field"><span>可选目标重量（kg）</span>${numberField(dayNo, exerciseNo, 'targetWeight', 'kg', exercise.targetWeight, 0, 1000, 0.25).replace(/^<label>|<\/label>$/g, '')}</div>
   </article>`;
 }
 
@@ -302,8 +357,9 @@ function renderDays() {
         <label>训练重点<input type="text" data-day-focus="${dayIndex}" maxlength="120" value="${escapeHtml(day.focus || '')}" placeholder="例如：胸、肩、三头"></label>
         <div class="day-meta"><span class="day-count">第 ${dayIndex + 1} 天 · ${day.exercises.length}/20 动作</span>${canEditDays ? `<button class="remove-training-day" type="button" data-remove-training-day="${dayIndex}" aria-label="移除第 ${dayIndex + 1} 个训练日" ${state.draft.days.length <= 1 ? 'disabled title="至少保留一个训练日"' : ''}>移除此日</button>` : ''}</div>
       </div>
+      ${day.exercises.length ? '<div class="exercise-table-head" aria-hidden="true"><span>动作（' + day.exercises.length + '/20）</span><span>组数</span><span>次数范围</span><span>RIR</span><span>休息（秒）</span><span>目标重量</span><span></span></div>' : ''}
       <div class="exercise-list">${day.exercises.map((exercise, exerciseIndex) => renderExercise(exercise, dayIndex, exerciseIndex)).join('') || '<p class="empty-state">还没有动作。使用下方动作库添加。</p>'}</div>
-      <div class="add-exercise"><select class="add-exercise-select" data-add-select="${dayIndex}" aria-label="为${escapeHtml(day.name)}选择动作"><option value="">${options.length ? '从动作库选择动作…' : (state.search ? '没有匹配的动作' : '动作库为空')}</option>${options.map((exercise) => `<option value="${escapeHtml(exercise.slug)}">${escapeHtml(exerciseLabel(exercise))}</option>`).join('')}</select><button class="button button-secondary" type="button" data-add-day="${dayIndex}">添加动作</button></div>
+      <div class="add-exercise"><select class="add-exercise-select" data-add-select="${dayIndex}" aria-label="为${escapeHtml(day.name)}选择动作"><option value="">${options.length ? '从动作库选择动作…' : (state.search ? '没有匹配的动作' : '动作库为空')}</option>${options.map((exercise) => `<option value="${escapeHtml(exercise.slug)}">${escapeHtml(exerciseLabel(exercise))}</option>`).join('')}</select><button class="button small" type="button" data-add-day="${dayIndex}">添加动作</button></div>
     </section>`;
   }).join('');
 }
@@ -366,7 +422,7 @@ function renderCoachPlan() {
   const days = plan.version?.content?.days || [];
   const splitLabel = { ppl: '推拉腿', upper_lower: '上下肢', five_day: '五分化', custom: '自定义计划' }[plan.splitType] || plan.splitType || '';
   card.hidden = false;
-  card.innerHTML = `<h3>教练计划 · 只读</h3><p>${escapeHtml(plan.name || '当前教练计划')} · ${escapeHtml(splitLabel)}</p><p>修改会员自助计划不会覆盖这份教练计划。</p><ul>${days.map((day) => `<li>${escapeHtml(day.name)}：${(day.exercises || []).map((exercise) => escapeHtml(exercise.exerciseNameZh)).join('、')}</li>`).join('')}</ul><a class="button button-quiet" href="/gym/" style="margin-top:10px">打开健身房训练</a>`;
+  card.innerHTML = `<h3>教练计划 · 只读</h3><p>${escapeHtml(plan.name || '当前教练计划')} · ${escapeHtml(splitLabel)}</p><p>修改会员自助计划不会覆盖这份教练计划。</p><ul>${days.map((day) => `<li>${escapeHtml(day.name)}：${(day.exercises || []).map((exercise) => escapeHtml(exercise.exerciseNameZh)).join('、')}</li>`).join('')}</ul><a class="button small" href="/gym/">打开健身房训练</a>`;
 }
 
 async function refreshPlans(selectId = null) {
@@ -500,6 +556,7 @@ async function startNextWorkout() {
       method: 'POST', body: JSON.stringify({ dayNo: next.dayNo }),
     });
     state.openSession = result.session;
+    state.focusSet = null;
     state.sessionMessage = '';
     await refreshSessions(false);
     $('activeSession').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -517,6 +574,7 @@ async function openSession(sessionId, scroll = true) {
   try {
     const result = await request(`/api/member/sessions/${Number(sessionId)}`);
     state.openSession = result.session;
+    state.focusSet = null;
     state.sessionMessage = '';
     renderEditor();
     if (scroll) $('activeSession').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -602,12 +660,60 @@ async function saveSetRow(rowElement, overrideStatus = null) {
 
 async function toggleSkippedSet(button) {
   const [exerciseIndex, setNo] = button.dataset.skipSet.split(':').map(Number);
-  const row = button.closest('[data-session-set]');
+  const row = button.closest('[data-session-set]') || $('activeSession').querySelector('[data-session-set]');
+  if (!row) return;
   const set = state.openSession.sets.find((item) => Number(item.exerciseIndex) === exerciseIndex && Number(item.setNo) === setNo);
   if (!set) return;
   const status = row.dataset.status === 'skipped' ? 'pending' : 'skipped';
   if (status === 'skipped' && !window.confirm('确认跳过这一组？完成训练前仍可恢复。')) return;
-  await saveSetRow(row, status);
+  const ok = await saveSetRow(row, status);
+  if (ok && status === 'skipped') {
+    state.focusSet = null;
+    renderActiveSession();
+  }
+}
+
+async function completeCurrentSet(button) {
+  const session = state.openSession;
+  if (!session || session.status !== 'draft' || state.finishingSession) return;
+  const row = $('activeSession').querySelector('[data-session-set]');
+  if (!row) return;
+  const value = readSetRow(row, 'completed');
+  if (value.actualReps == null || value.actualRir == null) {
+    $('trainingMessage').textContent = '请先填写实际次数和 RIR，再完成本组。';
+    $('trainingMessage').dataset.state = 'error';
+    return;
+  }
+  button.disabled = true;
+  const ok = await saveSetRow(row, 'completed');
+  if (!ok) { button.disabled = false; return; }
+  state.focusSet = null;
+  renderActiveSession();
+  $('trainingMessage').textContent = '本组已保存，继续下一组。';
+  $('trainingMessage').dataset.state = 'info';
+}
+
+function stepSetInput(button) {
+  const [field, delta] = button.dataset.step.split(':');
+  const row = button.closest('[data-session-set]');
+  const input = row?.querySelector(`[data-session-field="${field}"]`);
+  if (!input) return;
+  const step = Number(delta);
+  const min = Number(input.min);
+  const max = Number(input.max);
+  const next = Math.min(max, Math.max(min, Math.round(((Number(input.value) || 0) + step) * 100) / 100));
+  input.value = next;
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+  input.dispatchEvent(new Event('change', { bubbles: true }));
+}
+
+function chooseRir(button) {
+  const row = button.closest('[data-session-set]');
+  const input = row?.querySelector('[data-session-field="actualRir"]');
+  if (!input) return;
+  input.value = button.dataset.rir;
+  row.querySelectorAll('[data-rir]').forEach((chip) => chip.setAttribute('aria-pressed', String(chip === button)));
+  input.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
 async function completeSession() {
@@ -686,6 +792,7 @@ async function load() {
     }
     $('accountBadge').textContent = state.viewer.username || '已登录';
     $('accountBadge').hidden = false;
+    $('railAccount').textContent = state.viewer.username || '会员自助';
     $('logoutButton').hidden = false;
     const data = await request('/api/gym/exercises');
     state.exercises = Array.isArray(data.exercises) ? data.exercises : [];
@@ -824,7 +931,15 @@ $('activeSession').addEventListener('change', (event) => {
 });
 $('activeSession').addEventListener('click', (event) => {
   const skip = event.target.closest('[data-skip-set]');
-  if (skip) toggleSkippedSet(skip);
+  const step = event.target.closest('[data-step]');
+  const rir = event.target.closest('[data-rir]');
+  const focus = event.target.closest('[data-focus-set]');
+  const completeSet = event.target.closest('[data-complete-set]');
+  if (step) stepSetInput(step);
+  else if (rir) chooseRir(rir);
+  else if (focus) { state.focusSet = focus.dataset.focusSet; renderActiveSession(); }
+  else if (completeSet) completeCurrentSet(completeSet);
+  else if (skip) toggleSkippedSet(skip);
   else if (event.target.closest('[data-complete-session]')) completeSession();
   else if (event.target.closest('[data-abandon-session]')) abandonSession();
 });

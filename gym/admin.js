@@ -15,9 +15,7 @@ export async function renderAdmin({ state, root, notify }) {
   let section = state.adminSection || 'coaches';
   if (!sections.some(([id]) => id === section)) section = 'coaches';
   state.adminSection = section;
-  const roleLabel = canManageCapacity ? '总管理员' : '管理员';
-  root.innerHTML = `<div class="section-heading"><div><p class="eyebrow">ADMINISTRATION</p><h2>管理工作台</h2></div><span class="account-pill">${roleLabel}</span></div>
-    <nav class="subnav" aria-label="管理员菜单">${sections.map(([id,label]) => `<button class="subtab${section===id?' active':''}" type="button" data-admin-section="${id}">${label}</button>`).join('')}</nav>
+  root.innerHTML = `<nav class="subnav" aria-label="管理员菜单">${sections.map(([id,label]) => `<button class="subtab${section===id?' active':''}" type="button" data-admin-section="${id}">${label}</button>`).join('')}</nav>
     <div id="adminSectionContent"></div>`;
   root.querySelectorAll('[data-admin-section]').forEach((button) => button.addEventListener('click', () => {
     state.adminSection = button.dataset.adminSection;
@@ -32,7 +30,7 @@ export async function renderAdmin({ state, root, notify }) {
 }
 
 async function renderCoachCapacity({ state, content, notify }) {
-  content.innerHTML = `<div class="section-heading section-heading-tight"><div><p class="eyebrow">COACH CAPACITY</p><h3>教练等级与学员上限</h3></div></div>
+  content.innerHTML = `<div class="section-heading section-heading-tight"><div><h3>教练等级与学员上限</h3></div></div>
     <p class="panel-intro">等级上限可统一管理；单个教练的个人覆盖值优先于等级。未分级且未设置个人上限时禁止新增绑定，降低上限不会解除已有关系。</p>
     <div class="capacity-admin-grid">
       <section class="capacity-admin-panel"><h4>教练等级</h4>
@@ -73,7 +71,7 @@ async function renderCoachCapacity({ state, content, notify }) {
 
   function drawTiers(tiers) {
     const list=content.querySelector('#capacityTierList');
-    list.innerHTML=tiers.length?tiers.map((tier)=>`<form class="capacity-tier-row" data-tier-form="${tier.id}"><div class="capacity-tier-fields"><label class="field-label">等级名称<input class="field-input" name="name" maxlength="80" required value="${escapeHtml(tier.name)}"></label><label class="field-label">最多学员<input class="field-input" name="maxStudents" type="number" min="0" step="1" required value="${tier.maxStudents}"></label><label class="field-label">排序<input class="field-input" name="sortOrder" type="number" step="1" value="${tier.sortOrder}"></label></div><div class="actions"><button class="button primary small" type="submit">保存</button><button class="button danger small" type="button" data-delete-tier="${tier.id}">删除</button></div></form>`).join(''):'<div class="empty-state">尚无等级，先新增一个等级。</div>';
+    list.innerHTML=tiers.length?tiers.map((tier)=>`<form class="capacity-tier-row" data-tier-form="${tier.id}"><div class="capacity-tier-fields"><label class="field-label">等级名称<input class="field-input" name="name" maxlength="80" required value="${escapeHtml(tier.name)}"></label><label class="field-label">最多学员<input class="field-input" name="maxStudents" type="number" min="0" step="1" required value="${tier.maxStudents}"></label><label class="field-label">排序<input class="field-input" name="sortOrder" type="number" step="1" value="${tier.sortOrder}"></label></div><div class="actions"><button class="button small" type="submit">保存</button><button class="button danger small" type="button" data-delete-tier="${tier.id}">删除</button></div></form>`).join(''):'<div class="empty-state">尚无等级，先新增一个等级。</div>';
     list.querySelectorAll('[data-tier-form]').forEach((form)=>form.addEventListener('submit',async(event)=>{
       event.preventDefault();
       const payload={name:form.elements.name.value.trim(),maxStudents:Number(form.elements.maxStudents.value),sortOrder:Number(form.elements.sortOrder.value||0)};
@@ -90,7 +88,7 @@ async function renderCoachCapacity({ state, content, notify }) {
 
   function drawCoaches(coaches,tiers) {
     const list=content.querySelector('#capacityCoachList');
-    list.innerHTML=coaches.length?coaches.map((coach)=>`<form class="capacity-coach-row" data-coach-form="${coach.id}"><div class="capacity-coach-heading"><strong>${escapeHtml(coach.username)}</strong><span>${coach.activeStudents} / ${coach.maxStudents==null?'未配置':coach.maxStudents} 人 · 剩余 ${coach.remaining}</span></div><div class="capacity-coach-fields"><label class="field-label">教练等级<select class="field-input" name="tierId"><option value="">未分级</option>${tiers.map((tier)=>`<option value="${tier.id}" ${coach.tierId===tier.id?'selected':''}>${escapeHtml(tier.name)} · ${tier.maxStudents} 人</option>`).join('')}</select></label><label class="field-label">个人上限覆盖<input class="field-input" name="maxStudentsOverride" type="number" min="0" step="1" value="${coach.maxStudentsOverride??''}" placeholder="留空则继承等级"></label><button class="button primary small" type="submit">保存名额</button></div><small class="capacity-effective">有效上限：${coach.maxStudents==null?'未配置（禁止新增学员）':`${coach.maxStudents} 人${coach.maxStudentsOverride==null?'（继承等级）':'（个人覆盖）'}`}</small></form>`).join(''):'<div class="empty-state">没有匹配的教练账号。</div>';
+    list.innerHTML=coaches.length?coaches.map((coach)=>`<form class="capacity-coach-row" data-coach-form="${coach.id}"><div class="capacity-coach-heading"><strong>${escapeHtml(coach.username)}</strong><span>${coach.activeStudents} / ${coach.maxStudents==null?'未配置':coach.maxStudents} 人 · 剩余 ${coach.remaining}</span></div><div class="capacity-coach-fields"><label class="field-label">教练等级<select class="field-input" name="tierId"><option value="">未分级</option>${tiers.map((tier)=>`<option value="${tier.id}" ${coach.tierId===tier.id?'selected':''}>${escapeHtml(tier.name)} · ${tier.maxStudents} 人</option>`).join('')}</select></label><label class="field-label">个人上限覆盖<input class="field-input" name="maxStudentsOverride" type="number" min="0" step="1" value="${coach.maxStudentsOverride??''}" placeholder="留空则继承等级"></label><button class="button small" type="submit">保存名额</button></div><small class="capacity-effective">有效上限：${coach.maxStudents==null?'未配置（禁止新增学员）':`${coach.maxStudents} 人${coach.maxStudentsOverride==null?'（继承等级）':'（个人覆盖）'}`}</small></form>`).join(''):'<div class="empty-state">没有匹配的教练账号。</div>';
     list.querySelectorAll('[data-coach-form]').forEach((form)=>form.addEventListener('submit',async(event)=>{
       event.preventDefault();
       const rawOverride=form.elements.maxStudentsOverride.value.trim();
@@ -134,7 +132,7 @@ async function renderCoachAuthorization({ state, content, notify }) {
     if (!list) return;
     try {
       const data = await api(`/api/admin/users?q=${encodeURIComponent(content.querySelector('#userQuery').value.trim())}`);
-      list.innerHTML = data.users.length ? data.users.map((user) => `<article class="data-row"><div class="data-main"><strong>${escapeHtml(user.username)}${user.id===state.user.id?'（当前账号）':''}</strong><div class="badge-row">${user.roles.map((role) => `<span class="badge">${escapeHtml({admin:'管理员',coach:'教练',student:'学员'}[role]||role)}</span>`).join('')}</div></div><div class="actions">${!user.roles.includes('admin')&&!user.roles.includes('coach')?`<button class="button primary small" type="button" data-grant="${user.id}">授予教练资格</button>`:''}${user.roles.includes('coach')?`<button class="button danger small" type="button" data-revoke="${user.id}">撤销教练资格</button>`:''}</div></article>`).join('') : '<div class="empty-state">没有匹配的账号。</div>';
+      list.innerHTML = data.users.length ? data.users.map((user) => `<article class="data-row"><div class="data-main"><strong>${escapeHtml(user.username)}${user.id===state.user.id?'（当前账号）':''}</strong><div class="badge-row">${user.roles.map((role) => `<span class="badge">${escapeHtml({admin:'管理员',superadmin:'总管理员',coach:'教练',student:'学员'}[role]||role)}</span>`).join('')}</div></div><div class="actions">${!user.roles.includes('admin')&&!user.roles.includes('coach')?`<button class="button small" type="button" data-grant="${user.id}">授予教练资格</button>`:''}${user.roles.includes('coach')?`<button class="button danger small" type="button" data-revoke="${user.id}">撤销教练资格</button>`:''}</div></article>`).join('') : '<div class="empty-state">没有匹配的账号。</div>';
       list.querySelectorAll('[data-grant]').forEach((button) => button.addEventListener('click', async () => {
         try { await api(`/api/admin/users/${button.dataset.grant}/coach`, { method: 'POST', body: '{}' }); notify('教练资格已授予。'); await loadUsers(); }
         catch { notify('授权失败。'); }
@@ -166,7 +164,7 @@ async function renderMembershipAuthorization({ state, content, notify }) {
     try {
       const query = content.querySelector('#membershipUserQuery').value.trim();
       const { users } = await api(`/api/admin/users?q=${encodeURIComponent(query)}`);
-      list.innerHTML = users.length ? users.map((user) => `<article class="data-row membership-user-row"><div class="data-main"><strong>${escapeHtml(user.username)}${user.id===state.user.id?'（当前账号）':''}</strong><div class="badge-row">${user.roles.map((role) => `<span class="badge">${escapeHtml({admin:'管理员',superadmin:'总管理员',coach:'教练',student:'学员'}[role]||role)}</span>`).join('')}</div></div><button class="button small${Number(state.adminMembershipUserId)===user.id?' primary':''}" type="button" data-membership-user="${user.id}">管理授权</button></article>`).join('') : '<div class="empty-state">没有匹配的账号。</div>';
+      list.innerHTML = users.length ? users.map((user) => `<article class="data-row membership-user-row"><div class="data-main"><strong>${escapeHtml(user.username)}${user.id===state.user.id?'（当前账号）':''}</strong><div class="badge-row">${user.roles.map((role) => `<span class="badge">${escapeHtml({admin:'管理员',superadmin:'总管理员',coach:'教练',student:'学员'}[role]||role)}</span>`).join('')}</div></div><button class="button small" type="button" aria-pressed="${Number(state.adminMembershipUserId)===user.id}" data-membership-user="${user.id}">管理授权</button></article>`).join('') : '<div class="empty-state">没有匹配的账号。</div>';
       list.querySelectorAll('[data-membership-user]').forEach((button) => button.addEventListener('click', () => {
         state.adminMembershipUserId = Number(button.dataset.membershipUser);
         loadMembership(state.adminMembershipUserId);
@@ -185,7 +183,7 @@ async function renderMembershipAuthorization({ state, content, notify }) {
       const user = (state.adminUsers || []).find((item) => item.id === userId);
       const selected = content.querySelector(`[data-membership-user="${userId}"]`);
       const username = selected?.closest('.data-row')?.querySelector('.data-main strong')?.textContent || user?.username || `账号 ${userId}`;
-      detail.innerHTML = `<div class="section-heading section-heading-tight"><div><p class="eyebrow">MEMBERSHIP ACCESS</p><h3>${escapeHtml(username.replace('（当前账号）',''))}</h3></div><span class="badge ${current?'':'badge-muted'}">${current?'会员有效':'当前无有效会员'}</span></div>
+      detail.innerHTML = `<div class="section-heading section-heading-tight"><div><h3>${escapeHtml(username.replace('（当前账号）',''))}</h3></div><span class="badge ${current?'':'badge-muted'}">${current?'会员有效':'当前无有效会员'}</span></div>
         ${current?`<div class="membership-current"><strong>当前有效期限</strong><span>${escapeHtml(current.startsOn)} 至 ${escapeHtml(current.expiresOn)}（含到期日）</span>${current.reason?`<small>备注：${escapeHtml(current.reason)}</small>`:''}</div>`:''}
         <form class="membership-form" id="membershipGrantForm"><h4>${history.length?'新增授权 / 续期':'授予会员期限'}</h4><p class="panel-intro">续期会创建新的授权记录，不覆盖旧记录。开始日和到期日均按北京时间判断，且到期日当天仍有效。</p>
           <div class="form-grid"><label>开始日期<input class="field-input" type="date" name="startsOn" required value="${shanghaiToday()}"></label><label>到期日期<input class="field-input" type="date" name="expiresOn" required></label><label class="wide-field">备注（可选）<input class="field-input" name="reason" maxlength="500" placeholder="例如：首期会员、续费"></label></div>
@@ -244,7 +242,7 @@ function shanghaiToday() {
 }
 
 async function renderCatalog({ state, content, notify }) {
-  content.innerHTML = `<div class="section-heading section-heading-tight"><div><p class="eyebrow">EXERCISE LIBRARY</p><h3>全站动作库</h3></div><button class="button primary" id="newExercise" type="button">新增动作</button></div>
+  content.innerHTML = `<div class="section-heading section-heading-tight"><div><h3>全站动作库</h3></div><button class="button primary" id="newExercise" type="button">新增动作</button></div>
     <p class="panel-intro">教练端只能搜索和引用动作；此处的停用仅从新计划中隐藏，不会改动已发布计划的动作快照。</p>
     <form class="toolbar catalog-filters" id="catalogFilter"><label class="field-label">动作名称<input class="field-input" name="q" placeholder="搜索中英文名称"></label><label class="field-label">肌群<input class="field-input" name="muscle" placeholder="如 pectorals"></label><label class="field-label">分化<select class="field-input" name="split"><option value="">全部</option>${SPLIT_TAGS.map(([key,label])=>`<option value="${key}">${label}</option>`).join('')}</select></label><button class="button" type="submit">筛选</button></form>
     <form id="exerciseEditor" class="editor-form" hidden></form>
@@ -323,7 +321,7 @@ async function renderCatalog({ state, content, notify }) {
 }
 
 async function renderPhotoQueue({ state, content, notify }) {
-  content.innerHTML = `<div class="section-heading section-heading-tight"><div><p class="eyebrow">PHOTO MODERATION</p><h3>照片审核</h3></div><select id="photoStatus" class="field-input compact-select"><option value="pending">待审核</option><option value="approved">已通过</option><option value="rejected">已拒绝</option><option value="removed">已下架</option><option value="all">全部</option></select></div>
+  content.innerHTML = `<div class="section-heading section-heading-tight"><div><h3>照片审核</h3></div><select id="photoStatus" class="field-input compact-select"><option value="pending">待审核</option><option value="approved">已通过</option><option value="rejected">已拒绝</option><option value="removed">已下架</option><option value="all">全部</option></select></div>
     <p class="panel-intro">所有照片先经管理员审核。只有已审核且选择“公开”的照片会进入展示圈；私密图片使用鉴权接口读取。</p><div class="photo-review-list" id="photoQueue"><div class="empty-state">正在读取待审核照片…</div></div>`;
   content.querySelector('#photoStatus').addEventListener('change', loadQueue);
   await loadQueue();
@@ -333,7 +331,7 @@ async function renderPhotoQueue({ state, content, notify }) {
     revokeRenderedImages(list, state);
     try {
       const { photos } = await api(`/api/admin/photos?status=${encodeURIComponent(content.querySelector('#photoStatus').value)}`);
-      list.innerHTML = photos.length ? photos.map((photo) => `<article class="photo-review-card"><img class="private-image" data-private-src="${photo.imageUrl}" alt="待审核学员训练照片"><div class="photo-review-info"><div class="badge-row"><span class="badge">${escapeHtml(photo.username)}</span><span class="badge">${escapeHtml({self:'仅自己',coach:'自己和教练',public:'公开'}[photo.privacy])}</span><span class="badge">${escapeHtml({pending:'待审核',approved:'已通过',rejected:'已拒绝',removed:'已下架',withdrawn:'已撤回'}[photo.moderationStatus])}</span></div><p>${escapeHtml(photo.caption||'（无说明）')}</p><small>提交于 ${formatDate(photo.createdAt,true)}${photo.showMetrics?' · 用户主动选择展示身体数据':''}</small>${photo.moderationNote?`<small>审核备注：${escapeHtml(photo.moderationNote)}</small>`:''}<label class="field-label">审核说明<textarea class="field-input" rows="2" data-review-note="${photo.id}" placeholder="拒绝或下架时请说明原因"></textarea></label><div class="actions">${photo.moderationStatus==='pending'?`<button class="button primary small" type="button" data-review="approve" data-photo-id="${photo.id}">通过</button><button class="button danger small" type="button" data-review="reject" data-photo-id="${photo.id}">拒绝</button>`:''}${['pending','approved','rejected'].includes(photo.moderationStatus)?`<button class="button danger small" type="button" data-remove-photo="${photo.id}">下架</button>`:''}</div></div></article>`).join('') : '<div class="empty-state">当前筛选下没有照片。</div>';
+      list.innerHTML = photos.length ? photos.map((photo) => `<article class="photo-review-card"><img class="private-image" data-private-src="${photo.imageUrl}" alt="待审核学员训练照片"><div class="photo-review-info"><div class="badge-row"><span class="badge">${escapeHtml(photo.username)}</span><span class="badge">${escapeHtml({self:'仅自己',coach:'自己和教练',public:'公开'}[photo.privacy])}</span><span class="badge">${escapeHtml({pending:'待审核',approved:'已通过',rejected:'已拒绝',removed:'已下架',withdrawn:'已撤回'}[photo.moderationStatus])}</span></div><p>${escapeHtml(photo.caption||'（无说明）')}</p><small>提交于 ${formatDate(photo.createdAt,true)}${photo.showMetrics?' · 用户主动选择展示身体数据':''}</small>${photo.moderationNote?`<small>审核备注：${escapeHtml(photo.moderationNote)}</small>`:''}<label class="field-label">审核说明<textarea class="field-input" rows="2" data-review-note="${photo.id}" placeholder="拒绝或下架时请说明原因"></textarea></label><div class="actions">${photo.moderationStatus==='pending'?`<button class="button small" type="button" data-review="approve" data-photo-id="${photo.id}">通过</button><button class="button danger small" type="button" data-review="reject" data-photo-id="${photo.id}">拒绝</button>`:''}${['pending','approved','rejected'].includes(photo.moderationStatus)?`<button class="button danger small" type="button" data-remove-photo="${photo.id}">下架</button>`:''}</div></div></article>`).join('') : '<div class="empty-state">当前筛选下没有照片。</div>';
       await attachPrivateImages(list, state);
       list.querySelectorAll('[data-review]').forEach((button) => button.addEventListener('click', () => review(button.dataset.photoId, button.dataset.review)));
       list.querySelectorAll('[data-remove-photo]').forEach((button) => button.addEventListener('click', async () => {

@@ -1,11 +1,8 @@
 import { api, attachPrivateImages, escapeHtml, formatDate, jsonBody, revokeRenderedImages } from './api.js';
 
-const STUDENT_SECTIONS=[['plan','我的计划'],['sessions','训练记录'],['measurements','身体数据'],['photos','我的照片']];
-
 export async function renderStudent({state,root,notify}){
   const section=state.studentSection||'plan';
-  root.innerHTML=`<div class="section-heading"><div><p class="eyebrow">MY GYM TRAINING</p><h2>学员空间</h2></div></div><nav class="subnav" aria-label="学员空间菜单">${STUDENT_SECTIONS.map(([id,label])=>`<button type="button" class="subtab${section===id?' active':''}" data-student-section="${id}">${label}</button>`).join('')}</nav><div id="studentSectionContent"></div>`;
-  root.querySelectorAll('[data-student-section]').forEach((button)=>button.addEventListener('click',()=>{state.studentSection=button.dataset.studentSection;renderStudent({state,root,notify});}));
+  root.innerHTML='<div id="studentSectionContent"></div>';
   const content=root.querySelector('#studentSectionContent');
   if(section==='sessions')return renderStudentSessions({state,content});
   if(section==='measurements')return renderStudentMeasurements({state,content,notify});
@@ -14,7 +11,7 @@ export async function renderStudent({state,root,notify}){
 }
 
 async function renderStudentPlan({state,content,notify}){
-  content.innerHTML=`<div id="studentPlan"><div class="empty-state">正在读取教练计划…</div></div>${!state.relation||state.relation.student?.id===state.user.id?`<form class="toolbar" id="acceptInviteForm"><label class="field-label">教练邀请链接<input class="field-input" id="inviteToken" autocomplete="off" placeholder="粘贴本站完整链接（兼容旧邀请码）"></label><button class="button" type="submit">接受邀请</button></form>`:''}`;
+  content.innerHTML=`<div id="studentPlan"><div class="empty-state">正在读取教练计划…</div></div>${!state.relation||state.relation.student?.id===state.user.id?`<form class="invite-card" id="acceptInviteForm"><h3>教练邀请链接</h3><label class="field-label">邀请链接<input class="field-input" id="inviteToken" autocomplete="off" placeholder="粘贴完整链接或邀请码"></label><button class="button primary" type="submit">接受邀请</button></form>`:''}`;
   const inviteFromLink=window.PortalRoutes?.extractInviteToken(location.href,location.origin);
   if(content.querySelector('#inviteToken')&&inviteFromLink)content.querySelector('#inviteToken').value=location.href;
   content.querySelector('#acceptInviteForm')?.addEventListener('submit',async(event)=>{
@@ -29,7 +26,7 @@ async function renderStudentPlan({state,content,notify}){
     const plan=planData.plan;
     const host=content.querySelector('#studentPlan');
     if(!plan?.version?.content){host.innerHTML=`<div class="empty-state">${state.relation?.coach?`教练 ${escapeHtml(state.relation.coach.username)} 已与你关联，计划发布后会显示在这里。`:'你还没有已发布的教练计划。接受邀请后，教练可以为你创建。'}</div>`;return;}
-    host.innerHTML=`<div class="split-heading"><div><p class="eyebrow">COACH-PUBLISHED PLAN</p><h3>${escapeHtml(plan.name)}</h3><p class="inline-message">${escapeHtml({ppl:'推 / 拉 / 腿',upper_lower:'上下肢',five_day:'五分化'}[plan.splitType]||plan.splitType)} · 版本 ${plan.version.versionNo} · 当前只读</p></div>${state.relation?.coach?`<span class="badge">教练 ${escapeHtml(state.relation.coach.username)}</span>`:''}</div><div class="plan-days">${plan.version.content.days.map((day)=>`<article class="plan-day-card"><h4>第 ${day.dayNo} 天 · ${escapeHtml(day.name)}</h4><p>${escapeHtml(day.focus||'')}</p>${day.exercises.map((exercise)=>`<div class="plan-summary-exercise"><div><strong>${escapeHtml(exercise.exerciseNameZh||exercise.exerciseSlug)}</strong><small>${escapeHtml(exercise.primaryMuscleZh||'')}</small></div><span>${exercise.sets} 组 · ${exercise.repMin}-${exercise.repMax} 次 · RIR ${exercise.rir}${exercise.targetWeight==null?'':` · ${exercise.targetWeight} kg`}</span>${exercise.mediaPath?`<img class="catalog-thumb" src="${escapeHtml(exercise.mediaPath)}" alt="${escapeHtml(exercise.exerciseNameZh)}" loading="lazy">`:''}<small>${escapeHtml(exercise.cueZh||exercise.note||'')}</small></div>`).join('')}</article>`).join('')}</div>`;
+    host.innerHTML=`<div class="split-heading"><div><h3>${escapeHtml(plan.name)}</h3><p class="inline-message">${escapeHtml({ppl:'推 / 拉 / 腿',upper_lower:'上下肢',five_day:'五分化'}[plan.splitType]||plan.splitType)} · 版本 ${plan.version.versionNo} · 当前只读</p></div>${state.relation?.coach?`<span class="badge">教练 ${escapeHtml(state.relation.coach.username)}</span>`:''}</div><div class="plan-days">${plan.version.content.days.map((day)=>`<article class="plan-day-card"><h4>第 ${day.dayNo} 天 · ${escapeHtml(day.name)}</h4><p>${escapeHtml(day.focus||'')}</p>${day.exercises.map((exercise)=>`<div class="plan-summary-exercise"><div><strong>${escapeHtml(exercise.exerciseNameZh||exercise.exerciseSlug)}</strong><small>${escapeHtml(exercise.primaryMuscleZh||'')}</small></div><span>${exercise.sets} 组 · ${exercise.repMin}-${exercise.repMax} 次 · RIR ${exercise.rir}${exercise.targetWeight==null?'':` · ${exercise.targetWeight} kg`}</span>${exercise.mediaPath?`<img class="catalog-thumb" src="${escapeHtml(exercise.mediaPath)}" alt="${escapeHtml(exercise.exerciseNameZh)}" loading="lazy">`:''}<small>${escapeHtml(exercise.cueZh||exercise.note||'')}</small></div>`).join('')}</article>`).join('')}</div>`;
   }catch{content.querySelector('#studentPlan').innerHTML='<div class="empty-state">暂时无法读取计划。</div>';}
 }
 
@@ -86,7 +83,7 @@ async function renderMyPhotos({state,content,notify}){
 }
 
 export async function renderFeed({state,root,notify}){
-  root.innerHTML=`<div class="section-heading"><div><p class="eyebrow">GYM COMMUNITY</p><h2>展示圈</h2></div><button class="button small" id="refreshFeed" type="button">刷新</button></div><p class="panel-intro">这里只展示管理员已审核且用户主动设为公开的照片。点赞可随时取消，不展示真实姓名或未授权身体数据。</p><div class="photo-grid feed-grid" id="feedList"><div class="empty-state">正在读取展示圈…</div></div><button class="button" id="loadMoreFeed" type="button" hidden>加载更多</button>`;
+  root.innerHTML=`<div class="split-heading"><div><h3>展示圈</h3><p class="panel-intro">只展示管理员已审核且用户主动设为公开的照片；点赞可随时取消，不展示真实姓名或未授权身体数据。</p></div><button class="button small" id="refreshFeed" type="button">刷新</button></div><div class="photo-grid feed-grid" id="feedList"><div class="empty-state">正在读取展示圈…</div></div><button class="button" id="loadMoreFeed" type="button" hidden>加载更多</button>`;
   const list=root.querySelector('#feedList');
   root.querySelector('#refreshFeed').addEventListener('click',()=>load(true));
   root.querySelector('#loadMoreFeed').addEventListener('click',()=>load(false));

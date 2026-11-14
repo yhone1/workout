@@ -8,8 +8,7 @@ const PLAN_SPLIT_LABELS = { ppl: '推拉腿', upper_lower: '上下肢', five_day
 
 export async function renderCoach({ state, root, notify, rerender }) {
   const section = state.coachSection || 'students';
-  root.innerHTML = `<div class="section-heading"><div><p class="eyebrow">COACH DESK</p><h2>教练工作台</h2></div></div>
-    <nav class="subnav" aria-label="教练工作台菜单">${SECTIONS.map(([id,label])=>`<button class="subtab${section===id?' active':''}" type="button" data-coach-section="${id}">${label}</button>`).join('')}</nav>
+  root.innerHTML = `<nav class="subnav" aria-label="教练工作台菜单">${SECTIONS.map(([id,label])=>`<button class="subtab${section===id?' active':''}" type="button" data-coach-section="${id}">${label}</button>`).join('')}</nav>
     <div id="coachSectionContent"></div>`;
   root.querySelectorAll('[data-coach-section]').forEach((button)=>button.addEventListener('click',()=>{state.coachSection=button.dataset.coachSection; renderCoach({state,root,notify,rerender});}));
   const content = root.querySelector('#coachSectionContent');
@@ -33,7 +32,7 @@ async function loadStudents() {
 async function renderStudents({ state, content, notify, rerender }) {
   content.innerHTML = `<div class="split-heading"><div><h3>我的学员</h3><p class="panel-intro">当前账号只能查看自己名下的有效学员。先建立邀请关系，再为学员创建计划。</p></div></div>
     <section class="coach-capacity-card" id="coachCapacitySummary"><div class="empty-state">正在读取学员名额…</div></section>
-    <div class="coach-invite-tools"><button class="button primary" id="createInvite" type="button" disabled>查看 / 复制当前邀请链接</button><div id="newInvite"></div></div>
+    <div class="coach-invite-tools"><button class="button" id="createInvite" type="button" disabled>查看 / 复制当前邀请链接</button><p class="inline-message" id="inviteReason" hidden></p><div id="newInvite"></div></div>
     <div class="data-list" id="studentList"><div class="empty-state">正在读取学员…</div></div>
     <h3 class="section-title">邀请记录</h3><div class="data-list" id="invitationList"><div class="empty-state">正在读取…</div></div>`;
   try {
@@ -50,11 +49,16 @@ async function renderStudents({ state, content, notify, rerender }) {
       full: ['学员名额已满', '当前关系会保留；结束一段学员关系后即可释放名额。'],
       ready: ['可以邀请新学员', '可复制当前链接；每位新学员注册或绑定后，邀请码会自动轮换。'],
     }[capacityView.status];
-    content.querySelector('#coachCapacitySummary').innerHTML = `<div><strong>${capacityLabels[0]}</strong><span>当前 ${capacityView.activeStudents} / ${capacityView.maxStudents ?? '未配置'} 人 · 剩余 ${capacityView.remaining} 个名额</span></div><small>${capacityLabels[1]}</small>`;
+    content.querySelector('#coachCapacitySummary').innerHTML = `<div><strong class="${capacityView.status === 'unconfigured' ? 'tone-warn' : ''}">${capacityLabels[0]}</strong><span>当前 ${capacityView.activeStudents} / ${capacityView.maxStudents ?? '未配置'} 人 · 剩余 ${capacityView.remaining} 个名额</span></div>`;
     const createButton = content.querySelector('#createInvite');
+    const inviteReason = content.querySelector('#inviteReason');
     createButton.disabled = !capacityView.canInvite;
+    createButton.textContent = capacityView.canInvite ? '查看 / 复制当前邀请链接' : '邀请链接不可用';
+    createButton.title = capacityView.canInvite ? '' : capacityLabels[1];
+    inviteReason.textContent = capacityView.canInvite ? '' : capacityLabels[1];
+    inviteReason.hidden = capacityView.canInvite;
     createButton.addEventListener('click', showCurrentInvitation);
-    content.querySelector('#studentList').innerHTML = students.length ? students.map((student)=>`<article class="data-row"><div class="data-main"><strong>${escapeHtml(student.username)}</strong><small>关联于 ${formatDate(student.createdAt)}</small></div><div class="actions"><button class="button primary small" type="button" data-open-student="${student.id}">打开学员</button><button class="button danger small" type="button" data-end-student="${student.id}">结束关系</button></div></article>`).join('') : '<div class="empty-state">暂无学员。生成邀请链接后发给对方即可。</div>';
+    content.querySelector('#studentList').innerHTML = students.length ? students.map((student)=>`<article class="data-row"><div class="data-main"><strong>${escapeHtml(student.username)}</strong><small>关联于 ${formatDate(student.createdAt)}</small></div><div class="actions"><button class="button small" type="button" data-open-student="${student.id}">打开学员</button><button class="button danger small" type="button" data-end-student="${student.id}">结束关系</button></div></article>`).join('') : '<div class="empty-state">暂无学员。生成邀请链接后发给对方即可。</div>';
     content.querySelectorAll('[data-open-student]').forEach((button)=>button.addEventListener('click',()=>{
       state.coachStudentId=Number(button.dataset.openStudent); state.coachSection='plans'; rerender();
     }));
@@ -348,7 +352,7 @@ async function renderSessions({state,content,notify}){
   async function loadHistory(prefetched){
     const sessions=prefetched||(await api(`/api/coach/students/${studentId}/sessions`)).sessions;
     const list=content.querySelector('#sessionHistory');
-    list.innerHTML=sessions.length?sessions.map((session)=>`<article class="data-row"><div class="data-main"><strong>${escapeHtml(session.day_name)} · ${escapeHtml({draft:'未完成草稿',completed:'已完成',abandoned:'已放弃'}[session.status]||session.status)}</strong><small>${formatDate(session.started_at,true)}${session.duration_seconds!=null?` · ${Math.round(session.duration_seconds/60)} 分钟`:''}</small></div><div class="actions">${session.status==='draft'?`<button class="button primary small" type="button" data-resume-session="${session.id}">恢复草稿</button><button class="button danger small" type="button" data-abandon-session="${session.id}">放弃</button>`:`<button class="button small" type="button" data-view-session="${session.id}">查看</button>`}</div></article>`).join(''):'<div class="empty-state">还没有训练记录。</div>';
+    list.innerHTML=sessions.length?sessions.map((session)=>`<article class="data-row"><div class="data-main"><strong>${escapeHtml(session.day_name)} · ${escapeHtml({draft:'未完成草稿',completed:'已完成',abandoned:'已放弃'}[session.status]||session.status)}</strong><small>${formatDate(session.started_at,true)}${session.duration_seconds!=null?` · ${Math.round(session.duration_seconds/60)} 分钟`:''}</small></div><div class="actions">${session.status==='draft'?`<button class="button small" type="button" data-resume-session="${session.id}">恢复草稿</button><button class="button danger small" type="button" data-abandon-session="${session.id}">放弃</button>`:`<button class="button small" type="button" data-view-session="${session.id}">查看</button>`}</div></article>`).join(''):'<div class="empty-state">还没有训练记录。</div>';
     list.querySelectorAll('[data-resume-session],[data-view-session]').forEach((button)=>button.addEventListener('click',()=>showSession(button.dataset.resumeSession||button.dataset.viewSession)));
     list.querySelectorAll('[data-abandon-session]').forEach((button)=>button.addEventListener('click',async()=>{
       if(!confirm('放弃后只关闭这次草稿，不会删除任何已完成训练。继续？'))return;
@@ -365,7 +369,7 @@ async function renderSessions({state,content,notify}){
   function drawSession(session){
     const panel=content.querySelector('#sessionDetail');
     const saves=createSetSaveQueue((key,body)=>api(`/api/coach/sessions/${session.id}/sets/${key}`,{method:'PATCH',body:jsonBody(body)}));
-    panel.innerHTML=`<article class="session-editor"><div class="split-heading"><div><p class="eyebrow">${session.status==='draft'?'DRAFT RECOVERY':'SESSION DETAIL'}</p><h3>${escapeHtml(session.dayName)}</h3></div><strong class="session-clock" data-started-at="${escapeHtml(session.startedAt)}">00:00</strong></div><div class="session-day-focus">${escapeHtml(session.snapshot.focus||'')}</div><div class="session-set-list">${session.sets.map((set)=>renderSetEditor(session,set)).join('')}</div>${session.status==='draft'?`<label class="field-label">训练备注<textarea id="sessionNotes" class="field-input" rows="2">${escapeHtml(session.notes||'')}</textarea></label><div class="actions session-actions"><button class="button danger" type="button" id="abandonCurrent">放弃本次草稿</button><button class="button primary" type="button" id="completeSession">结束并保存训练</button></div><p class="inline-message" id="sessionSaveHint">草稿会随每组输入自动保存。</p>`:`<div class="callout">本次训练已完成 · 实际时长 ${Math.round((session.durationSeconds||0)/60)} 分钟</div>`}${session.suggestions?.length?`<h4>进阶建议</h4>${session.suggestions.map((s)=>`<div class="callout">${escapeHtml(s.exerciseNameZh)}：${escapeHtml(s.suggestion.reason)} 建议目标重量 ${escapeHtml(s.suggestion.targetWeight)} kg。</div>`).join('')}`:''}</article>`;
+    panel.innerHTML=`<article class="session-editor"><div class="split-heading"><div><h3>${escapeHtml(session.dayName)}</h3><p class="inline-message">${session.status==='draft'?'训练草稿恢复':'训练记录详情'}</p></div><strong class="session-clock" data-started-at="${escapeHtml(session.startedAt)}">00:00</strong></div><div class="session-day-focus">${escapeHtml(session.snapshot.focus||'')}</div><div class="session-set-list">${session.sets.map((set)=>renderSetEditor(session,set)).join('')}</div>${session.status==='draft'?`<label class="field-label">训练备注<textarea id="sessionNotes" class="field-input" rows="2">${escapeHtml(session.notes||'')}</textarea></label><div class="actions session-actions"><button class="button danger" type="button" id="abandonCurrent">放弃本次草稿</button><button class="button primary" type="button" id="completeSession">结束并保存训练</button></div><p class="inline-message" id="sessionSaveHint">草稿会随每组输入自动保存。</p>`:`<div class="callout">本次训练已完成 · 实际时长 ${Math.round((session.durationSeconds||0)/60)} 分钟</div>`}${session.suggestions?.length?`<h4>进阶建议</h4>${session.suggestions.map((s)=>`<div class="callout">${escapeHtml(s.exerciseNameZh)}：${escapeHtml(s.suggestion.reason)} 建议目标重量 ${escapeHtml(s.suggestion.targetWeight)} kg。</div>`).join('')}`:''}</article>`;
     if(session.status==='draft'){
       const timer=panel.querySelector('[data-started-at]');
       const started=Date.parse(session.startedAt);
@@ -403,7 +407,7 @@ async function renderSessions({state,content,notify}){
       panel.querySelectorAll('[data-start-correction]').forEach((button)=>button.addEventListener('click',()=>{
         const form=button.closest('[data-session-set]');
         form.querySelectorAll('input,select').forEach((input)=>input.disabled=false);
-        form.insertAdjacentHTML('beforeend','<label class="field-label correction-reason">更正原因（必填）<input class="field-input" data-correction-reason maxlength="300" required></label><button class="button primary small" type="button" data-save-correction>保存更正并留痕</button>');
+        form.insertAdjacentHTML('beforeend','<label class="field-label correction-reason">更正原因（必填）<input class="field-input" data-correction-reason maxlength="300" required></label><button class="button small" type="button" data-save-correction>保存更正并留痕</button>');
         button.hidden=true;
         form.querySelector('[data-save-correction]').addEventListener('click',async()=>{
           const reason=form.querySelector('[data-correction-reason]').value.trim();
@@ -478,7 +482,7 @@ async function renderSuggestions({state,content,notify}){
   content.querySelector('#reloadSuggestions').addEventListener('click',load);
   await load();
   async function load(){
-    try{const {suggestions}=await api('/api/coach/progression-suggestions');const list=content.querySelector('#suggestionList');const own=state.coachStudentId?suggestions.filter((item)=>item.studentId===state.coachStudentId):suggestions;list.innerHTML=own.length?own.map((item)=>`<article class="data-row"><div class="data-main"><strong>${escapeHtml(item.studentName)} · ${escapeHtml(item.exerciseNameZh)}</strong><small>${escapeHtml(item.suggestion.reason)}</small><small>当前 ${escapeHtml(item.suggestion.completedWeight)} kg → 建议 ${escapeHtml(item.suggestion.targetWeight)} kg · ${formatDate(item.createdAt,true)}</small></div><div class="actions"><button class="button primary small" type="button" data-decision="accept" data-suggestion-id="${item.id}">确认应用</button><button class="button small" type="button" data-decision="dismiss" data-suggestion-id="${item.id}">忽略</button></div></article>`).join(''):'<div class="empty-state">当前没有待确认建议。</div>';list.querySelectorAll('[data-decision]').forEach((button)=>button.addEventListener('click',async()=>{try{await api(`/api/coach/progression-suggestions/${button.dataset.suggestionId}/decision`,{method:'POST',body:jsonBody({decision:button.dataset.decision})});notify(button.dataset.decision==='accept'?'建议已应用并生成新计划版本。':'建议已忽略。');await load();}catch(error){notify(error.message==='finish_plan_draft_first'?'该学员有未发布草稿，请先处理草稿后再确认。':'处理建议失败。');}}));}
+    try{const {suggestions}=await api('/api/coach/progression-suggestions');const list=content.querySelector('#suggestionList');const own=state.coachStudentId?suggestions.filter((item)=>item.studentId===state.coachStudentId):suggestions;list.innerHTML=own.length?own.map((item)=>`<article class="data-row"><div class="data-main"><strong>${escapeHtml(item.studentName)} · ${escapeHtml(item.exerciseNameZh)}</strong><small>${escapeHtml(item.suggestion.reason)}</small><small>当前 ${escapeHtml(item.suggestion.completedWeight)} kg → 建议 ${escapeHtml(item.suggestion.targetWeight)} kg · ${formatDate(item.createdAt,true)}</small></div><div class="actions"><button class="button small" type="button" data-decision="accept" data-suggestion-id="${item.id}">确认应用</button><button class="button small" type="button" data-decision="dismiss" data-suggestion-id="${item.id}">忽略</button></div></article>`).join(''):'<div class="empty-state">当前没有待确认建议。</div>';list.querySelectorAll('[data-decision]').forEach((button)=>button.addEventListener('click',async()=>{try{await api(`/api/coach/progression-suggestions/${button.dataset.suggestionId}/decision`,{method:'POST',body:jsonBody({decision:button.dataset.decision})});notify(button.dataset.decision==='accept'?'建议已应用并生成新计划版本。':'建议已忽略。');await load();}catch(error){notify(error.message==='finish_plan_draft_first'?'该学员有未发布草稿，请先处理草稿后再确认。':'处理建议失败。');}}));}
     catch{content.querySelector('#suggestionList').innerHTML='<div class="empty-state">进阶建议读取失败。</div>';}
   }
 }

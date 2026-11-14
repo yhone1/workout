@@ -1,0 +1,107 @@
+/* 健身房与会员自助共用的外壳：桌面侧栏 / 手机底栏 / 来源切换。 */
+body.app-shell-body{
+  margin:0;min-height:100vh;color:var(--text);background:var(--bg);
+  font-family:var(--font-sans);font-size:15px;line-height:1.55;
+  padding-bottom:calc(84px + env(safe-area-inset-bottom));
+}
+body.app-shell-body h1,body.app-shell-body h2,body.app-shell-body h3,body.app-shell-body h4,body.app-shell-body p{margin-top:0}
+body.app-shell-body button{font-family:inherit}
+body.app-shell-body a{color:var(--accent)}
+body.app-shell-body .app-rail{
+  position:fixed;left:0;top:0;bottom:0;z-index:70;width:220px;
+  display:none;flex-direction:column;gap:4px;padding:24px 16px;
+  background:var(--rail);border-right:1px solid var(--line);
+}
+body.app-shell-body .rail-brand{display:flex;align-items:center;gap:10px;margin:0 8px 24px}
+body.app-shell-body .brand-mark{
+  display:grid;place-items:center;width:36px;height:36px;border-radius:10px;
+  background:var(--accent);color:var(--accent-ink);font-size:14px;font-weight:800;
+}
+body.app-shell-body .rail-brand strong{font-size:17px;font-weight:700}
+body.app-shell-body .rail-nav{display:flex;flex-direction:column;gap:4px}
+body.app-shell-body .rail-nav a,body.app-shell-body .rail-nav button{
+  width:100%;min-height:44px;padding:12px;border:0;border-radius:12px;
+  text-align:left;font-size:15px;font-weight:600;color:var(--muted);background:transparent;
+  text-decoration:none;cursor:pointer;
+}
+body.app-shell-body .rail-nav a:hover,body.app-shell-body .rail-nav button:hover{background:var(--surface-2);color:var(--text)}
+body.app-shell-body .rail-nav .active{background:var(--surface-2);color:var(--accent);font-weight:700}
+body.app-shell-body .rail-user{margin-top:auto;padding:0 12px;color:var(--muted);font-size:14px}
+body.app-shell-body .rail-user strong{display:block;color:var(--text);font-size:14px;overflow-wrap:anywhere}
+body.app-shell-body .rail-user span{display:block;margin-top:2px;font-size:13px}
+body.app-shell-body .bottom-nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:75;display:flex;
+  height:calc(68px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);
+  background:var(--rail);border-top:1px solid var(--line);
+}
+body.app-shell-body .bottom-nav a,body.app-shell-body .bottom-nav button{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px;
+  min-height:56px;padding:12px 4px 0;border:0;background:transparent;color:var(--muted);
+  font-size:13px;font-weight:600;text-decoration:none;cursor:pointer;
+}
+body.app-shell-body .bottom-nav i{display:block;width:22px;height:4px;border-radius:2px;background:currentColor;opacity:.35}
+body.app-shell-body .bottom-nav .active{color:var(--accent)}
+body.app-shell-body .bottom-nav .active i{opacity:1}
+body.app-shell-body .app-main{width:100%;max-width:1100px;margin:0 auto;padding:20px 20px 8px;min-width:0;box-sizing:border-box}
+body.app-shell-body .page-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin:4px 0 14px}
+body.app-shell-body .page-top h1{margin:0;font-size:24px;letter-spacing:-.02em}
+body.app-shell-body .account-pill{color:var(--muted);font-size:13px;text-align:right;overflow-wrap:anywhere}
+body.app-shell-body .source-switch{display:flex;gap:2px;margin:0 0 16px;padding:4px;border-radius:12px;background:var(--surface)}
+body.app-shell-body .source-switch a{
+  flex:1;display:flex;align-items:center;justify-content:center;min-height:40px;padding:0 10px;
+  border-radius:9px;color:var(--muted);font-size:14px;font-weight:600;text-decoration:none;
+}
+body.app-shell-body .source-switch a.active{background:var(--accent);color:var(--accent-ink);font-weight:700}
+body.app-shell-body .panel{padding:20px;border-radius:var(--radius-card);background:var(--surface)}
+body.app-shell-body .empty-state{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:100%;box-sizing:border-box;margin:0;padding:28px 16px;
+  border:0;border-radius:var(--radius-card-sm);background:var(--surface);
+  color:var(--muted);text-align:center;font-size:14px;line-height:1.7;
+}
+body.app-shell-body .button{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;padding:0 16px;border:0;border-radius:12px;
+  color:var(--text);background:var(--surface-2);font-size:15px;font-weight:600;cursor:pointer;
+}
+body.app-shell-body .button:hover{background:#26362E}
+body.app-shell-body .button.primary{background:var(--accent);color:var(--accent-ink);font-weight:700}
+body.app-shell-body .button.primary:hover{background:#D6FA6A}
+body.app-shell-body .button.danger{background:#2A1D1F;color:var(--danger)}
+body.app-shell-body .button.small{min-height:40px;padding:0 14px;font-size:14px}
+body.app-shell-body .button:disabled{opacity:.48;cursor:not-allowed}
+body.app-shell-body .badge{
+  padding:3px 9px;border:0;border-radius:var(--radius-pill);
+  color:var(--text);background:var(--surface-2);font-size:13px;font-weight:600;
+}
+body.app-shell-body .badge-muted{color:var(--muted);background:var(--surface-2)}
+body.app-shell-body .subnav{
+  display:flex;gap:6px;margin:0 0 16px;padding:4px;border-radius:12px;
+  background:var(--surface);overflow-x:auto;scrollbar-width:none;
+}
+body.app-shell-body .subnav::-webkit-scrollbar{display:none}
+body.app-shell-body .subtab{
+  flex:1;min-height:40px;padding:0 12px;border:0;border-radius:9px;
+  color:var(--muted);background:transparent;font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer;
+}
+body.app-shell-body .subtab:hover{color:var(--text)}
+body.app-shell-body .subtab.active{color:var(--accent-ink);background:var(--accent);font-weight:700}
+body.app-shell-body .back-row{display:flex;align-items:center;gap:10px;margin:0 0 14px}
+body.app-shell-body .back-row .button{min-height:40px}
+body.app-shell-body .inline-message{color:var(--muted);font-size:14px;line-height:1.6}
+body.app-shell-body .callout{
+  padding:14px 16px;border-radius:12px;color:var(--text);
+  background:var(--surface-2);font-size:14px;line-height:1.65;
+}
+body.app-shell-body .callout.warn{background:#2A2116;color:var(--warn)}
+@media(min-width:1024px){
+  body.app-shell-body{padding-left:220px;padding-bottom:0}
+  body.app-shell-body .app-rail{display:flex}
+  body.app-shell-body .bottom-nav{display:none}
+  body.app-shell-body .app-main{max-width:1040px;padding:32px 40px 72px}
+  body.app-shell-body .page-top h1{font-size:30px}
+  body.app-shell-body .source-switch{width:fit-content}
+  body.app-shell-body .source-switch a{flex:none;padding:0 18px}
+  body.app-shell-body .subnav{width:fit-content}
+  body.app-shell-body .subtab{flex:none;padding:0 16px}
+}

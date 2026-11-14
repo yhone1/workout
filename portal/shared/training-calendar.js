@@ -53,17 +53,19 @@
   function render(host){
     const rows=entries(),now=new Date(),today=dateKey(now),week=weekDates(),state=host.calendarState||{expanded:false,selected:null,y:now.getFullYear(),m:now.getMonth()};host.calendarState=state;
     const signature=JSON.stringify([rows,state,errors,notice,Boolean(loading),today]);if(signature===host.calendarSignature)return;host.calendarSignature=signature;
-    const cell=(d,month)=>{const key=dateKey(d),trained=rows.filter(r=>r.date===key);return `<button type="button" class="tc-day${trained.length?' tc-done':''}${today===key?' tc-today':''}${state.selected===key?' tc-selected':''}" data-tc-date="${key}" aria-label="${key}${trained.length?' 已训练':''}"><span>${d.getDate()}</span>${month&&trained.length?`<small>${escape([...new Set(trained.map(r=>r.source==='居家'?(r.label.startsWith('推')?'推':r.label.startsWith('拉')?'拉':'腿'):r.source==='挑战'?r.label:r.source))].join('·'))}</small>`:''}</button>`;};
+    const cell=(d,interactive)=>{const key=dateKey(d),trained=rows.filter(r=>r.date===key);const classes=`tc-day${trained.length?' tc-done':''}${today===key?' tc-today':''}${interactive&&state.selected===key?' tc-selected':''}`;const attrs=interactive?` data-tc-date="${key}" aria-label="${key}${trained.length?' 已训练':''}"`:` aria-label="${key}${trained.length?' 已训练':''}"`;if(interactive)return `<button type="button" class="${classes}"${attrs}><span>${d.getDate()}</span></button>`;return `<span class="${classes}"${attrs}><span>${d.getDate()}</span></span>`;};
     const weekStats=stats(rows,week.map(dateKey));
-    let html=`<div class="tc-heading"><div><strong>训练日历</strong><span>所有训练共用 · 本周已练 ${weekStats.days} 天 · ${duration(weekStats.totalMs)}</span></div><button type="button" data-tc-toggle aria-expanded="${state.expanded}">${state.expanded?'收起日历':'查看月度日历'}</button></div><div class="tc-week">${week.map(d=>cell(d,false)).join('')}</div>`;
+    let html=`<div class="tc-heading"><span class="tc-summary-line">本周已练 ${weekStats.days} 天 · ${duration(weekStats.totalMs)}</span><button type="button" class="tc-open" data-tc-open aria-haspopup="dialog">月历</button></div><div class="tc-week">${week.map(d=>cell(d,false)).join('')}</div>`;
     if(state.expanded){
       const dates=Array.from({length:new Date(state.y,state.m+1,0).getDate()},(_,i)=>new Date(state.y,state.m,i+1)),monthStats=stats(rows,dates.map(dateKey));
       const selected=rows.filter(r=>r.date===state.selected);
-      html+=`<div class="tc-month"><div class="tc-controls"><button type="button" data-tc-nav="-1" aria-label="上个月">◀</button><strong>${state.y}年${state.m+1}月</strong><button type="button" data-tc-nav="1" aria-label="下个月">▶</button><button type="button" data-tc-now>回到本月</button></div><p class="tc-summary">本月已练 ${monthStats.days} 天 · 共 ${monthStats.count} 次 · ${duration(monthStats.totalMs)}</p><div class="tc-grid tc-weekdays">${['一','二','三','四','五','六','日'].map(d=>`<span>${d}</span>`).join('')}</div><div class="tc-grid">${'<span></span>'.repeat((dates[0].getDay()+6)%7)}${dates.map(d=>cell(d,true)).join('')}</div>${state.selected?`<div class="tc-detail"><strong>${escape(state.selected)}</strong>${selected.length?selected.map(r=>`<p><b>${escape(r.source)} · ${escape(r.label)}</b><span>${r.count}次 · ${duration(r.totalMs)}${r.detail?' · '+escape(r.detail):''}</span></p>`).join(''):'<p>当天暂无已完成训练。</p>'}</div>`:''}</div>`;
+      const footer=[`<p>所有训练共用。${notice?escape(notice):''}</p>`];
+      if(loading)footer.push('<p>正在汇总账号训练记录…</p>');
+      if(errors.length)footer.push(`<p class="tc-error" role="status">${escape(errors.join('；'))}，统计暂不完整。<button type="button" data-tc-refresh>重试</button></p>`);
+      html+=`<div class="tc-modal" role="dialog" aria-modal="true" aria-label="训练月历"><div class="tc-modal-card"><div class="tc-modal-head"><strong>训练日历</strong><button type="button" class="tc-close" data-tc-close aria-label="关闭月历">×</button></div><div class="tc-controls"><button type="button" data-tc-nav="-1" aria-label="上个月">◀</button><strong>${state.y}年${state.m+1}月</strong><button type="button" data-tc-nav="1" aria-label="下个月">▶</button><button type="button" data-tc-now>回到本月</button></div><p class="tc-summary">本月已练 ${monthStats.days} 天 · 共 ${monthStats.count} 次 · ${duration(monthStats.totalMs)}</p><div class="tc-grid tc-weekdays">${['一','二','三','四','五','六','日'].map(d=>`<span>${d}</span>`).join('')}</div><div class="tc-grid">${'<span></span>'.repeat((dates[0].getDay()+6)%7)}${dates.map(d=>cell(d,true)).join('')}</div>${state.selected?`<div class="tc-detail"><strong>${escape(state.selected)}</strong>${selected.length?selected.map(r=>`<p><b>${escape(r.source)} · ${escape(r.label)}</b><span>${r.count}次 · ${duration(r.totalMs)}${r.detail?' · '+escape(r.detail):''}</span></p>`).join(''):'<p>当天暂无已完成训练。</p>'}</div>`:''}<div class="tc-foot">${footer.join('')}</div></div></div>`;
     }
-    if(errors.length)html+=`<p class="tc-error" role="status">${escape(errors.join('；'))}，统计暂不完整。<button type="button" data-tc-refresh>重试</button></p>`;
-    else if(loading)html+='<p class="tc-note">正在汇总账号训练记录…</p>';
-    if(notice)html+=`<p class="tc-note">${escape(notice)}</p>`;
+    host.classList.toggle('tc-modal-open',state.expanded);
+    document.body.classList.toggle('tc-modal-lock',state.expanded);
     host.innerHTML=html;
   }
   function renderAll(){hosts=hosts.filter(h=>h.isConnected);hosts.forEach(render);}
@@ -72,13 +74,18 @@
     document.querySelectorAll('[data-training-calendar]').forEach(host=>{
       if(host.dataset.tcMounted)return;host.dataset.tcMounted='true';host.classList.add('training-calendar');hosts.push(host);
       host.addEventListener('click',event=>{
-        const b=event.target.closest('button');if(!b)return;const state=host.calendarState;
-        if(b.hasAttribute('data-tc-toggle'))state.expanded=!state.expanded;
-        if(b.dataset.tcDate){state.selected=state.selected===b.dataset.tcDate?null:b.dataset.tcDate;state.expanded=true;const d=new Date(b.dataset.tcDate+'T12:00:00');state.y=d.getFullYear();state.m=d.getMonth();}
+        const state=host.calendarState;
+        if(event.target===host.querySelector('.tc-modal'))state.expanded=false;
+        const b=event.target.closest('button');if(!b)return;
+        if(b.hasAttribute('data-tc-open'))state.expanded=true;
+        if(b.hasAttribute('data-tc-close'))state.expanded=false;
+        if(b.dataset.tcDate){state.selected=state.selected===b.dataset.tcDate?null:b.dataset.tcDate;const d=new Date(b.dataset.tcDate+'T12:00:00');state.y=d.getFullYear();state.m=d.getMonth();}
         if(b.dataset.tcNav){const d=new Date(state.y,state.m+Number(b.dataset.tcNav),1);state.y=d.getFullYear();state.m=d.getMonth();state.selected=null;}
         if(b.hasAttribute('data-tc-now')){state.y=new Date().getFullYear();state.m=new Date().getMonth();state.selected=null;}
         if(b.hasAttribute('data-tc-refresh'))refresh();else render(host);
-      });render(host);
+      });
+      document.addEventListener('keydown',event=>{if(event.key==='Escape'&&host.calendarState?.expanded){host.calendarState.expanded=false;render(host);}});
+      render(host);
     });
   }
   async function refresh(){

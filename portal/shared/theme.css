@@ -5,7 +5,7 @@
   --surface-2:#1E2B25;
   --line:#222C27;
   --text:#F2F5F3;
-  --muted:#A9B5AF;
+  --muted:#C8D0CC;
   --accent:#C8F53C;
   --accent-ink:#0E1311;
   --ok:#4ADE80;
@@ -13,6 +13,7 @@
   --danger:#FF6B6B;
   --rail:#121815;
   --image-surface:#E9EDEA;
+  --calendar-done:#1E3A2B;
   --radius-card:20px;
   --radius-card-sm:16px;
   --radius-button:14px;
@@ -22,6 +23,10 @@
   --font-sans:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",ui-sans-serif,system-ui,sans-serif;
   color-scheme:dark;
   font-family:var(--font-sans);
+}
+/* 旧样式仍引用 --green，保留兼容；其余旧变量已清理。 */
+:root{
+  --green:var(--ok);
 }
 ::selection{color:var(--accent-ink);background:var(--accent)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
