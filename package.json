@@ -1,0 +1,10 @@
+{
+  "name": "thin-muscle-workout",
+  "version": "1.0.0",
+  "private": true,
+  "description": "薄肌训练：居家 / 健身房 / AI 教练（原生前端 + Express + Postgres）",
+  "scripts": {
+    "test": "node --test \"*.test.js\" \"gym/*.test.js\" \"member/*.test.js\" \"portal/**/*.test.js\" \"server/**/*.test.js\"",
+    "test:all": "node --test"
+  }
+}

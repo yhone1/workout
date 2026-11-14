@@ -8,10 +8,11 @@ function harness(saved,mode='threeDay'){
     performanceState:saved?.performanceState||{sessions:{}},growthState:{dayXp:{push:0}},
     homePlanState:{active:M.defaults(mode)},legacyPlans:plans,
     getVariant:()=>ctx.sessionState.active?.variant||'A',persistSession:()=>{},persistPerformance:()=>{},persistGrowth:()=>{},
-    levelSnapshot:()=>null,levelConfig:()=>({levels:[{},{},{}]}),
+    levelSnapshot:()=>null,levelConfig:()=>({levels:[{},{},{}]}),clamp:(n,a,b)=>Math.max(a,Math.min(b,n)),WORKOUT_TARGET_MS:40*60*1000,
     ensureGrowthEntry:name=>entries[name]||(entries[name]={xp:0,levelIndex:1,upgradeStreak:0,hardStreak:0,history:[]}),
     adaptiveAdvice:()=>({mode:'normal'}),localDateKey:value=>new Date(Number(value)).toISOString().slice(0,10)};
   vm.createContext(ctx);
+  ctx.HP=require('./home-performance').create(ctx);
   for(const name of ['activeHomeSchedule','planForDay','homeRecordKey','sectionKey','roundKey','singleKey','exerciseSlug','recordedNumber','defaultRir','rirBounds','rirAllowsProgress','confirmStrengthRir','exerciseTargetRir','parseRepRange',
     'performanceSessionId','ensurePerformanceSession','performanceEntryKey','savePerformanceEntry','activePerformanceEntry',
     'ensureRoundFlow','getSectionsForVariant','getSections','completedRounds','workoutRoundSummary','persistRoundProgress',

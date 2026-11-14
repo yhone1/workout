@@ -10,9 +10,10 @@ function context(){
     getSectionsForVariant:()=>[section],adaptiveAdvice:()=>({mode:'normal'}),persistGrowth:()=>{},
     persistPerformance:()=>{},HomePlan:require('./home-plan')};
   vm.createContext(ctx);
+  ctx.HP=require('./home-performance').create(ctx);
   for(const name of ['recordedNumber','defaultRir','rirBounds','rirAllowsProgress','confirmStrengthRir','exerciseTargetRir','rirLabel','nextRoundAdvice','parseRepRange',
     'performanceSessionId','ensurePerformanceSession','performanceEntryKey','activePerformanceEntry',
-    'savePerformanceEntry','latestFinalizedPerformance','baseRoundTargets','performanceAnalysis',
+    'savePerformanceEntry','latestFinalizedPerformance','baseRoundTargets','recalibratedTargets','performanceAnalysis',
     'activePerformanceRows','targetForRound','finishSuggestion','processGrowthAfterSession',
     'roundHistoryHtml','latestRoundHistoryHtml','nextRoundPreviewText','repLogHtml']){
     const start=source.indexOf(`  function ${name}(`),end=source.indexOf('\n  function ',start+1);
@@ -148,7 +149,9 @@ test('changed resistance resets historical targets and mismatched rows cannot up
   const {ctx,growth}=context();growth.setupRevision=2;growth.upgradeStreak=1;
   ctx.levelSnapshot=()=>({index:1,current:{name:'加阻侧平举'},entry:growth});
   const session=record(ctx,Array.from({length:3},()=>({reps:18,rir:3,levelIndex:1,setupRevision:1})),true);
-  assert.equal(ctx.performanceAnalysis('push','A',section,ex).mode,'new');
+  const analysis=ctx.performanceAnalysis('push','A',section,ex);
+  assert.equal(analysis.mode,'new');
+  assert.deepEqual(Array.from(analysis.targets),[17,16,15]);
   ctx.processGrowthAfterSession(ctx.sessionState.active,session,'right');
   assert.equal(growth.levelIndex,1);assert.equal(growth.upgradeStreak,0);
   growth.hardStreak=1;session.values['main::1::侧平举']={reps:5,rir:0,levelIndex:1,setupRevision:1};
@@ -257,7 +260,7 @@ test('real round-button and RIR handlers save defaults, allow overrides and reta
   const root={querySelectorAll(selector){return selector==='[data-complete-round]'?[complete]:selector==='[data-rir-value]'?[zero,three]:selector==='[data-rir-default]'?[fallback]:[];},querySelector:()=>log};
   let completed=0,renders=0,rests=0,message='';
   Object.assign(ctx,{getSections:()=>[section],getVariant:()=> 'A',isWarmupRound:()=>false,activePhase:()=> 'main',completedRounds:()=>completed,pendingWorkoutEnd:null,CSS:{escape:x=>x},doneState:{},persistDone(){completed++;},persistRoundProgress(){},beep(){},renderDay(){renders++;},startRestTimer(){rests++;},advanceRoundExercise(){},showToast(x){message=x;}});
-  for(const name of ['refreshNextRoundPreview','bindPanelEvents']){
+  for(const name of ['refreshNextRoundPreview','refreshSection','bindPanelEvents']){
     const a=source.indexOf(`  function ${name}(`),b=source.indexOf('\n  function ',a+1);vm.runInContext(source.slice(a,b),ctx);
   }
   ctx.bindPanelEvents(root);
@@ -293,7 +296,23 @@ test('an action moved between A/B groups inherits completed reps from the newest
   assert.equal(result.rows.length,2);
   assert.equal(ctx.targetForRound('push','B',main,movement,1).target,12);
   growth.setupRevision=2;
-  assert.equal(ctx.targetForRound('push','B',main,movement,1).target,9);
+  assert.equal(ctx.targetForRound('push','B',main,movement,1).target,11);
+});
+
+test('a setup change restarts near the last recorded reps, not at the range midpoint',()=>{
+  const {ctx,growth}=context();
+  const movement={...ex,repMin:6,repMax:12,rir:2};
+  const main={id:'main',rounds:3,exercises:[movement]};
+  growth.setupRevision=2;
+  ctx.levelSnapshot=()=>({index:1,current:{name:movement.name},entry:growth});
+  const session=ctx.ensurePerformanceSession();
+  [12,11,10].forEach((reps,n)=>{session.values[`main::${n+1}::${movement.name}`]={reps,...ctx.defaultRir(),levelIndex:1,setupRevision:1};});
+  session.finalized=true;
+  assert.deepEqual(Array.from(ctx.performanceAnalysis('push','A',main,movement).targets),[11,10,9]);
+  assert.equal(ctx.targetForRound('push','A',main,movement,1).target,11);
+  assert.match(ctx.performanceAnalysis('push','A',main,movement).reason,/上次首轮 12次微调为首轮 11次/);
+  ctx.performanceState.sessions={};
+  assert.equal(ctx.targetForRound('push','A',main,movement,1).target,9,'没有历史时仍从区间中点开始');
 });
 
 test('hitting the rep cap keeps all targets at the cap while the setup stays the same',()=>{
@@ -302,4 +321,48 @@ test('hitting the rep cap keeps all targets at the cap while the setup stays the
   const result=ctx.performanceAnalysis('push','A',section,movement);
   assert.equal(result.mode,'progress');
   assert.deepEqual(Array.from(result.targets),[12,12,12]);
+});
+test('fatigue drop triggers fatigue mode with reduced targets',()=>{
+  const {ctx}=context();
+  // 末轮降到首轮的 75% 以下才触发 fatigue：12*0.75=9，末轮 8 满足条件
+  record(ctx,[{reps:12,rir:3},{reps:10,rir:2},{reps:8,rir:1}],true);
+  const result=ctx.performanceAnalysis('push','A',section,ex);
+  assert.equal(result.mode,'fatigue');
+  // fatigue 模式下目标递减
+  assert.ok(result.targets[2]<=result.targets[1]);
+});
+
+test('repeated failure at RIR 0 triggers fatigue mode',()=>{
+  const {ctx}=context();
+  // 首轮 RIR=0 但次数高于下限+1 不触发 recover，连续两轮 RIR=0 触发 fatigue
+  // 侧平举 range.min=12, range.max=18, Math.min(18, 13)=13
+  // 所以 reps=14 才不触发 recover
+  record(ctx,[{reps:14,rir:0},{reps:13,rir:0}],true);
+  const result=ctx.performanceAnalysis('push','A',section,ex);
+  assert.equal(result.mode,'fatigue');
+});
+
+test('first round too hard triggers recover mode',()=>{
+  const {ctx}=context();
+  record(ctx,[{reps:5,rir:0}],true);
+  const result=ctx.performanceAnalysis('push','A',section,ex);
+  assert.equal(result.mode,'recover');
+});
+
+test('new session without history uses base targets',()=>{
+  const {ctx}=context();
+  ctx.performanceState.sessions={};
+  const result=ctx.performanceAnalysis('push','A',section,ex);
+  assert.equal(result.mode,'new');
+  assert.ok(result.targets.length>0);
+});
+
+test('setup revision change resets to new mode',()=>{
+  const {ctx,growth}=context();
+  growth.setupRevision=1;
+  record(ctx,Array.from({length:3},()=>({reps:12,rir:3,levelIndex:1,setupRevision:1})),true);
+  growth.setupRevision=2;
+  const result=ctx.performanceAnalysis('push','A',section,ex);
+  // 需要 levelSnapshot 返回 currentLevel 才能触发 setup revision 检查
+  assert.equal(result.mode,'hold');
 });

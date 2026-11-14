@@ -42,8 +42,9 @@ function runtime(mode='threeDay'){
     sessionState:{active:{day:'pull',variant:'A',startedAt:123,planSnapshot:plans.pull,roundFlow:{added:{},released:[]}}},doneState:{},performanceState:{sessions:{}},pendingWorkoutEnd:null,
     getVariant:()=> 'A',persistSession:()=>{},persistPerformance:()=>{},persistGrowth:()=>{},persistDone:()=>{},renderDay:()=>{},showToast:()=>{},
     levelSnapshot:()=>null,levelConfig:()=>({levels:[{},{},{}]}),ensureGrowthEntry:()=>growth,adaptiveAdvice:()=>({mode:'normal'}),growthState:{dayXp:{}},
-    clamp:(n,a,b)=>Math.max(a,Math.min(b,n)),restSeconds:90};
+    clamp:(n,a,b)=>Math.max(a,Math.min(b,n)),restSeconds:90,WORKOUT_TARGET_MS:40*60*1000};
   vm.createContext(ctx);
+  ctx.HP=require('./home-performance').create(ctx);
   for(const name of ['activeHomeSchedule','planForDay','homeRecordKey','sectionKey','roundKey','singleKey','exerciseSlug','recordedNumber','defaultRir','rirBounds','rirAllowsProgress','confirmStrengthRir','exerciseTargetRir','parseRepRange','performanceSessionId','ensurePerformanceSession','performanceEntryKey','savePerformanceEntry','activePerformanceEntry','ensureRoundFlow','getSectionsForVariant','getSections','completedRounds','workoutRoundSummary','persistRoundProgress','activePhase','addWorkoutRound','advanceWorkoutSection','roundProgressText','smartRestSeconds','previousTabataActions','tabataInterval','completeTimedGroupAction','processGrowthAfterSession']){
     const a=source.indexOf(`  function ${name}(`),b=source.indexOf('\n  function ',a+1);assert.ok(a>=0&&b>a,name);vm.runInContext(source.slice(a,b),ctx);
   }
@@ -110,7 +111,7 @@ function loadFunction(ctx,name){
 }
 test('group previews show every action despite old completed rounds or unequal action doses',()=>{
   const {ctx}=runtime();ctx.exerciseDisplayName=ex=>ex.name;ctx.exerciseGuides={};ctx.resolveGifUrl=x=>x;
-  ctx.previousRoundHistoryHtml=()=>'';ctx.phaseBudget=()=>({support:10});ctx.intensityHtml=()=>'';
+  ctx.previousRoundHistoryHtml=()=>'';ctx.previousRoundSession=()=>null;ctx.phaseBudget=()=>({support:10});ctx.intensityHtml=()=>'';
   ctx.roundExerciseHtml=()=>'';
   for(const name of ['roundExerciseGroupHtml','isWarmupRound','roundCompletionActionsHtml','roundScheduleHtml','sectionHtml'])loadFunction(ctx,name);
   const section=ctx.plans.push.A.find(s=>s.id==='support');
@@ -140,7 +141,7 @@ test('time ranges accumulate in decimal minutes without floating point tails',()
 });
 
 function completionControl(ctx,id,round,action,reps='10'){
-  for(const name of ['isWarmupRound','roundCompletionActionsHtml','bindPanelEvents'])loadFunction(ctx,name);
+  for(const name of ['isWarmupRound','roundCompletionActionsHtml','refreshSection','bindPanelEvents'])loadFunction(ctx,name);
   const stats={rests:[],ended:0,click:null},input={value:reps},log={querySelector:()=>input,classList:{add(){}}};
   const button={dataset:{completeRound:ctx.sectionKey('pull','A',id),round:String(round),...(action?{roundAction:action}:{})},addEventListener(type,fn){stats.click=fn;}};
   Object.assign(ctx,{CSS:{escape:x=>x},beep(){},finishSuggestion:()=>null,showToast:message=>stats.message=message,
@@ -215,7 +216,7 @@ test('final group saves and opens workout completion without a second continue c
 function restRuntime(mode='threeDay'){
   const result=runtime(mode),ctx=result.ctx,other=mode==='threeDay'?'fourDay':'threeDay';
   ctx.homePlanState={active:result.plan,programs:{[other]:M.groupDefaults(other)},custom:[],revision:1};
-  Object.assign(ctx,{window:{HOME_EXTRA_EXERCISES:[]},timer:{day:null,type:'rest',total:90,left:90,running:false},timerRaf:1,performance:{now:()=>10000},cancelAnimationFrame(){},renderTimer(){},persistHomePlan(next){ctx.homePlanState=next;}});
+  Object.assign(ctx,{window:{HOME_EXTRA_EXERCISES:[]},timer:{day:null,type:'rest',total:90,left:90,running:false},timerRaf:1,Date:class extends Date{static now(){return 10000;}},cancelAnimationFrame(){},renderTimer(){},persistHomePlan(next){ctx.homePlanState=next;}});
   for(const name of ['resizeWorkoutRest','applyWorkoutRestDefaults','setWorkoutRest','restPreferenceTarget','startRestTimer'])loadFunction(ctx,name);
   return result;
 }

@@ -179,6 +179,10 @@
       if (windowRef.location.protocol === 'file:') {
         return blocked('居家训练需要服务器验证账号和会员权限。请从训练中心登录后进入，离线打开不会授予访问权限。', '请通过训练中心访问');
       }
+      // HTTP 环境降级：局域网 HTTP 访问时，Wake Lock/PWA/离线功能不可用
+      if (windowRef.location.protocol === 'http:' && !['localhost', '127.0.0.1'].includes(windowRef.location.hostname)) {
+        console.warn('当前为 HTTP 环境，屏幕常亮、PWA 安装、离线功能不可用；建议通过 HTTPS 访问以获得完整体验。');
+      }
       if (!storage || typeof storage.getItem !== 'function') {
         return blocked('本机存储不可用，无法安全恢复训练记录。请检查浏览器存储设置后重试。', '无法安全读取训练记录');
       }
