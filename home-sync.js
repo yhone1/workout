@@ -4,7 +4,7 @@
   else root.HomeSync = api;
   // This file is mounted at the site root, so it is also the service-worker
   // entrypoint that can control /home/ without a Service-Worker-Allowed header.
-  if (typeof document === 'undefined' && typeof importScripts === 'function') importScripts('/portal/home-sw.js?v=20261114-1');
+  if (typeof document === 'undefined' && typeof importScripts === 'function') importScripts('/portal/home-sw.js?v=20261115-1');
 })(globalThis, () => {
   const LEGACY_KEYS = Object.freeze([
     'thinMuscleDoneV8',

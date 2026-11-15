@@ -147,8 +147,9 @@ window.WORKOUT_GIF_LINKS = {
   "单腿提踵": { cue: "脚跟充分抬高后缓慢下降", items: [
     { label: "单腿提踵", url: "legs/single-leg-calf-raise.gif" },
   ] },
-  "分腿蹲": { cue: "双脚保持前后站位，垂直下蹲，前脚全脚掌稳定", items: [
-    { label: "分腿蹲 · 动作示意", url: "legs/bodyweight-split-squat.gif" },
+  "分腿蹲": { cue: "后脚搭在矮凳或沙发面上，前脚全脚掌稳定，垂直下蹲，起身不靠后脚蹬地", items: [
+    { label: "保加利亚分腿蹲 · 动作示意", url: "legs/trx-bulgarian-split-squat.gif" },
+    { label: "原地分腿蹲 · 旧演示", url: "legs/bodyweight-split-squat.gif" },
   ] },
   "弹力带俯卧腿弯举": { cue: "骨盆与大腿贴地，只弯曲膝盖；弹力带低位固定牢靠", items: [
     { label: "弹力带俯卧腿弯举 · 动作示意", url: "legs/band-prone-leg-curl.gif" },

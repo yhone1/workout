@@ -147,7 +147,7 @@
     "equipment": "徒手",
     "focus": "臀腿",
     "cue": "双脚前后站稳并着地，垂直下蹲；深度以膝髋舒适为准。",
-    "gif": "legs/bodyweight-split-squat.gif"
+    "gif": "legs/trx-bulgarian-split-squat.gif"
   },
   {
     "id": "rdl",
@@ -311,7 +311,7 @@
         B:[pullWarmup(),group('main',3,180,[dose('wide-row',8,15)]),group('secondary',3,150,[dose('chin',5,8)]),group('support',3,90,[dose('fly',12,20,false,3),dose('hammer',10,15)])]
       },
       legs:{
-        A:[legWarmup(),group('main',4,150,[dose('split',8,12,true,2,'弹力带分腿蹲：双脚前后着地站稳，前脚踩稳弹力带，两手握带增加阻力；TRX仅在需要时辅助平衡，不悬挂后脚。')]),group('secondary',3,120,[dose('rdl',10,15,false,2,'弹力带双腿RDL：双脚踩稳弹力带、握住两端，膝微屈，臀向后推；背部中立，靠髋伸展站起。')]),group('support',3,90,[dose('calf',10,20,true),{...dose('wheel',6,10),sets:2}])],
+        A:[legWarmup(),group('main',4,150,[dose('split',8,12,true,2,'弹力带保加利亚分腿蹲：后脚搭在沙发面或矮凳上（TRX兜住脚背也可以），前脚全脚掌踩稳弹力带，两手握带于身体两侧增加阻力；垂直下蹲，膝盖顺脚尖方向，深度以膝髋舒适为准，起身不靠后脚蹬地借力。')]),group('secondary',3,120,[dose('rdl',10,15,false,2,'弹力带双腿RDL：双脚踩稳弹力带、握住两端，膝微屈，臀向后推；背部中立，靠髋伸展站起。')]),group('support',3,90,[dose('calf',10,20,true),{...dose('wheel',6,10),sets:2}])],
         B:[legWarmup(),group('main',4,150,[dose('lunge',8,12,true,2,'弹力带反向弓步：前脚踩稳弹力带，两手握带增加阻力；向后落步，前脚全脚掌稳定，膝盖顺脚尖方向移动。')]),group('secondary',3,90,[dose('leg-curl',10,20)]),group('support',3,90,[dose('bent-calf',12,20,true),{...dose('pallof',8,12,true),sets:2}])]
       }
     };
@@ -478,6 +478,25 @@
     state.legLateralRemoved=true;
     return true;
   }
+  /* 三练腿A主项改回保加利亚（后脚垫高）执行：只替换默认要领文本，动作键、次数与轮次不变，成长记录不重置。 */
+  function migrateLegSplitToBulgarian(state){
+    if(state.legSplitBulgarianApplied===true)return false;
+    const previous='弹力带分腿蹲：双脚前后着地站稳，前脚踩稳弹力带，两手握带增加阻力；TRX仅在需要时辅助平衡，不悬挂后脚。';
+    const next='弹力带保加利亚分腿蹲：后脚搭在沙发面或矮凳上（TRX兜住脚背也可以），前脚全脚掌踩稳弹力带，两手握带于身体两侧增加阻力；垂直下蹲，膝盖顺脚尖方向，深度以膝髋舒适为准，起身不靠后脚蹬地借力。';
+    function update(plan){
+      if(!plan||schedule(plan)!=='threeDay')return false;
+      const day=plan.days?.legs?.A;
+      const exercises=Array.isArray(day?.groups)?day.groups.flatMap(group=>Array.isArray(group.exercises)?group.exercises:[]):Array.isArray(day?.main?.exercises)?day.main.exercises:[];
+      let changed=false;
+      for(const ex of exercises)if(ex.exerciseId==='split'&&ex.repMin===8&&ex.repMax===12&&ex.perSide===true&&ex.rir===2&&ex.cue===previous){ex.cue=next;changed=true;}
+      return changed;
+    }
+    const activeChanged=update(state.active);
+    update(state.draft);update(state.programs?.threeDay);update(state.drafts?.threeDay);
+    if(activeChanged)state.revision=(Number(state.revision)||1)+1;
+    state.legSplitBulgarianApplied=true;
+    return true;
+  }
   /* 应用 AI 教练提案：只改数值字段，current 必须与当前计划一致，整体校验失败则不做任何修改。 */
   function applyOperations(plan,operations,items){
     const next=clone(plan);
@@ -510,5 +529,5 @@
     if(invalid.length)return {plan:clone(plan),errors:invalid};
     return {plan:next,errors:[]};
   }
-  return {KEY,clone,escape,HOME_CATALOG,TIMED_CATALOG,SCHEDULES,TABATA:Tabata,schedule,dayKeys,weeklySlot,exercisesForRound,roundSchedule,setCount,defaults,groupDefaults,toGroups,groupName,newExercise,migrateGroups,catalog,validate,compile,summary,applyOperations,migrateRearDeltToPushB,migrateLegLateralToPushOnly,read};
+  return {KEY,clone,escape,HOME_CATALOG,TIMED_CATALOG,SCHEDULES,TABATA:Tabata,schedule,dayKeys,weeklySlot,exercisesForRound,roundSchedule,setCount,defaults,groupDefaults,toGroups,groupName,newExercise,migrateGroups,catalog,validate,compile,summary,applyOperations,migrateRearDeltToPushB,migrateLegLateralToPushOnly,migrateLegSplitToBulgarian,read};
 });

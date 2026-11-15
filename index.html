@@ -271,8 +271,8 @@ button:active{transform:scale(0.98);opacity:0.9}
 <script src="/home-access.js"></script>
 <script src="/portal/home-exercise-catalog.js?v=20261113-10"></script>
 <script src="/portal/tabata.js?v=20261113-10"></script>
-<script src="/portal/home-plan.js?v=20261113-10"></script>
-<script src="/portal/home-progression.js?v=20261113-10"></script>
+<script src="/portal/home-plan.js?v=20261115-1"></script>
+<script src="/portal/home-progression.js?v=20261115-1"></script>
 <script src="/portal/home-performance.js?v=20261114-1"></script>
 <script src="/portal/home-library.js?v=20261113-10"></script>
 <script src="/portal/home-plan-editor.js?v=20261113-10"></script>
@@ -280,7 +280,7 @@ button:active{transform:scale(0.98);opacity:0.9}
 <script src="/portal/home-ai-coach.js?v=20261113-10"></script>
 <script src="/portal/home-backup.js?v=20261113-10"></script>
 <script src="./media-config.js?v=20260727-2"></script>
-<script src="./gif-links.js?v=20260917-7"></script>
+<script src="./gif-links.js?v=20261115-1"></script>
 <script>
   if('serviceWorker' in navigator&&window.isSecureContext)window.addEventListener('load',()=>navigator.serviceWorker.register('/home-sync.js').then(r=>r.update()).catch(()=>{}));
 </script>
@@ -476,7 +476,7 @@ button:active{transform:scale(0.98);opacity:0.9}
   const legacyPlans=HomePlan.clone(plans);
   const homePlanRaw=localStorage.getItem(STORAGE.homePlan);
   let homePlanState=HomePlan.read(homePlanRaw,window.HOME_EXTRA_EXERCISES||[])||{schema:1,revision:1,active:HomePlan.groupDefaults(),draft:null,custom:[],rearDeltMovedToPushB:true};
-  const homePlanMigrated=[HomePlan.migrateRearDeltToPushB(homePlanState),HomePlan.migrateLegLateralToPushOnly(homePlanState),HomePlan.migrateGroups(homePlanState)].some(Boolean);
+  const homePlanMigrated=[HomePlan.migrateRearDeltToPushB(homePlanState),HomePlan.migrateLegLateralToPushOnly(homePlanState),HomePlan.migrateGroups(homePlanState),HomePlan.migrateLegSplitToBulgarian(homePlanState)].some(Boolean);
   const legacySnapshotNeeded=!!(sessionState.active && legacyPlans[sessionState.active.day] && !sessionState.active.planSnapshot);
   if(legacySnapshotNeeded) sessionState.active.planSnapshot=HomePlan.clone(legacyPlans[sessionState.active.day]);
   plans=HomePlan.compile(homePlanState.active,HomePlan.catalog(window.HOME_EXTRA_EXERCISES||[],homePlanState.custom));
@@ -1105,7 +1105,7 @@ button:active{transform:scale(0.98);opacity:0.9}
   Object.assign(LEVEL_LIBRARY,{
     '普通俯卧撑':{defaultIndex:1,levels:[{name:'斜板俯卧撑',cue:'双手放稳固高台，躯干保持直线。'},{name:'普通俯卧撑',cue:'动作完整，肘与躯干约30–45度。'},{name:'慢速俯卧撑',cue:'下放3秒，保持躯干直线。'},{name:'停顿俯卧撑',cue:'底部短停1秒，不靠弹震。'}]},
     '徒手反向弓步':{defaultIndex:1,levels:[{name:'短程反向弓步',cue:'扶墙保持平衡，缩小深度。'},{name:'徒手反向弓步',cue:'向后落步，前脚稳定，保持平衡。'},{name:'慢速反向弓步',cue:'下放约3秒，前脚稳定。'},{name:'停顿反向弓步',cue:'底部短停1秒再起身。'}]},
-    '分腿蹲':{defaultIndex:1,levels:[{name:'扶墙短程分腿蹲',cue:'双脚着地，扶墙辅助，控制深度。'},{name:'分腿蹲',cue:'双脚着地，前脚稳定，下蹲可控。'},{name:'慢速分腿蹲',cue:'下放3秒，不借力起身。'},{name:'停顿分腿蹲',cue:'底部短停1秒，双脚稳定。'}]},
+    '分腿蹲':{defaultIndex:1,levels:[{name:'扶墙短程保加利亚蹲',cue:'后脚垫低一点，扶墙辅助，控制深度。'},{name:'保加利亚分腿蹲',cue:'后脚搭稳，前脚全脚掌着地，垂直下蹲可控。'},{name:'慢速保加利亚分腿蹲',cue:'下放3秒，不借力起身。'},{name:'停顿保加利亚分腿蹲',cue:'底部短停1秒，前脚稳定。'}]},
     'TRX反向飞鸟':{defaultIndex:0,levels:[{name:'高角度TRX反向飞鸟',cue:'从较直立角度开始，肘微屈。'},{name:'中角度TRX反向飞鸟',cue:'脚少量前移，稳定打开双臂。'},{name:'慢速TRX反向飞鸟',cue:'回程3秒，避免耸肩。'}]},
     '弹力带俯卧腿弯举':{defaultIndex:0,levels:[{name:'轻阻力弹力带腿弯举',cue:'骨盆贴地，轻阻力完整屈膝。'},{name:'中阻力弹力带腿弯举',cue:'增加少量阻力，固定点牢靠。'},{name:'慢速弹力带腿弯举',cue:'回程3秒，不抬骨盆。'}]},
     '微屈膝单腿提踵':{defaultIndex:0,levels:[{name:'扶墙微屈膝单腿提踵',cue:'膝微屈，扶墙，脚跟慢落。'},{name:'慢速微屈膝单腿提踵',cue:'脚跟下降3秒，保持膝角度。'},{name:'停顿微屈膝单腿提踵',cue:'顶端停1秒，再慢落。'}]}

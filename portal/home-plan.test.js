@@ -87,6 +87,27 @@ test('migration updates stored three-day plan when four-day is active, preservin
   assert.equal(state.programs.threeDay.days.legs.A.support.exercises.length,2);
 });
 
+test('三练腿A主项的一次性迁移只替换默认要领为保加利亚执行，次数轮次、自编辑文本与四练计划不变',()=>{
+  const mainOf=p=>p.days.legs.A.groups.find(g=>g.id==='main').exercises[0];
+  const want=mainOf(M.groupDefaults()).cue;assert.match(want,/保加利亚/);
+  const previous='弹力带分腿蹲：双脚前后着地站稳，前脚踩稳弹力带，两手握带增加阻力；TRX仅在需要时辅助平衡，不悬挂后脚。';
+  const groups=M.groupDefaults(),legacy=M.defaults();mainOf(groups).cue=previous;legacy.days.legs.A.main.exercises[0]={exerciseId:'split',repMin:8,repMax:12,perSide:true,rir:2,cue:previous};
+  const edited=M.groupDefaults();mainOf(edited).cue='我自己写的分腿蹲要领';mainOf(edited).repMax=15;
+  const four=M.defaults('fourDay');
+  const state={schema:1,revision:6,active:groups,draft:M.clone(legacy),custom:[],programs:{threeDay:M.clone(edited),fourDay:four},drafts:{threeDay:M.clone(groups),fourDay:four}};
+  const beforeFour=JSON.stringify([state.programs.fourDay,state.drafts.fourDay]);
+  assert.equal(M.migrateLegSplitToBulgarian(state),true);
+  assert.equal(mainOf(state.active).cue,want);
+  assert.deepEqual(state.active.days.legs.A.groups.find(g=>g.id==='main').exercises.map(ex=>[ex.exerciseId,ex.repMin,ex.repMax,ex.perSide,ex.rir]),[['split',8,12,true,2]]);
+  assert.equal(state.draft.days.legs.A.main.exercises.find(ex=>ex.exerciseId==='split').cue,want);
+  assert.deepEqual(M.validate(state.active,catalog),[]);assert.deepEqual(M.validate(state.draft,catalog),[]);
+  assert.equal(mainOf(state.drafts.threeDay).cue,want);
+  assert.equal(state.revision,7);assert.equal(JSON.stringify([state.programs.fourDay,state.drafts.fourDay]),beforeFour);
+  assert.equal(M.migrateLegSplitToBulgarian(state),false);
+  const saved=M.read(JSON.stringify(state),extras);assert.equal(M.migrateLegSplitToBulgarian(saved),false);
+  saved.active=M.clone(edited);const manual=JSON.stringify(saved.active);M.migrateLegSplitToBulgarian(saved);assert.equal(JSON.stringify(saved.active),manual);
+});
+
 function oldTemplate(){
   const p=M.defaults(),fly=p.days.push.B.support.exercises[0];
   p.days.push.B.support.exercises[0]={exerciseId:'press',repMin:8,repMax:12,perSide:false,rir:2,cue:''};

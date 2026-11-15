@@ -1,5 +1,5 @@
 /* 由 /home-sync.js 通过 importScripts 加载，取得根作用域。 */
-const VERSION='20261114-1';
+const VERSION='20261115-1';
 const CACHE='thin-muscle-'+VERSION;
 const SHELL=[
   '/','/home/','/home-sync.js','/home-access.js','/media-config.js','/gif-links.js',
