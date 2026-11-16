@@ -1,5 +1,16 @@
 # AI 协作约定
 
+## 开发模型（2026-11-16 起，强制）
+
+本机只跑前端。后端、数据库、Redis、MinIO 以及所有其他服务端都在香港服务器 `154.222.23.16`（`ssh hk`）。
+不要启动本机 Docker、本地数据库或本地后端，除非用户明确要求。
+公开演示槽位是 `ceshi1`–`ceshi8.yhyh0147.top`，分配见 `D:\projects\CESHI-SLOTS.md`。
+凭据只在 `D:\projects\_server-credentials.md`，禁止写入本文件、代码、日志或聊天。
+
+- 本项目是正式站，不占用 ceshi 槽位：https://fit.yhyh0147.top 。
+- 重新部署：在项目根目录运行 `powershell -ExecutionPolicy Bypass -File tools/deploy-hk.ps1`。只在用户要求上线/发布时运行。
+- 用户不再在本机运行本项目。不要用 `start.bat` 或 `docker compose up`，也不要加 `--profile local-db`，除非用户明确要求本地调试。
+
 本文件是本仓库供 Codex、Claude Code、Gemini CLI、Cursor 等 AI 编码工具共用的项目指引。开始处理仓库任务前先阅读本文件和 `PROJECT.md`。
 
 ## 数据库与基础设施（2026-11-16 起在香港服务器）
