@@ -3,6 +3,8 @@
 set -euo pipefail
 D=/opt/apps/thin-muscle-workout
 cd "$D"
+mkdir -p /opt/caddy/sites /opt/caddy/www
+# 演示站 Caddy 站点与静态文件在 /opt/caddy，redeploy 本项目时不要删除或覆盖它们
 [ -f app.env ] || { echo "缺少 $D/app.env（机密环境变量），停止部署" >&2; exit 1; }
 rm -rf src.new && mkdir src.new
 tar -xzf release.tgz -C src.new
