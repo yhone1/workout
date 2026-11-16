@@ -69,12 +69,13 @@ async function ensureSchema() {
     await client.query(`ALTER TABLE workout_records ADD COLUMN IF NOT EXISTS user_id INT REFERENCES users(id) ON DELETE CASCADE`);
 
     const seedUser = process.env.SEED_USERNAME || 'yhone';
-    const seedPass = process.env.SEED_USER_PASSWORD || '***REMOVED***';
+    const seedPass = process.env.SEED_USER_PASSWORD || ''; // 不在仓库里保存默认密码
     let userId = null;
     const existing = await client.query('SELECT id FROM users WHERE username = $1', [seedUser]);
     if (existing.rows.length) {
       userId = existing.rows[0].id;
     } else {
+      if (!seedPass) throw new Error(`数据库里还没有种子账号 ${seedUser}：首次初始化必须通过环境变量 SEED_USER_PASSWORD 提供初始密码`);
       const hash = await bcrypt.hash(seedPass, 10);
       const ins = await client.query('INSERT INTO users (username, password_hash) VALUES ($1, $2) RETURNING id', [seedUser, hash]);
       userId = ins.rows[0].id;

@@ -41,6 +41,6 @@ if not defined LAN_IP echo Done! Browser URL: http://localhost:3001
 if defined LAN_IP echo Phone on same LAN: http://%LAN_IP%:3001
 if not defined LAN_IP echo LAN address not detected. Check your PC IPv4 address manually.
 echo If the phone cannot connect, allow inbound TCP port 3001 in Windows Firewall and ensure both devices use the same LAN.
-echo Login: yhone / ***REMOVED***
+echo Login: use your existing account
 echo.
 pause

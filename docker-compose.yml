@@ -1,6 +1,8 @@
 services:
   db:
     image: postgres:16-alpine
+    # 2026-11-16 起数据库迁到香港服务器 devstack Postgres（见 .env 的 DATABASE_URL）；需要本地库时用 --profile local-db
+    profiles: ["local-db"]
     environment:
       POSTGRES_USER: thin
       POSTGRES_PASSWORD: thin
@@ -15,11 +17,8 @@ services:
 
   app:
     build: .
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
-      DATABASE_URL: postgres://thin:thin@db:5432/thinmuscle
+      DATABASE_URL: ${DATABASE_URL:-postgres://thin:thin@db:5432/thinmuscle}
       PORT: 3000
       COACH_INVITE_ENCRYPTION_KEY: ${COACH_INVITE_ENCRYPTION_KEY:-}
       AI_COACH_API_KEY: ${AI_COACH_API_KEY:-}

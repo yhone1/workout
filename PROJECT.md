@@ -7,20 +7,20 @@
 ## 运行方式
 
 - 直接双击 `index.html`，或部署为静态站点（默认无后端，数据在浏览器 `localStorage`）。
-- 可选：`docker compose up -d --build` 一键起「应用 + Postgres」，训练记录同步持久化到数据库，换浏览器 / 设备不丢。
-- 局域网访问：电脑与手机连接同一局域网后，运行 `start.bat`，使用脚本输出的 `http://<电脑局域网IPv4>:3001` 打开；若无法连接，需在 Windows 防火墙允许 TCP 3001 入站。
-- AI 协作时，本地服务约定以根目录 `AGENTS.md` 为准：优先复用已启动的 `http://localhost:3001`，不要擅自另开服务器、端口或重启容器。
+- **正式环境**：2026-11-16 起部署在香港服务器，访问 **http://154.222.23.16/**（手机/电脑通用，暂无域名、仅 HTTP），数据在服务器 Postgres。部署、日志、回滚见 `AGENTS.md`“正式环境”一节；重新部署运行 `tools/deploy-hk.ps1`。
+- 本地 `start.bat`（localhost:3001）不再是日常用法，只在用户要求本地调试时使用。
 - 部署时必须同时包含 `index.html`、`media-config.js`、`gif-links.js`、`IMG/`、`VIDEO/`。
 
-### Docker 部署（可选）
+### Docker 部署
 
-```bash
-docker compose up -d --build   # 构建并启动，访问 http://localhost:3001
-docker compose down            # 停止（保留数据）；加 -v 会清空数据库数据
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/deploy-hk.ps1   # 同步代码到香港服务器并重建正式容器 http://154.222.23.16/
 ```
 
-- 结构：`app`（node 托管静态站 + 登录 + `/api/state` 读写接口）、`db`（Postgres 16，数据在 `dbdata` 卷）。
-- **登录**：首次打开需用账号登录；默认种子账号 `yhone` / `***REMOVED***`（可用环境变量 `SEED_USERNAME`、`SEED_USER_PASSWORD` 覆盖）。密码以 bcrypt 哈希存储；支持注册新账号。
+本地调试（仅在需要时）：`docker compose up -d --build` 起本地 app（连服务器库，访问 http://localhost:3001），用完 `docker compose down`；禁止加 -v。
+
+- 结构：`app`（node 托管静态站 + 登录 + `/api/state` 读写接口）+ Postgres 16（香港服务器 devstack-postgres，库 thinmuscle）。
+- **登录**：首次打开需用账号登录；种子账号 `yhone`（仅当库里还没有该账号时创建；初始密码必须通过环境变量 `SEED_USER_PASSWORD` 提供，仓库和文档里不保存默认密码；`SEED_USERNAME` 可改账号名）。密码以 bcrypt 哈希存储；支持注册新账号。
 - **数据隔离**：训练记录按登录用户隔离，写入 `workout_records(user_id, key, value)`。
 - **不丢数据**：历史记录（无 user_id）会在启动时自动归到种子账号；首次登录后本机 `localStorage` 数据会自动同步进账号；登录页内置「迁移旧数据」粘贴导入工具（旧页面 F12 → Console → `copy(JSON.stringify(localStorage))`）。
 - 前端存储层已做兼容：仅 http(s) 部署下启用服务端同步与登录；后端不可用时（如双击 `file://` 打开）自动退化为纯 `localStorage`，功能不变。

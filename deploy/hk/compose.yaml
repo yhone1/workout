@@ -1,0 +1,45 @@
+# 健身 thin-muscle 正式环境（香港服务器 154.222.23.16）
+# 由 tools/deploy-hk.ps1 同步代码后在服务器上执行：docker compose -p thin-muscle -f deploy/hk/compose.yaml up -d --build
+# 机密环境变量在服务器 /opt/apps/thin-muscle-workout/app.env（chmod 600，不进仓库）
+name: thin-muscle
+services:
+  app:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    image: thin-muscle-workout:prod
+    container_name: thin-muscle-app
+    restart: unless-stopped
+    env_file: /opt/apps/thin-muscle-workout/app.env
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      TZ: Asia/Shanghai
+      PRIVATE_MEDIA_ROOT: /app/private-media
+    ports:
+      - "80:3000"
+    volumes:
+      - private-media:/app/private-media
+    networks:
+      - devstack
+    mem_limit: 384m
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/ >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  devstack:
+    external: true
+    name: devstack_default
+
+volumes:
+  private-media:
+    name: thin-muscle-private-media

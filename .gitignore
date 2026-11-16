@@ -6,3 +6,4 @@ build/
 *.db
 *.log
 .playwright-cli/
+*.bak-before-hk-*
