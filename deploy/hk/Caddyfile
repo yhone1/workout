@@ -1,0 +1,20 @@
+# 健身正式站：自动申请并续期 Let's Encrypt 证书，HTTP 跳转 HTTPS
+# 仅启用 HTTP/1.1 和 HTTP/2（未对宿主发布 443/udp，避免浏览器被 Alt-Svc 引向 HTTP/3）
+# 旧地址 http://154.222.23.16/ 也跳到新域名（http:// 前缀避免给 IP 要证书）
+{
+	servers {
+		protocols h1 h2
+	}
+}
+
+http://154.222.23.16 {
+	redir https://fit.yhyh0147.top{uri} permanent
+}
+
+fit.yhyh0147.top {
+	encode gzip
+	request_body {
+		max_size 100MB
+	}
+	reverse_proxy app:3000
+}

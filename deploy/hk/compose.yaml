@@ -1,5 +1,6 @@
 # 健身 thin-muscle 正式环境（香港服务器 154.222.23.16）
 # 由 tools/deploy-hk.ps1 同步代码后在服务器上执行：docker compose -p thin-muscle -f deploy/hk/compose.yaml up -d --build
+# 公网入口是 Caddy（80/443，自动 HTTPS：https://fit.yhyh0147.top），app 只在 docker 内网监听 3000
 # 机密环境变量在服务器 /opt/apps/thin-muscle-workout/app.env（chmod 600，不进仓库）
 name: thin-muscle
 services:
@@ -16,8 +17,8 @@ services:
       PORT: "3000"
       TZ: Asia/Shanghai
       PRIVATE_MEDIA_ROOT: /app/private-media
-    ports:
-      - "80:3000"
+    expose:
+      - "3000"
     volumes:
       - private-media:/app/private-media
     networks:
@@ -35,6 +36,29 @@ services:
         max-size: "10m"
         max-file: "3"
 
+  caddy:
+    image: caddy:2-alpine
+    container_name: thin-muscle-caddy
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    networks:
+      - devstack
+    mem_limit: 128m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
 networks:
   devstack:
     external: true
@@ -43,3 +67,7 @@ networks:
 volumes:
   private-media:
     name: thin-muscle-private-media
+  caddy-data:
+    name: thin-muscle-caddy-data
+  caddy-config:
+    name: thin-muscle-caddy-config

@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-把本项目代码同步到香港服务器并重建正式容器（http://154.222.23.16/）。
+把本项目代码同步到香港服务器并重建正式容器（https://fit.yhyh0147.top/）。
 需要本机 ~/.ssh/config 里的 Host hk（已配置密钥）。不会上传 .env、.git、node_modules、output 等。
 #>
 param(
@@ -27,6 +27,6 @@ Write-Host "[3/3] 服务器上解包并重建容器..."
 & ssh $SshHost 'cd /opt/apps/thin-muscle-workout && rm -rf deploy-tmp && mkdir deploy-tmp && tar -xzf release.tgz -C deploy-tmp ./deploy/hk/server-deploy.sh && bash deploy-tmp/deploy/hk/server-deploy.sh; rc=$?; rm -rf deploy-tmp; exit $rc'
 if ($LASTEXITCODE -ne 0) { throw "服务器部署失败，查看日志：ssh hk docker logs --tail 100 thin-muscle-app" }
 
-$r = Invoke-WebRequest -UseBasicParsing "http://154.222.23.16/" -TimeoutSec 30
-Write-Host "公网检查 http://154.222.23.16/ => $($r.StatusCode)"
+$r = Invoke-WebRequest -UseBasicParsing "https://fit.yhyh0147.top/" -TimeoutSec 30
+Write-Host "公网检查 https://fit.yhyh0147.top/ => $($r.StatusCode)"
 Remove-Item $Pkg -Force

@@ -16,12 +16,12 @@
 
 ## 正式环境（2026-11-16 起在香港服务器，强制）
 
-- 访问地址：**http://154.222.23.16/**（手机、电脑都用这个；暂无域名，所以只有 HTTP）。本机 `http://localhost:3001` 已停用，用户不再在本地运行。
-- 服务器容器 `thin-muscle-app`（compose 项目 thin-muscle，restart=unless-stopped，内存上限 384M，NODE_ENV=production），代码在服务器 `/opt/apps/thin-muscle-workout/src`，上一版在 `src.prev`。通过 docker 内网 `devstack_default` 连接 `devstack-postgres:5432/thinmuscle`，不走公网端口。
-- 机密环境变量（DATABASE_URL、COACH_INVITE_ENCRYPTION_KEY、AI_COACH_API_KEY 等）在服务器 `/opt/apps/thin-muscle-workout/app.env`（chmod 600，不进仓库）；改了要重新部署才生效。私有媒体在卷 `thin-muscle-private-media`。
-- **重新部署**：本机项目根目录运行 `powershell -ExecutionPolicy Bypass -File tools/deploy-hk.ps1`（打包代码→上传→服务器重建容器→等 healthy→公网检查），约几分钟。编排文件 `deploy/hk/compose.yaml`，服务器脚本 `deploy/hk/server-deploy.sh`。只在用户要求上线/发布时运行；本地改完代码默认不自动部署。
-- 回滚：`ssh hk` 后 `cd /opt/apps/thin-muscle-workout && rm -rf src && mv src.prev src && cd src && docker compose -p thin-muscle -f deploy/hk/compose.yaml up -d --build`。
-- 看日志：`ssh hk docker logs --tail 200 -f thin-muscle-app`；状态：`ssh hk docker ps --filter name=thin-muscle-app`。
+- 访问地址：**https://fit.yhyh0147.top**（手机、电脑都用这个）。前面是 Caddy 反向代理，自动申请并续期 Let's Encrypt 证书，HTTP 会跳到 HTTPS。旧地址 http://154.222.23.16/ 也会跳到新域名。本机 http://localhost:3001 已停用，用户不再在本地运行。
+- 服务器容器：	hin-muscle-app（compose 项目 thin-muscle，restart=unless-stopped，内存上限 384M，NODE_ENV=production，只在 docker 内网听 3000，不再映射宿主 80）；前面是 	hin-muscle-caddy（caddy:2-alpine，restart=unless-stopped，内存上限 128M，映射 80/443，证书存在卷 	hin-muscle-caddy-data）。代码在服务器 /opt/apps/thin-muscle-workout/src，上一版在 src.prev。app 通过 docker 内网 devstack_default 连接 devstack-postgres:5432/thinmuscle，不走公网端口。
+- 机密环境变量（DATABASE_URL、COACH_INVITE_ENCRYPTION_KEY、AI_COACH_API_KEY 等）在服务器 /opt/apps/thin-muscle-workout/app.env（chmod 600，不进仓库）；改了要重新部署才生效。私有媒体在卷 	hin-muscle-private-media。
+- **重新部署**：本机项目根目录运行 powershell -ExecutionPolicy Bypass -File tools/deploy-hk.ps1（打包代码→上传→服务器重建容器→等 healthy 且 HTTPS 可用→公网检查），约几分钟。编排文件 deploy/hk/compose.yaml，Caddy 配置 deploy/hk/Caddyfile，服务器脚本 deploy/hk/server-deploy.sh。只在用户要求上线/发布时运行；本地改完代码默认不自动部署。
+- 回滚：ssh hk 后 cd /opt/apps/thin-muscle-workout && rm -rf src && mv src.prev src && cd src。若 src.prev 还是加 Caddy 之前的编排，先把当前的 deploy/hk/compose.yaml 和 deploy/hk/Caddyfile 拷回去，再 docker compose -p thin-muscle -f deploy/hk/compose.yaml up -d --build。
+- 看日志：ssh hk docker logs --tail 200 -f thin-muscle-app，Caddy：ssh hk docker logs --tail 200 -f thin-muscle-caddy；状态：ssh hk docker ps --filter name=thin-muscle。
 - 验证线上时只读检查或用不影响训练记录的操作（如登录/退出）；不要为测试改写用户的训练记录，不要伪称部署或验证成功。
-- 本地 `start.bat` / `docker compose up` 只在用户明确要求本地调试时使用（本地 app 容器 `thin-muscle-workout-app-1` 已停止、restart=no）；不要另起临时 Web 服务器或改端口。
-- 没有 HTTPS：页面的离线缓存（service worker `portal/home-sw.js`）在纯 HTTP 下不会注册，其余功能正常；登录用 Bearer token，不依赖 Secure Cookie。有了域名后可加 Caddy 自动签证书。
+- 本地 start.bat / docker compose up 只在用户明确要求本地调试时使用（本地 app 容器 	hin-muscle-workout-app-1 已停止、restart=no）；不要另起临时 Web 服务器或改端口。
+- 已启用 HTTPS，页面的离线缓存（service worker portal/home-sw.js）可以注册。登录用 Bearer token，不依赖 Secure Cookie。

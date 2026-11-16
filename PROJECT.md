@@ -7,14 +7,14 @@
 ## 运行方式
 
 - 直接双击 `index.html`，或部署为静态站点（默认无后端，数据在浏览器 `localStorage`）。
-- **正式环境**：2026-11-16 起部署在香港服务器，访问 **http://154.222.23.16/**（手机/电脑通用，暂无域名、仅 HTTP），数据在服务器 Postgres。部署、日志、回滚见 `AGENTS.md`“正式环境”一节；重新部署运行 `tools/deploy-hk.ps1`。
+- **正式环境**：2026-11-16 起部署在香港服务器，访问 **https://fit.yhyh0147.top**（手机/电脑通用，Caddy 自动 HTTPS），数据在服务器 Postgres。部署、日志、回滚见 `AGENTS.md`“正式环境”一节；重新部署运行 `tools/deploy-hk.ps1`。
 - 本地 `start.bat`（localhost:3001）不再是日常用法，只在用户要求本地调试时使用。
 - 部署时必须同时包含 `index.html`、`media-config.js`、`gif-links.js`、`IMG/`、`VIDEO/`。
 
 ### Docker 部署
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tools/deploy-hk.ps1   # 同步代码到香港服务器并重建正式容器 http://154.222.23.16/
+powershell -ExecutionPolicy Bypass -File tools/deploy-hk.ps1   # 同步代码到香港服务器并重建正式容器 https://fit.yhyh0147.top
 ```
 
 本地调试（仅在需要时）：`docker compose up -d --build` 起本地 app（连服务器库，访问 http://localhost:3001），用完 `docker compose down`；禁止加 -v。

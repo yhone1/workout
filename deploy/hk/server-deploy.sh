@@ -7,6 +7,7 @@ cd "$D"
 rm -rf src.new && mkdir src.new
 tar -xzf release.tgz -C src.new
 [ -f src.new/Dockerfile ] || { echo "release.tgz 内容不完整，停止部署" >&2; exit 1; }
+[ -f src.new/deploy/hk/Caddyfile ] || { echo "缺少 deploy/hk/Caddyfile，停止部署" >&2; exit 1; }
 rm -rf src.prev
 [ -d src ] && mv src src.prev
 mv src.new src
@@ -18,6 +19,19 @@ for i in $(seq 1 30); do
   [ "$s" = healthy ] && break
   sleep 2
 done
-docker ps --filter name=thin-muscle-app --format '{{.Names}} {{.Status}} {{.Ports}}'
+docker ps --filter name=thin-muscle --format '{{.Names}} {{.Status}} {{.Ports}}'
 [ "$s" = healthy ] || { echo "容器未进入 healthy，最近日志：" >&2; docker logs --tail 50 thin-muscle-app >&2; exit 1; }
-echo "部署完成：http://154.222.23.16/"
+https_ok=0
+for i in $(seq 1 45); do
+  if curl -fsS -o /dev/null --max-time 8 --resolve fit.yhyh0147.top:443:127.0.0.1 https://fit.yhyh0147.top/; then
+    https_ok=1
+    break
+  fi
+  sleep 2
+done
+if [ "$https_ok" != 1 ]; then
+  echo "HTTPS 尚未就绪，Caddy 日志：" >&2
+  docker logs --tail 80 thin-muscle-caddy >&2
+  exit 1
+fi
+echo "部署完成：https://fit.yhyh0147.top"
