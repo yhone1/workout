@@ -3,13 +3,14 @@
 ## 开发模型（2026-11-16 起，强制）
 
 本机只跑前端。后端、数据库、Redis、MinIO 以及所有其他服务端都在香港服务器 `154.222.23.16`（`ssh hk`）。
-不要启动本机 Docker、本地数据库或本地后端，除非用户明确要求。
+不要启动本机 Docker、本地数据库或本地后端容器；本地调试后端按"开发模型"一节用裸跑 Node，仅在用户明确要求时进行。
 公开演示槽位是 `ceshi1`–`ceshi8.yhyh0147.top`，分配见 `D:\projects\CESHI-SLOTS.md`。
 凭据只在 `D:\projects\_server-credentials.md`，禁止写入本文件、代码、日志或聊天。
 
 - 本项目是正式站，不占用 ceshi 槽位：https://fit.yhyh0147.top 。
 - 重新部署：在项目根目录运行 `powershell -ExecutionPolicy Bypass -File tools/deploy-hk.ps1`。只在用户要求上线/发布时运行。
-- 用户不再在本机运行本项目。不要用 `start.bat` 或 `docker compose up`，也不要加 `--profile local-db`，除非用户明确要求本地调试。
+- 用户不再在本机运行本项目。本机不用 Docker（Docker 仅存在于服务器，用于构建和运行正式容器）；不要用 `start.bat` 或 `docker compose up`，也不要加 `--profile local-db`。
+- 本地调试（用户明确要求时）直接裸跑 Node，已验证可用：在项目根目录先 `cd server; npm install --omit=dev`（一次性），再 `node --env-file=.env server\server.js`，浏览器开 http://localhost:3000。`--env-file` 必须带，否则读不到 `.env` 的 `DATABASE_URL` 会连回退的本地库。连的是正式库，调试会写库的功能前先小心。
 
 本文件是本仓库供 Codex、Claude Code、Gemini CLI、Cursor 等 AI 编码工具共用的项目指引。开始处理仓库任务前先阅读本文件和 `PROJECT.md`。
 
@@ -36,5 +37,5 @@
 - 回滚：ssh hk 后 cd /opt/apps/thin-muscle-workout && rm -rf src && mv src.prev src && cd src。若 src.prev 还是加 Caddy 之前的编排，先把当前的 deploy/hk/compose.yaml 和 deploy/hk/Caddyfile 拷回去，再 docker compose -p thin-muscle -f deploy/hk/compose.yaml up -d --build。
 - 看日志：ssh hk docker logs --tail 200 -f thin-muscle-app，Caddy：ssh hk docker logs --tail 200 -f thin-muscle-caddy；状态：ssh hk docker ps --filter name=thin-muscle。
 - 验证线上时只读检查或用不影响训练记录的操作（如登录/退出）；不要为测试改写用户的训练记录，不要伪称部署或验证成功。
-- 本地 start.bat / docker compose up 只在用户明确要求本地调试时使用（本地 app 容器 	hin-muscle-workout-app-1 已停止、restart=no）；不要另起临时 Web 服务器或改端口。
+- 本地调试不再用 start.bat / docker compose（见“开发模型”一节的裸跑 Node 方式）；本机已有停用的旧 app / 旧 db 容器（restart=no），只作备份保留，不要重启它们，也不要另起临时 Web 服务器或改端口。
 - 已启用 HTTPS，页面的离线缓存（service worker portal/home-sw.js）可以注册。登录用 Bearer token，不依赖 Secure Cookie。
